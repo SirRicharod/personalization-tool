@@ -28,7 +28,7 @@
 
 canvas {
     border: 1px black dashed;
-    background: white;
+    background: transparent;
 }
 
 .toggle-view {
@@ -67,6 +67,7 @@ canvas {
 /* active tab */
 .active {
     background: white !important;
+    color: black !important;
 }
 
 .tab {

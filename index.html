@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalization Tool</title>
 
-    <!-- FabricJS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/fabric@latest/dist/index.min.js"></script>
-
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -102,17 +99,13 @@
                     <section id="size" class="inspector-field">
                         <div>
                             <div class="d-flex justify-content-center align-content-center text-center gap-3">
-                                <div class="inspector-input">
+                                <div class="inspector-input w-50">
                                     <label for="size-width">Width</label><br>
                                     <input type="number" name="size-width" id="size-width" placeholder="150">
                                 </div>
-                                <div class="inspector-input">
+                                <div class="inspector-input w-50">
                                     <label for="size-height">Height</label><br>
                                     <input type="number" name="size-height" id="size-height" placeholder="50">
-                                </div>
-                                <div class="inspector-input">
-                                    <label for="size-radius">Radius (circle)</label><br>
-                                    <input type="number" name="size-radius" id="size-radius" placeholder="10">
                                 </div>
                             </div>
                         </div>
@@ -153,7 +146,7 @@
                             <input type="text" name="text-content-input" id="text-content-input"
                                 class="form-control border-0 text-input-field flex-grow-1"
                                 placeholder="Your text here...">
-                            <button class="btn btn-primary add-text-btn text-nowrap">Add Text</button>
+                            <button class="btn btn-primary add-text-btn text-nowrap" id="add-text-btn">Add Text</button>
                         </div>
                     </section>
 
@@ -193,24 +186,24 @@
                         <div class="d-flex justify-content-center gap-3">
                             <!-- Styling Buttons -->
                             <div class="btn-group flex-fill" role="group">
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-bold-btn"><i
                                         class="bi bi-type-bold"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-italic-btn"><i
                                         class="bi bi-type-italic"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-underline-btn"><i
                                         class="bi bi-type-underline"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5"> <i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-linethrough-btn"><i
                                         class="bi bi-type-strikethrough"></i></button>
                             </div>
                             <!-- Alignment Buttons -->
                             <div class="btn-group flex-fill" role="group">
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-left-btn"><i
                                         class="bi bi-text-left"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-center-btn"><i
                                         class="bi bi-text-center"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-right-btn"><i
                                         class="bi bi-text-right"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5"><i
+                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-justify-btn"><i
                                         class="bi bi-justify"></i></button>
                             </div>
                         </div>
@@ -245,6 +238,7 @@
                     </div>
                     <section class="inspector-field pb-3">
                         <div class="d-flex w-100 px-2 rounded overflow-hidden">
+                            <!-- Image only input -->
                             <input type="file" name="image-upload" id="image-upload"
                                 class="form-control border-0 bg-white text-input-field" accept="image/*">
                             <button
@@ -274,6 +268,7 @@
                     <div class="tab">
                         Adjustments & Filters
                     </div>
+                    <!-- Bootstrap Accordion to save space -->
                     <section class="inspector-field p-0 border-0 bg-transparent">
                         <div class="accordion" id="imageFiltersAccordion">
 
@@ -1009,22 +1004,27 @@
 
                 <!-- Export Window -->
                 <div class="tab-pane fade" id="nav-export" role="tabpanel" aria-labelledby="nav-export-tab">
-                    
+
                     <div class="tab">
                         Export
                     </div>
                     <section class="inspector-field pb-3">
                         <div class="d-flex flex-wrap gap-2 justify-content-between mb-3">
-                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Export Viewport</button>
-                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Export Canvas</button>
-                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Export JSON</button>
-                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Import JSON</button>
+                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Export
+                                Viewport</button>
+                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Export
+                                Canvas</button>
+                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Export
+                                JSON</button>
+                            <button class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2">Import
+                                JSON</button>
                         </div>
                         <div class="bg-white rounded overflow-hidden shadow-sm">
-                            <textarea class="form-control border-0 p-3 shadow-none json-textarea w-100" rows="12" placeholder="Paste JSON here..."></textarea>
+                            <textarea class="form-control border-0 p-3 shadow-none json-textarea w-100" rows="12"
+                                placeholder="Paste JSON here..."></textarea>
                         </div>
                     </section>
-                    
+
                 </div>
             </div>
         </section>
@@ -1033,7 +1033,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>
