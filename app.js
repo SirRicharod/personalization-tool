@@ -367,38 +367,65 @@ imageInputs.cloneBtn.addEventListener('click', () => {
 
 //? Filters
 // Function to apply filters
-function applyPresetFilter(filterObj) {
+function togglePresetFilter(btnElement, FilterClass) {
     const obj = canvas.getActiveObject();
+
+    if (!obj || obj.type !== 'image') return;
+
+    const filterIndex = obj.filters.findIndex(f => f instanceof FilterClass);
 
     if (obj && obj.type === 'image') {
 
-        // Clear existing filters
-        obj.filters = [];
-
-        // If it's not "Normal", add new filter
-        if (filterObj) {
-            obj.filters.push(filterObj);
+        if (filterIndex > -1) {
+            obj.filters.splice(filterIndex, 1);
+            btnElement.classList.remove('active'); // remove active class from button
+        } else {
+            obj.filters.push(new FilterClass());
+            btnElement.classList.add('active'); // add active class from button
         }
 
         // Bake the filters
         obj.applyFilters();
-
         canvas.requestRenderAll();
     }
 }
 
 // Preset Filter Event Listeners
-imageInputs.filterNormal.addEventListener('click', () => applyPresetFilter(null)); // normal passes 'null'
+// Clears all Preset Filters but LEAVE adjustments
+imageInputs.filterNormal.addEventListener('click', () => {
+    const obj = canvas.getActiveObject();
+    if (!obj || obj.type !== 'image') return;
+
+    // A list of the used classes
+    const sliderFilters = [
+        filters.Brightness, filters.Saturation, filters.Contrast,
+        filters.Blur, filters.Noise, filters.Pixelate
+    ];
+
+    // Filter the array, keep sliders only
+    obj.filters = obj.filters.filter(f => sliderFilters.some(SliderClass => f instanceof SliderClass));
+
+    // Remove the 'active' class from every preset button
+    const presetButtons = [
+        imageInputs.filterSepia, imageInputs.filterBW, imageInputs.filterVintage,
+        imageInputs.filterTechnicolor, imageInputs.filterPolaroid,
+        imageInputs.filterInvert, imageInputs.filterWarm, imageInputs.filterCool
+    ];
+    presetButtons.forEach(btn => btn.classList.remove('active'));
+
+    obj.applyFilters();
+    canvas.requestRenderAll();
+});
 
 // Built-in vintage/color filters
-imageInputs.filterSepia.addEventListener('click', () => applyPresetFilter(new filters.Sepia()));
-imageInputs.filterBW.addEventListener('click', () => applyPresetFilter(new filters.Grayscale()));
-imageInputs.filterVintage.addEventListener('click', () => applyPresetFilter(new filters.Vintage()));
-imageInputs.filterPolaroid.addEventListener('click', () => applyPresetFilter(new filters.Polaroid()));
-imageInputs.filterInvert.addEventListener('click', () => applyPresetFilter(new filters.Invert()));
-imageInputs.filterWarm.addEventListener('click', () => applyPresetFilter(new filters.Brownie()));
-imageInputs.filterCool.addEventListener('click', () => applyPresetFilter(new filters.Kodachrome()));
-imageInputs.filterTechnicolor.addEventListener('click', () => applyPresetFilter(new filters.Technicolor()));
+imageInputs.filterSepia.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Sepia));
+imageInputs.filterBW.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Grayscale));
+imageInputs.filterVintage.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Vintage));
+imageInputs.filterPolaroid.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Polaroid));
+imageInputs.filterInvert.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Invert));
+imageInputs.filterWarm.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Brownie));
+imageInputs.filterCool.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Kodachrome));
+imageInputs.filterTechnicolor.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Technicolor));
 
 //? Image Adjustments
 //helper function to keep adjustments made
@@ -475,7 +502,7 @@ imageInputs.contrastVal.addEventListener('input', handleContrast);
 function handleBlur(e) {
     const val = e.target.value;
 
-    imageInputs.blurVal.value = imageInputs.blurSlider.val = val;
+    imageInputs.blurVal.value = imageInputs.blurSlider.value = val;
 
     // blur needs value between 0 and 1 so divide by 100
     const fabricVal = val / 100;
@@ -485,3 +512,18 @@ function handleBlur(e) {
 
 imageInputs.blurSlider.addEventListener('input', handleBlur);
 imageInputs.blurVal.addEventListener('input', handleBlur);
+
+//? Advanced Tools
+//? Pixelate
+function handlePixelate(e) {
+    const val = e.target.value;
+    imageInputs.pixelSlider.value = imageInputs.pixelVal.value = val;
+
+    // Pixelate goes from 1 (off) to 100 (huge pixels)
+    const fabricVal = val < 2 ? 1 : Math.round(val);
+
+    applySliderFilter(filters.Pixelate, 'blocksize', fabricVal);
+}
+
+imageInputs.pixelSlider.addEventListener('input', handlePixelate);
+imageInputs.pixelVal.addEventListener('input', handlePixelate);
