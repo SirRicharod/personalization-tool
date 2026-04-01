@@ -241,8 +241,8 @@
                             <!-- Image only input -->
                             <input type="file" name="image-upload" id="image-upload"
                                 class="form-control border-0 bg-white text-input-field" accept="image/*">
-                            <button
-                                class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn">Add
+                            <button class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn"
+                                id="add-image-btn">Add
                                 To Canvas</button>
                         </div>
                     </section>
@@ -252,15 +252,15 @@
                         Quick Actions
                     </div>
                     <section class="inspector-field pb-3">
-                        <div class="d-flex justify-content-center text-center gap-3 px-3">
-                            <button class="btn btn-sm btn-primary flex-fill py-1"><i
-                                    class="bi bi-crop"></i><br><small>Crop</small></button>
-                            <button class="btn btn-sm btn-primary flex-fill py-1"><i
-                                    class="bi bi-arrows-collapse"></i><br><small>Flip H</small></button>
-                            <button class="btn btn-sm btn-primary flex-fill py-1"><i
-                                    class="bi bi-arrows-collapse-vertical"></i><br><small>Flip V</small></button>
-                            <button class="btn btn-sm btn-primary flex-fill py-1"><i
-                                    class="bi bi-front"></i><br><small>Clone</small></button>
+                        <div class="d-flex justify-content-center text-center gap-2 px-3">
+                            <button class="btn btn-sm btn-primary flex-fill py-1 w-25" id="img-crop-btn">
+                                <i class="bi bi-crop fs-5"></i></span><br>Crop</button>
+                            <button class="btn btn-sm btn-primary flex-fill py-1 w-25" id="img-flip-h-btn">
+                                <i class="bi bi-arrows-collapse-vertical fs-5"></i><br>Flip Horizontal</button>
+                            <button class="btn btn-sm btn-primary flex-fill py-1 w-25" id="img-flip-v-btn">
+                                <i class="bi bi-arrows-collapse fs-5"></i><br>Flip Vertical</button>
+                            <button class="btn btn-sm btn-primary flex-fill py-1 w-25" id="img-clone-btn">
+                                <i class="bi bi-front fs-5"></i><br>Clone</button>
                         </div>
                     </section>
 
@@ -290,8 +290,9 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="50">
-                                                    <input type="range" class="form-range flex-grow-1" value="50">
+                                                        value="50" id="img-bright-val">
+                                                    <input type="range" class="form-range flex-grow-1" value="50"
+                                                        id="img-bright-slider">
                                                 </div>
                                             </div>
                                             <!-- Saturation -->
@@ -300,8 +301,9 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="50">
-                                                    <input type="range" class="form-range flex-grow-1" value="50">
+                                                        value="50" id="img-sat-val">
+                                                    <input type="range" class="form-range flex-grow-1" value="50"
+                                                        id="img-sat-slider">
                                                 </div>
                                             </div>
                                             <!-- Contrast -->
@@ -310,8 +312,9 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="50">
-                                                    <input type="range" class="form-range flex-grow-1" value="50">
+                                                        value="50" id="img-contrast-val">
+                                                    <input type="range" class="form-range flex-grow-1" value="50"
+                                                        id="img-contrast-slider">
                                                 </div>
                                             </div>
                                             <!-- Blur -->
@@ -320,8 +323,9 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="0">
-                                                    <input type="range" class="form-range flex-grow-1" value="0">
+                                                        value="0" id="img-blur-val">
+                                                    <input type="range" class="form-range flex-grow-1" value="0"
+                                                        id="img-blur-slider">
                                                 </div>
                                             </div>
                                         </div>
@@ -343,52 +347,62 @@
                                     <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
                                         <div class="d-flex overflow-auto gap-3 pb-2 preset-filters-scroll">
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-normal">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Normal</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-sepia">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Sepia</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-bw">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">B&W</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-vintage">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Vintage</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-warm">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Warm</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-cool">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Cool</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-polaroid">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Polaroid</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-technicolor">
+                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                    class="fw-bold text-dark">Technicolor</span>
+                                            </button>
+                                            <button
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-invert">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Invert</span>
                                             </button>
                                             <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold text-dark">Blur</span>
-                                            </button>
-                                            <button
-                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn">
+                                                class="btn bg-white border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                id="img-filter-sharpen">
                                                 <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
                                                     class="fw-bold text-dark">Sharpen</span>
                                             </button>
@@ -417,8 +431,9 @@
                                                 <div class="d-flex align-items-center gap-1 px-1">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border shadow-sm val-input-sm p-1"
-                                                        value="50">
-                                                    <input type="range" class="form-range flex-grow-1" value="50">
+                                                        value="50" id="img-noise-val">
+                                                    <input type="range" class="form-range flex-grow-1" value="50"
+                                                        id="img-noise-slider">
                                                 </div>
                                             </div>
                                             <div class="col-4 text-center">
@@ -426,15 +441,17 @@
                                                 <div class="d-flex align-items-center gap-1 px-1">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border shadow-sm val-input-sm p-1"
-                                                        value="50">
-                                                    <input type="range" class="form-range flex-grow-1" value="50">
+                                                        value="50" id="img-pixel-val">
+                                                    <input type="range" class="form-range flex-grow-1" value="50"
+                                                        id="img-pixel-slider">
                                                 </div>
                                             </div>
                                             <div class="col-4 text-center">
                                                 <label class="fw-bold small mb-1 text-dark">Color Blend</label>
                                                 <div class="d-flex align-items-center justify-content-center gap-1">
                                                     <select
-                                                        class="form-select form-select-sm border shadow-sm py-1 flex-grow-1 text-xxs px-1">
+                                                        class="form-select form-select-sm border shadow-sm py-1 flex-grow-1 text-xxs px-1"
+                                                        id="img-blend-mode">
                                                         <option>Normal</option>
                                                         <option>Multiply</option>
                                                         <option>Difference</option>
@@ -447,7 +464,7 @@
                                                     </select>
                                                     <input type="color"
                                                         class="form-control form-control-color p-1 shadow-sm w-50"
-                                                        value="#000000" title="Choose blend color">
+                                                        value="#000000" title="Choose blend color" id="img-blend-color">
                                                 </div>
                                             </div>
                                         </div>
@@ -461,8 +478,9 @@
                                                     <div class="d-flex align-items-center gap-1 mb-1">
                                                         <input type="number"
                                                             class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
-                                                            value="50">
-                                                        <input type="range" class="form-range flex-grow-1" value="50">
+                                                            value="50" id="img-gamma-red-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-gamma-red-slider">
                                                     </div>
                                                     <span class="fw-bold text-dark text-xxs">Red</span>
                                                 </div>
@@ -470,8 +488,9 @@
                                                     <div class="d-flex align-items-center gap-1 mb-1">
                                                         <input type="number"
                                                             class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
-                                                            value="50">
-                                                        <input type="range" class="form-range flex-grow-1" value="50">
+                                                            value="50" id="img-gamma-green-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-gamma-green-slider">
                                                     </div>
                                                     <span class="fw-bold text-dark text-xxs">Green</span>
                                                 </div>
@@ -479,8 +498,9 @@
                                                     <div class="d-flex align-items-center gap-1 mb-1">
                                                         <input type="number"
                                                             class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
-                                                            value="50">
-                                                        <input type="range" class="form-range flex-grow-1" value="50">
+                                                            value="50" id="img-gamma-blue-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-gamma-blue-slider">
                                                     </div>
                                                     <span class="fw-bold text-dark text-xxs">Blue</span>
                                                 </div>
@@ -495,15 +515,17 @@
                                                 <div class="w-25">
                                                     <input type="color"
                                                         class="form-control form-control-color w-100 p-1 shadow-sm"
-                                                        value="#000000" title="Choose color to remove">
+                                                        value="#000000" title="Choose color to remove"
+                                                        id="img-remove-color">
                                                 </div>
                                                 <div class="flex-shrink-0">
                                                     <input type="number"
                                                         class="form-control form-control-sm text-center border shadow-sm val-input-sm"
-                                                        value="50">
+                                                        value="50" id="img-remove-val">
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <input type="range" class="form-range w-100" value="50">
+                                                    <input type="range" class="form-range w-100" value="50"
+                                                        id="img-remove-slider">
                                                 </div>
                                             </div>
                                         </div>

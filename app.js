@@ -1,4 +1,4 @@
-import { Canvas, Rect, Circle, Color, IText } from 'fabric';
+import { Canvas, Rect, Circle, Color, IText, FabricImage, filters } from 'fabric';
 
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
@@ -235,3 +235,253 @@ textInputs.alignLeft.addEventListener('click', () => updateActiveObject('textAli
 textInputs.alignCenter.addEventListener('click', () => updateActiveObject('textAlign', 'center'));
 textInputs.alignRight.addEventListener('click', () => updateActiveObject('textAlign', 'right'));
 textInputs.alignJustify.addEventListener('click', () => updateActiveObject('textAlign', 'justify'));
+
+// ! === IMAGE WINDOW ===
+// Grab HTML inputs from Images tab
+const imageInputs = {
+    upload: document.getElementById('image-upload'),
+    addBtn: document.getElementById('add-image-btn'),
+
+    // Quick Actions
+    cropBtn: document.getElementById('img-crop-btn'),
+    flipHBtn: document.getElementById('img-flip-h-btn'),
+    flipVBtn: document.getElementById('img-flip-v-btn'),
+    cloneBtn: document.getElementById('img-clone-btn'),
+
+    // Adjustments (Sliders & Inputs)
+    brightVal: document.getElementById('img-bright-val'),
+    brightSlider: document.getElementById('img-bright-slider'),
+    satVal: document.getElementById('img-sat-val'),
+    satSlider: document.getElementById('img-sat-slider'),
+    contrastVal: document.getElementById('img-contrast-val'),
+    contrastSlider: document.getElementById('img-contrast-slider'),
+    blurVal: document.getElementById('img-blur-val'),
+    blurSlider: document.getElementById('img-blur-slider'),
+
+    // Preset Filters
+    filterNormal: document.getElementById('img-filter-normal'),
+    filterSepia: document.getElementById('img-filter-sepia'),
+    filterBW: document.getElementById('img-filter-bw'),
+    filterVintage: document.getElementById('img-filter-vintage'),
+    filterWarm: document.getElementById('img-filter-warm'),
+    filterCool: document.getElementById('img-filter-cool'),
+    filterPolaroid: document.getElementById('img-filter-polaroid'),
+    filterInvert: document.getElementById('img-filter-invert'),
+    filterTechnicolor: document.getElementById('img-filter-technicolor'),
+    filterSharpen: document.getElementById('img-filter-sharpen'),
+
+    // Advanced Tools
+    noiseVal: document.getElementById('img-noise-val'),
+    noiseSlider: document.getElementById('img-noise-slider'),
+    pixelVal: document.getElementById('img-pixel-val'),
+    pixelSlider: document.getElementById('img-pixel-slider'),
+    blendMode: document.getElementById('img-blend-mode'),
+    blendColor: document.getElementById('img-blend-color'),
+    gammaGVal: document.getElementById('img-gamma-green-val'),
+    gammaGSlider: document.getElementById('img-gamma-green-slider'),
+    gammaRVal: document.getElementById('img-gamma-red-val'),
+    gammaRSlider: document.getElementById('img-gamma-red-slider'),
+    gammaBVal: document.getElementById('img-gamma-blue-val'),
+    gammaBSlider: document.getElementById('img-gamma-blue-slider'),
+    removeColor: document.getElementById('img-remove-color'),
+    removeVal: document.getElementById('img-remove-val'),
+    removeSlider: document.getElementById('img-remove-slider'),
+};
+
+// Add uploaded image to canvas
+imageInputs.addBtn.addEventListener('click', () => {
+    // Check if user actually uploaded a file
+    const file = imageInputs.upload.files[0];
+    if (!file) return;
+
+    // FileReader to read the imagefile
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const dataUrl = e.target.result;
+
+        // Load image with a promise
+        FabricImage.fromURL(dataUrl).then((img) => {
+            // Scale image so it fits on canvas
+            if (img.width > 400 || img.height > 400) {
+                if (img.width >= img.height) {
+                    img.scaleToWidth(400);
+                } else {
+                    img.scaleToHeight(400);
+                }
+            }
+
+            img.set({
+                left: 100,
+                top: 100,
+            });
+
+            // Add image to canvas
+            canvas.add(img);
+            canvas.setActiveObject(img);
+
+            // Clear input field
+            imageInputs.upload.value = '';
+        });
+    };
+
+    // Read file as Data URL (base64 string)
+    reader.readAsDataURL(file);
+
+});
+
+//? Quick Actions
+// Flip Horizontal
+imageInputs.flipHBtn.addEventListener('click', () => {
+    const obj = canvas.getActiveObject();
+    if (obj) {
+        // Toggle flipX
+        obj.set('flipX', !obj.flipX);
+        canvas.requestRenderAll();
+    }
+});
+
+imageInputs.flipVBtn.addEventListener('click', () => {
+    const obj = canvas.getActiveObject();
+    if (obj) {
+        obj.set('flipY', !obj.flipY);
+        canvas.requestRenderAll();
+    }
+});
+
+// Clone/Duplicate current object
+imageInputs.cloneBtn.addEventListener('click', () => {
+    const obj = canvas.getActiveObject();
+    if (obj) {
+        // Objects have a built-in clone function
+        obj.clone().then((clonedObj) => {
+            // Offset clone slightly
+            clonedObj.set({
+                left: clonedObj.left + 20,
+                top: clonedObj.top + 20,
+            });
+            canvas.add(clonedObj);
+            canvas.setActiveObject(clonedObj);
+        });
+    }
+});
+
+//? Filters
+// Function to apply filters
+function applyPresetFilter(filterObj) {
+    const obj = canvas.getActiveObject();
+
+    if (obj && obj.type === 'image') {
+
+        // Clear existing filters
+        obj.filters = [];
+
+        // If it's not "Normal", add new filter
+        if (filterObj) {
+            obj.filters.push(filterObj);
+        }
+
+        // Bake the filters
+        obj.applyFilters();
+
+        canvas.requestRenderAll();
+    }
+}
+
+// Preset Filter Event Listeners
+imageInputs.filterNormal.addEventListener('click', () => applyPresetFilter(null)); // normal passes 'null'
+
+// Built-in vintage/color filters
+imageInputs.filterSepia.addEventListener('click', () => applyPresetFilter(new filters.Sepia()));
+imageInputs.filterBW.addEventListener('click', () => applyPresetFilter(new filters.Grayscale()));
+imageInputs.filterVintage.addEventListener('click', () => applyPresetFilter(new filters.Vintage()));
+imageInputs.filterPolaroid.addEventListener('click', () => applyPresetFilter(new filters.Polaroid()));
+imageInputs.filterInvert.addEventListener('click', () => applyPresetFilter(new filters.Invert()));
+imageInputs.filterWarm.addEventListener('click', () => applyPresetFilter(new filters.Brownie()));
+imageInputs.filterCool.addEventListener('click', () => applyPresetFilter(new filters.Kodachrome()));
+imageInputs.filterTechnicolor.addEventListener('click', () => applyPresetFilter(new filters.Technicolor()));
+
+//? Image Adjustments
+//helper function to keep adjustments made
+function applySliderFilter(FilterClass, propName, value) {
+    const obj = canvas.getActiveObject();
+    if (!obj || obj.type !== 'image') return;
+
+    // Check if we have already applied this filter
+    let filter = obj.filters.find(f => f instanceof FilterClass);
+
+    if (!filter) {
+        // Create filter and add it to array
+        filter = new FilterClass();
+        obj.filters.push(filter);
+    }
+
+    // Apply value to property
+    filter[propName] = value;
+
+    obj.applyFilters();
+    canvas.requestRenderAll();
+
+}
+
+//? Brightness
+function handleBrightness(e) {
+    const val = e.target.value;
+
+    // sync slider and value
+    imageInputs.brightSlider.value = imageInputs.brightVal.value = val;
+
+    // Some math because HTML slider is 0-100 but brightness uses -1.0 - 1.0
+    const fabricVal = (val - 50) / 50;
+
+    applySliderFilter(filters.Brightness, 'brightness', fabricVal);
+}
+
+// Listen to slider and number
+imageInputs.brightSlider.addEventListener('input', handleBrightness);
+imageInputs.brightVal.addEventListener('input', handleBrightness);
+
+//?  Saturation
+function handleSaturation(e) {
+    const val = e.target.value;
+
+    imageInputs.satSlider.value = imageInputs.satVal.value = val;
+
+    // Convert 0-100 to -1.0 to 1.0
+    const fabricVal = (val - 50) / 50
+
+    applySliderFilter(filters.Saturation, 'saturation', fabricVal);
+
+}
+imageInputs.satSlider.addEventListener('input', handleSaturation);
+imageInputs.satVal.addEventListener('input', handleSaturation);
+
+//? Contrast
+function handleContrast(e) {
+    const val = e.target.value;
+
+    imageInputs.contrastVal.value = val;
+    imageInputs.contrastSlider.value = val;
+
+    // Convert 0-100 to -1.0 to 1.0
+    const fabricVal = (val - 50) / 50;
+
+    applySliderFilter(filters.Contrast, 'contrast', fabricVal);
+}
+
+imageInputs.contrastSlider.addEventListener('input', handleContrast);
+imageInputs.contrastVal.addEventListener('input', handleContrast);
+
+//? Blur
+function handleBlur(e) {
+    const val = e.target.value;
+
+    imageInputs.blurVal.value = imageInputs.blurSlider.val = val;
+
+    // blur needs value between 0 and 1 so divide by 100
+    const fabricVal = val / 100;
+
+    applySliderFilter(filters.Blur, 'blur', fabricVal);
+}
+
+imageInputs.blurSlider.addEventListener('input', handleBlur);
+imageInputs.blurVal.addEventListener('input', handleBlur);
