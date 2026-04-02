@@ -2,6 +2,7 @@ import { Canvas, Rect, Circle, Color, IText, FabricImage, filters } from 'fabric
 
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
+    backgroundColor: '#ffffff',
     width: 500,
     height: 500,
 });
@@ -22,7 +23,7 @@ const circle = new Circle({
     left: 100,
     top: 100,
     radius: 50,
-    strokeWidth: -5,
+    strokeWidth: 1,
 });
 
 canvas.add(circle);
@@ -85,6 +86,97 @@ function updateInspectorUI() {
         textInputs.alignCenter.classList.toggle('active', activeObj.textAlign === 'center');
         textInputs.alignRight.classList.toggle('active', activeObj.textAlign === 'right');
         textInputs.alignJustify.classList.toggle('active', activeObj.textAlign === 'justify');
+    }
+
+    //* Update Image Properties if an image is selected
+    if (activeObj.type === 'image') {
+
+        // Check if we have filters applied
+        const hasFilter = (FilterClass) => activeObj.filters.some(f => f instanceof FilterClass);
+
+        // Toggle active filters
+        imageInputs.filterSepia.classList.toggle('active', hasFilter(filters.Sepia));
+        imageInputs.filterBW.classList.toggle('active', hasFilter(filters.Grayscale));
+        imageInputs.filterVintage.classList.toggle('active', hasFilter(filters.Vintage));
+        imageInputs.filterTechnicolor.classList.toggle('active', hasFilter(filters.Technicolor));
+        imageInputs.filterPolaroid.classList.toggle('active', hasFilter(filters.Polaroid));
+        imageInputs.filterInvert.classList.toggle('active', hasFilter(filters.Invert));
+        imageInputs.filterWarm.classList.toggle('active', hasFilter(filters.Brownie));
+        imageInputs.filterCool.classList.toggle('active', hasFilter(filters.Kodachrome));
+
+        // Grab slider value or default
+        const getSliderVal = (FilterClass, prop, defaultVal) => {
+            const f = activeObj.filters.find(f => f instanceof FilterClass);
+            return f ? f[prop] : defaultVal;
+        };
+
+        // Sync Sliders
+        // (value * 50) + 50
+        const bright = Math.round((getSliderVal(filters.Brightness, 'brightness', 0) * 50) + 50);
+        imageInputs.brightVal.value = bright;
+        imageInputs.brightSlider.value = bright;
+
+        const sat = Math.round((getSliderVal(filters.Saturation, 'saturation', 0) * 50) + 50);
+        imageInputs.satVal.value = sat;
+        imageInputs.satSlider.value = sat;
+
+        const contrast = Math.round((getSliderVal(filters.Contrast, 'contrast', 0) * 50) + 50);
+        imageInputs.contrastVal.value = contrast;
+        imageInputs.contrastSlider.value = contrast;
+
+        // value * 100
+        const blur = Math.round(getSliderVal(filters.Blur, 'blur', 0) * 100);
+        imageInputs.blurVal.value = blur;
+        imageInputs.blurSlider.value = blur;
+
+        // value / 5
+        const noise = Math.round(getSliderVal(filters.Noise, 'noise', 0) / 5);
+        imageInputs.noiseVal.value = noise;
+        imageInputs.noiseSlider.value = noise;
+
+        // blocksize
+        const pixel = Math.round(getSliderVal(filters.Pixelate, 'blocksize', 1));
+        imageInputs.pixelVal.value = pixel;
+        imageInputs.pixelSlider.value = pixel;
+
+        // Blend Color
+        const blendFilter = activeObj.filters.find(f => f instanceof filters.BlendColor);
+        if (blendFilter) {
+            // normal = multiply with white value
+            if (blendFilter.mode === 'multiply' && blendFilter.color === '#ffffff') {
+                imageInputs.blendMode.value = 'normal';
+            } else {
+                imageInputs.blendMode.value = blendFilter.mode;
+            }
+            imageInputs.blendColor.value = blendFilter.color;
+        } else {
+            imageInputs.blendMode.value = 'normal';
+            imageInputs.blendColor.value = '#ffffff';
+        }
+
+        // Remove Color
+        const removeFilter = activeObj.filters.find(f => f instanceof filters.RemoveColor);
+        imageInputs.removeColor.value = removeFilter ? removeFilter.color : '#00ff00';
+        const removeDist = Math.round((removeFilter ? removeFilter.distance : 0) * 100);
+        imageInputs.removeVal.value = removeDist;
+        imageInputs.removeSlider.value = removeDist;
+
+        // Gamma
+        const gammaFilter = activeObj.filters.find(f => f instanceof filters.Gamma);
+        const gammaArr = gammaFilter ? gammaFilter.gamma : [1, 1, 1];
+
+        // Reverse math function
+        const getSliderFromGamma = (gamma) => {
+            return Math.round(((gamma - 0.01) / (2.2 - 0.01)) * 100);
+        };
+
+        const rSliderVal = getSliderFromGamma(gammaArr[0]);
+        const gSliderVal = getSliderFromGamma(gammaArr[1]);
+        const bSliderVal = getSliderFromGamma(gammaArr[2]);
+
+        imageInputs.gammaRVal.value = imageInputs.gammaRSlider.value = rSliderVal;
+        imageInputs.gammaGVal.value = imageInputs.gammaGSlider.value = gSliderVal;
+        imageInputs.gammaBVal.value = imageInputs.gammaBSlider.value = bSliderVal;
     }
 }
 
@@ -182,7 +274,7 @@ textInputs.addBtn.addEventListener('click', () => {
 
     // Clear input field
     textInputs.content.value = '';
-})
+});
 
 // Text Properties
 textInputs.family.addEventListener('change', (e) => updateActiveObject('fontFamily', e.target.value));
@@ -399,7 +491,7 @@ imageInputs.filterNormal.addEventListener('click', () => {
     // A list of the used classes
     const sliderFilters = [
         filters.Brightness, filters.Saturation, filters.Contrast,
-        filters.Blur, filters.Noise, filters.Pixelate
+        filters.Blur, filters.Noise, filters.Pixelate, filters.BlendColor, filters.Gamma, filters.RemoveColor
     ];
 
     // Filter the array, keep sliders only
@@ -474,7 +566,7 @@ function handleSaturation(e) {
     imageInputs.satSlider.value = imageInputs.satVal.value = val;
 
     // Convert 0-100 to -1.0 to 1.0
-    const fabricVal = (val - 50) / 50
+    const fabricVal = (val - 50) / 50;
 
     applySliderFilter(filters.Saturation, 'saturation', fabricVal);
 
@@ -527,3 +619,236 @@ function handlePixelate(e) {
 
 imageInputs.pixelSlider.addEventListener('input', handlePixelate);
 imageInputs.pixelVal.addEventListener('input', handlePixelate);
+
+//? Noise
+function handleNoise(e) {
+    const val = e.target.value;
+    imageInputs.noiseSlider.value = imageInputs.noiseVal.value = val;
+
+    // Max noise = ~1000, slider = 0-100, multiply by 5 for good range of noise
+    applySliderFilter(filters.Noise, 'noise', val * 5);
+}
+
+imageInputs.noiseSlider.addEventListener('input', handleNoise);
+imageInputs.noiseVal.addEventListener('input', handleNoise);
+
+//? Color Blend
+function handleBlend() {
+    const mode = imageInputs.blendMode.value.toLowerCase(); // lowercase
+    const color = imageInputs.blendColor.value; // Hex value
+
+    const obj = canvas.getActiveObject();
+    if (!obj || obj.type !== 'image') return;
+
+    let filter = obj.filters.find(f => f instanceof filters.BlendColor);
+
+    if (!filter) {
+        filter = new filters.BlendColor();
+        obj.filters.push(filter);
+    }
+
+    if (mode === 'normal') {
+        //normal = no filter
+        filter.alpha = 1;
+        filter.mode = 'multiply';
+        filter.color = imageInputs.blendColor.value = '#ffffff';
+    } else {
+        filter.mode = mode;
+        filter.color = color;
+        filter.alpha = 1;
+    }
+
+    obj.applyFilters();
+    canvas.requestRenderAll();
+}
+
+imageInputs.blendMode.addEventListener('change', handleBlend);
+imageInputs.blendColor.addEventListener('input', handleBlend);
+
+//? Gamma (RGB)
+function handleGamma(e) {
+
+    // Get value from event
+    const val = e.target.value;
+
+    // Check which slider to sync
+    const isRed = e.target === imageInputs.gammaRSlider || e.target === imageInputs.gammaRVal;
+    const isGreen = e.target === imageInputs.gammaGSlider || e.target === imageInputs.gammaGVal;
+    const isBlue = e.target === imageInputs.gammaBSlider || e.target === imageInputs.gammaBVal;
+
+    // sync slider and number input
+    if (isRed) imageInputs.gammaRSlider.value = imageInputs.gammaRVal.value = val;
+    if (isGreen) imageInputs.gammaGSlider.value = imageInputs.gammaGVal.value = val;
+    if (isBlue) imageInputs.gammaBSlider.value = imageInputs.gammaBVal.value = val;
+
+    // get final value
+    const rVal = imageInputs.gammaRSlider.value;
+    const gVal = imageInputs.gammaGSlider.value;
+    const bVal = imageInputs.gammaBSlider.value;
+
+    // Gamma goes 0.01 - 2.2
+    const minGamma = 0.01;
+    const maxGamma = 2.2;
+
+    const r = minGamma + (rVal / 100) * (maxGamma - minGamma);
+    const g = minGamma + (gVal / 100) * (maxGamma - minGamma);
+    const b = minGamma + (bVal / 100) * (maxGamma - minGamma);
+
+    const obj = canvas.getActiveObject();
+    if (!obj || obj.type !== 'image') return;
+
+    let filter = obj.filters.find(f => f instanceof filters.Gamma);
+    if (!filter) {
+        filter = new filters.Gamma();
+        obj.filters.push(filter);
+    }
+
+    // Gamma expects array of [red, green, blue] 
+    filter.gamma = [r, g, b];
+
+    obj.applyFilters();
+    canvas.requestRenderAll();
+}
+
+imageInputs.gammaRSlider.addEventListener('input', handleGamma);
+imageInputs.gammaRVal.addEventListener('input', handleGamma);
+imageInputs.gammaGSlider.addEventListener('input', handleGamma);
+imageInputs.gammaGVal.addEventListener('input', handleGamma);
+imageInputs.gammaBSlider.addEventListener('input', handleGamma);
+imageInputs.gammaBVal.addEventListener('input', handleGamma);
+
+//? Remove Color (Chroma Key)
+function handleRemoveColor(e) {
+    const color = imageInputs.removeColor.value; // Hex value
+
+    if (e.target === imageInputs.removeSlider || e.target === imageInputs.removeVal) {
+        // Sync distance slider and input
+        imageInputs.removeSlider.value = imageInputs.removeVal.value = e.target.value;
+    }
+
+    const distVal = imageInputs.removeSlider.value; // 0 to 100
+
+    const obj = canvas.getActiveObject();
+    if (!obj || obj.type !== 'image') return;
+
+    let filter = obj.filters.find(f => f instanceof filters.RemoveColor);
+    if (!filter) {
+        filter = new filters.RemoveColor();
+        obj.filters.push(filter);
+    }
+
+    filter.color = color;
+    filter.distance = distVal / 100; // 0 - 1 range divide by 100
+
+    obj.applyFilters();
+    canvas.requestRenderAll();
+}
+
+imageInputs.removeSlider.addEventListener('input', handleRemoveColor);
+imageInputs.removeVal.addEventListener('input', handleRemoveColor);
+imageInputs.removeColor.addEventListener('input', handleRemoveColor);
+
+// Crop Image (Interactive)
+let croppingImage = null;
+let cropRect = null;
+
+imageInputs.cropBtn.addEventListener('click', () => {
+    if (!croppingImage) {
+        // 1. Enter Crop Mode
+        const obj = canvas.getActiveObject();
+        if (!obj || obj.type !== 'image') return;
+
+        croppingImage = obj;
+        
+        // Lock the image while we adjust the crop box
+        croppingImage.set({ selectable: false, evented: false });
+        imageInputs.cropBtn.classList.add('active');
+
+        // Create a cropping bounding box matched exactly to the image's visual bounds
+        const imgBounds = croppingImage.getBoundingRect();
+        cropRect = new Rect({
+            left: imgBounds.left,
+            top: imgBounds.top,
+            width: croppingImage.getScaledWidth(),
+            height: croppingImage.getScaledHeight(),
+            fill: 'rgba(0, 0, 0, 0.3)',
+            strokeWidth: 2,
+            stroke: '#000000',
+            strokeDashArray: [5, 5],
+            originX: 'left',
+            originY: 'top',
+            lockRotation: true // Prevent rotation
+        });
+
+        // Remove the rotating handle (mtr) from the crop box entirely
+        cropRect.setControlsVisibility({ mtr: false });
+
+        canvas.add(cropRect);
+        canvas.setActiveObject(cropRect);
+    } else {
+        // 2. Apply Crop
+        const scaleX = croppingImage.scaleX;
+        const scaleY = croppingImage.scaleY;
+
+        // Get visual bounding boxes
+        const cropBounds = cropRect.getBoundingRect();
+        const imgBounds = croppingImage.getBoundingRect();
+
+        // Calculate visual offset on the canvas
+        const deltaX = cropBounds.left - imgBounds.left;
+        const deltaY = cropBounds.top - imgBounds.top;
+
+        // Convert the canvas offset into unscaled image pixels for crop mapping
+        const unscaledDeltaX = deltaX / scaleX;
+        const unscaledDeltaY = deltaY / scaleY;
+
+        // Calculate the new cropped dimensions in unscaled pixels
+        const newWidth = cropRect.getScaledWidth() / scaleX;
+        const newHeight = cropRect.getScaledHeight() / scaleY;
+
+        // Factor in any existing crops
+        const currentCropX = croppingImage.cropX || 0;
+        const currentCropY = croppingImage.cropY || 0;
+        
+        // Store targets before removing rect
+        const finalLeft = cropBounds.left;
+        const finalTop = cropBounds.top;
+
+        // Clean up crop UI
+        canvas.remove(cropRect);
+        
+        const finalImage = croppingImage;
+
+        // Apply new crop values and size
+        finalImage.set({
+            cropX: currentCropX + unscaledDeltaX,
+            cropY: currentCropY + unscaledDeltaY,
+            width: newWidth,
+            height: newHeight,
+            selectable: true,
+            evented: true
+        });
+
+        // Use Fabric's internals to perfectly realign the image back over the crop box footprint
+        // without guessing origins
+        finalImage.setCoords(); 
+        const newImgBounds = finalImage.getBoundingRect();
+        const shiftX = finalLeft - newImgBounds.left;
+        const shiftY = finalTop - newImgBounds.top;
+
+        finalImage.set({
+            left: finalImage.left + shiftX,
+            top: finalImage.top + shiftY
+        });
+
+        finalImage.setCoords(); // Final visual update
+        canvas.setActiveObject(finalImage);
+
+        // Reset variables
+        croppingImage = null;
+        cropRect = null;
+        imageInputs.cropBtn.classList.remove('active');
+    }
+
+    canvas.requestRenderAll();
+});
