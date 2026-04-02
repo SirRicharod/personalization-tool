@@ -541,59 +541,68 @@
                     </div>
                     <section id="brush-selection" class="inspector-field">
                         <!-- Start Drawing Toggle at the top -->
-                        <button type="button" class="btn btn-primary w-100 py-2 fs-5 fw-medium mb-3">
+                        <button type="button" class="btn btn-primary w-100 py-2 fs-5 fw-medium mb-3"
+                            id="draw-toggle-btn">
                             <i class="bi bi-pencil-square"></i> Start Drawing
                         </button>
 
                         <div class="row row-cols-5 g-2 text-center">
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-pencil-fill"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-pencil-btn">
+                                    <i class="bi bi-pencil-fill"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Pencil</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-circle-fill"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-circle-btn">
+                                    <i class="bi bi-circle-fill"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Circle</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-droplet-fill"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn" id="brush-spray-btn">
+                                    <i class="bi bi-droplet-fill"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Spray</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-grid-3x3-gap-fill"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn" id="brush-grid-btn">
+                                    <i class="bi bi-grid-3x3"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Grid</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-suit-diamond-fill"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Diamond</small>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-circle-pattern-btn">
+                                    <i class="bi bi-circle"></i></button>
+                                <small class="d-block mt-1 fw-medium lh-1">Circle Pattern</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-dash-lg"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-h-line-btn">
+                                    <i class="bi bi-dash-lg"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">H-line</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-dash-lg" style="transform: rotate(90deg);"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-v-line-btn">
+                                    <i class="bi bi-dash-lg" style="transform: rotate(90deg);"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">V-line</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-magic"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-patter-btn">
+                                    <i class="bi bi-magic"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Pattern</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-bricks"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-texture-btn">
+                                    <i class="bi bi-bricks"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Texture</small>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"><i
-                                        class="bi bi-eraser-fill"></i></button>
+                                <button type="button" class="btn btn-primary text-white brush-btn"
+                                    id="brush-eraser-btn">
+                                    <i class="bi bi-eraser-fill"></i></button>
                                 <small class="d-block mt-1 fw-medium lh-1">Eraser</small>
                             </div>
                         </div>
@@ -621,13 +630,23 @@
                                     </div>
                                     <input type="range" class="form-range" id="shadow-size" min="0" max="100" value="3">
                                 </div>
-                                <div>
-                                    <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                        <label for="shadow-offset" class="mb-0">Shadow Offset</label>
-                                        <span id="shadow-offset-val">8</span>
+                                <div class="d-flex w-100 gap-4">
+                                    <div class="w-50">
+                                        <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
+                                            <label for="shadow-offset-x" class="mb-0">Shadow Offset X</label>
+                                            <span id="shadow-offset-x-val">8</span>
+                                        </div>
+                                        <input type="range" class="form-range" id="shadow-offset-x" min="-50" max="50"
+                                            value="8">
                                     </div>
-                                    <input type="range" class="form-range" id="shadow-offset" min="-50" max="50"
-                                        value="8">
+                                    <div class="w-50">
+                                        <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
+                                            <label for="shadow-offset-y" class="mb-0">Shadow Offset Y</label>
+                                            <span id="shadow-offset-y-val">8</span>
+                                        </div>
+                                        <input type="range" class="form-range" id="shadow-offset-y" min="-50" max="50"
+                                            value="8">
+                                    </div>
                                 </div>
                             </div>
 
@@ -638,7 +657,7 @@
                                     <input type="color" name="brush-color" id="brush-color" value="#000000">
                                 </div>
                                 <div class="inspector-input w-100 pb-2">
-                                    <label for="brush-shadow" class="lh-1 mb-1 mt-1">Shadow</label><br>
+                                    <label for="brush-shadow" class="lh-1 mb-1 mt-1">Shadow Color</label><br>
                                     <input type="color" name="brush-shadow" id="brush-shadow" value="#ffffff">
                                 </div>
                             </div>
@@ -647,16 +666,9 @@
                         <!-- Texture Source -->
                         <div id="texture-settings" class="mt-3 pt-3 border-top border-white border-2">
                             <div class="fw-bold mb-2">Texture Source</div>
-                            <div class="d-flex flex-column gap-2">
-                                <div>
-                                    <input type="url" class="form-control border-0 py-1" id="texture-url"
-                                        placeholder="Image URL (e.g. https://...)">
-                                </div>
-                                <div class="text-center fw-medium text-uppercase small opacity-75 lh-1">Or</div>
-                                <div>
-                                    <input class="form-control form-control-sm border-0 bg-white" type="file"
-                                        id="texture-upload" accept="image/*">
-                                </div>
+                            <div>
+                                <input class="form-control form-control-sm border-0 bg-white" type="file"
+                                    id="texture-upload" accept="image/*">
                             </div>
                         </div>
                     </section>
@@ -1049,7 +1061,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script type="module" src="app.js"></script>
+    <script type="module" src="./app.js"></script>
 </body>
 
 </html>

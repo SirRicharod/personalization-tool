@@ -4,3 +4,5 @@ dist
 .vite
 *.log
 .DS_Store
+.github
+plan.md
