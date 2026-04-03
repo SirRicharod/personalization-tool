@@ -120,6 +120,15 @@ export const drawingInputs = {
 
 //! ------------------------------------------------
 
+//? Icons tab inputs
+export const iconInputs = {
+  searchInput: document.getElementById('icon-search-input'),
+  categorySelect: document.getElementById('icon-category-select'),
+  iconsGrid: document.getElementById('icons-grid')
+};
+
+//! ------------------------------------------------
+
 //? Layers tab inputs
 export const layerInputs = {
   container: document.getElementById('layers-container')

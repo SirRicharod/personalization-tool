@@ -1,10 +1,11 @@
-import { Canvas, Rect, Circle } from 'fabric';
+import { Canvas, IText } from 'fabric';
 import { initInspector } from './tabs/inspector.js';
 import { initText } from './tabs/text.js';
 import { initImage } from './tabs/image.js';
 import { initDrawing } from './tabs/drawing.js';
 import { initLayers } from './tabs/layers.js';
 import { initExport } from './tabs/export.js';
+import { initIcons } from './tabs/icons.js';
 
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
@@ -13,16 +14,15 @@ const canvas = new Canvas('main-canvas', {
     height: 500,
 });
 
-// Test shape
-const testRect = new Rect({
-    left: 250,
-    top: 250,
-    width: 200,
-    height: 200,
+const testText = new IText("Be Creative!",{
+    color: '#000000',
+    left: canvas.width / 2,
+    top: canvas.height/2,
+    fontFamily: 'Arial'
 });
 
-canvas.add(testRect);
-canvas.setActiveObject(testRect);
+canvas.add(testText);
+canvas.setActiveObject(testText);
 
 const { updateActiveObject } = initInspector(canvas);
 initText(canvas, updateActiveObject);
@@ -30,3 +30,4 @@ initImage(canvas, updateActiveObject);
 initDrawing(canvas);
 initLayers(canvas);
 initExport(canvas);
+initIcons(canvas);
