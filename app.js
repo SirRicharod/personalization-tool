@@ -3,6 +3,7 @@ import { initInspector } from './tabs/inspector.js';
 import { initText } from './tabs/text.js';
 import { initImage } from './tabs/image.js';
 import { initDrawing } from './tabs/drawing.js';
+import { initLayers } from './tabs/layers.js';
 
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
@@ -11,7 +12,7 @@ const canvas = new Canvas('main-canvas', {
     height: 500,
 });
 
-// Test shape for interacting
+// Test shape
 const testRect = new Rect({
     left: 250,
     top: 250,
@@ -26,3 +27,4 @@ const { updateActiveObject } = initInspector(canvas);
 initText(canvas, updateActiveObject);
 initImage(canvas, updateActiveObject);
 initDrawing(canvas);
+initLayers(canvas);

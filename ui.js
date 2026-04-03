@@ -119,3 +119,8 @@ export const drawingInputs = {
 };
 
 //! ------------------------------------------------
+
+//? Layers tab inputs
+export const layerInputs = {
+  container: document.getElementById('layers-container')
+};
