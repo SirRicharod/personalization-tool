@@ -44,42 +44,6 @@ export function initImage(canvas, updateActiveObject) {
 
     });
 
-    //? Quick Actions
-    // Flip Horizontal
-    imageInputs.flipHBtn.addEventListener('click', () => {
-        const obj = canvas.getActiveObject();
-        if (obj) {
-            // Toggle flipX
-            obj.set('flipX', !obj.flipX);
-            canvas.requestRenderAll();
-        }
-    });
-
-    imageInputs.flipVBtn.addEventListener('click', () => {
-        const obj = canvas.getActiveObject();
-        if (obj) {
-            obj.set('flipY', !obj.flipY);
-            canvas.requestRenderAll();
-        }
-    });
-
-    // Clone/Duplicate current object
-    imageInputs.cloneBtn.addEventListener('click', () => {
-        const obj = canvas.getActiveObject();
-        if (obj) {
-            // Objects have a built-in clone function
-            obj.clone().then((clonedObj) => {
-                // Offset clone slightly
-                clonedObj.set({
-                    left: clonedObj.left + 20,
-                    top: clonedObj.top + 20,
-                });
-                canvas.add(clonedObj);
-                canvas.setActiveObject(clonedObj);
-            });
-        }
-    });
-
     //? Filters
     // Function to apply filters
     function togglePresetFilter(btnElement, FilterClass) {

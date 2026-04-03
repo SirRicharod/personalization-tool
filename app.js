@@ -6,6 +6,7 @@ import { initDrawing } from './tabs/drawing.js';
 import { initLayers } from './tabs/layers.js';
 import { initExport } from './tabs/export.js';
 import { initIcons } from './tabs/icons.js';
+import { initQuickActions } from './quick-actions.js';
 
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
@@ -14,10 +15,10 @@ const canvas = new Canvas('main-canvas', {
     height: 500,
 });
 
-const testText = new IText("Be Creative!",{
+const testText = new IText("Be Creative!", {
     color: '#000000',
     left: canvas.width / 2,
-    top: canvas.height/2,
+    top: canvas.height / 2,
     fontFamily: 'Arial'
 });
 
@@ -31,3 +32,4 @@ initDrawing(canvas);
 initLayers(canvas);
 initExport(canvas);
 initIcons(canvas);
+initQuickActions(canvas);

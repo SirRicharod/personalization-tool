@@ -39,10 +39,6 @@ export const textInputs = {
 export const imageInputs = {
   upload: document.getElementById('image-upload'),
   addBtn: document.getElementById('add-image-btn'),
-  cropBtn: document.getElementById('img-crop-btn'),
-  flipHBtn: document.getElementById('img-flip-h-btn'),
-  flipVBtn: document.getElementById('img-flip-v-btn'),
-  cloneBtn: document.getElementById('img-clone-btn'),
 
   // Adjustment sliders / number inputs
   brightVal: document.getElementById('img-bright-val'),
@@ -81,7 +77,9 @@ export const imageInputs = {
   gammaBSlider: document.getElementById('img-gamma-blue-slider'),
   removeColor: document.getElementById('img-remove-color'),
   removeVal: document.getElementById('img-remove-val'),
-  removeSlider: document.getElementById('img-remove-slider')
+  removeSlider: document.getElementById('img-remove-slider'),
+  cropBtn: document.getElementById('img-crop-btn'),
+
 };
 
 //! ------------------------------------------------
@@ -146,4 +144,15 @@ export const exportInputs = {
   jsonTextarea: document.getElementById('json-io-textarea'),
   exportFormat: document.getElementById('export-format'),
   exportTransparentBg: document.getElementById('export-transparent-bg')
+};
+
+//! ------------------------------------------------
+
+//? Quick Actions Toolbar inputs
+export const quickActionInputs = {
+  toolbar: document.getElementById('quick-actions-toolbar'),
+  flipXBtn: document.getElementById('qa-flip-x-btn'),
+  flipYBtn: document.getElementById('qa-flip-y-btn'),
+  cloneBtn: document.getElementById('qa-clone-btn'),
+  deleteBtn: document.getElementById('qa-delete-btn')
 };
