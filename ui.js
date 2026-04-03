@@ -124,3 +124,17 @@ export const drawingInputs = {
 export const layerInputs = {
   container: document.getElementById('layers-container')
 };
+
+//! ------------------------------------------------
+
+//? Export / Canvas tab inputs
+export const exportInputs = {
+  bgColor: document.getElementById('canvas-bg-color'),
+  bgImage: document.getElementById('canvas-bg-image'),
+  exportCanvasBtn: document.getElementById('export-canvas-btn'),
+  exportJsonBtn: document.getElementById('export-json-btn'),
+  importJsonBtn: document.getElementById('import-json-btn'),
+  jsonTextarea: document.getElementById('json-io-textarea'),
+  exportFormat: document.getElementById('export-format'),
+  exportTransparentBg: document.getElementById('export-transparent-bg')
+};

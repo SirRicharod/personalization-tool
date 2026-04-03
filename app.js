@@ -4,6 +4,7 @@ import { initText } from './tabs/text.js';
 import { initImage } from './tabs/image.js';
 import { initDrawing } from './tabs/drawing.js';
 import { initLayers } from './tabs/layers.js';
+import { initExport } from './tabs/export.js';
 
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
@@ -28,3 +29,4 @@ initText(canvas, updateActiveObject);
 initImage(canvas, updateActiveObject);
 initDrawing(canvas);
 initLayers(canvas);
+initExport(canvas);

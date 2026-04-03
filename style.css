@@ -308,6 +308,7 @@ input::placeholder {
     resize: none;
     font-family: monospace;
     font-size: 0.85rem;
+    height: 100px;
 }
 
 .json-textarea::-webkit-scrollbar {
