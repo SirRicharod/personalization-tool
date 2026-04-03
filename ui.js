@@ -98,7 +98,7 @@ export const drawingInputs = {
   brushCirclePattern: document.getElementById('brush-circle-pattern-btn'),
   brushHLine: document.getElementById('brush-h-line-btn'),
   brushVLine: document.getElementById('brush-v-line-btn'),
-  brushPattern: document.getElementById('brush-pattern-btn'),
+  brushCrosshatch: document.getElementById('brush-crosshatch-btn'),
   brushTexture: document.getElementById('brush-texture-btn'),
   brushEraser: document.getElementById('brush-eraser-btn'),
 

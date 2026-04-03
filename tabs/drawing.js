@@ -44,8 +44,17 @@ export function initDrawing(canvas) {
             ctx.moveTo(size / 2, 0); ctx.lineTo(size / 2, size);
         } else if (type === 'circle') {
             ctx.arc(size / 2, size / 2, size / 4, 0, 2 * Math.PI);
+        } else if (type === 'circle-fill') {
+            ctx.fillStyle = color;
+            ctx.arc(size / 2, size / 2, size / 4, 0, 2 * Math.PI);
+            ctx.fill(); // Fill instead of stroke
+            ctx.beginPath();
+        } else if (type === 'crosshatch') {
+            for (let i = -size; i < size; i += 5) {
+                ctx.moveTo(i, 0); ctx.lineTo(i + size, size);
+                ctx.moveTo(i + size, 0); ctx.lineTo(i, size);
+            }
         }
-
         ctx.stroke();
         return patternCanvas;
     }
@@ -82,8 +91,12 @@ export function initDrawing(canvas) {
             }
         }
 
-        // If size is 0, turn off shadow
-        if (blurSize === 0) {
+        // The eraser plugin crashes if it attempts to render a drop shadow
+        if (brush instanceof EraserBrush) {
+            brush.shadow = null;
+        }
+        // brush shadow logic
+        else if (blurSize === 0) {
             brush.shadow = null;
         } else {
             brush.shadow = new Shadow({
@@ -132,16 +145,27 @@ export function initDrawing(canvas) {
         // Instantiate and apply the new brush
         if (BrushClass) {
             canvas.freeDrawingBrush = new BrushClass(canvas);
+
+            // Apply Eraser-specific safety overrides
+            if (BrushClass === EraserBrush) {
+                // Ensure the eraser ONLY attempts to cut Paths (drawn strokes)
+                // The EraserBrush uses isTargetErasable internally, we can override it:
+                canvas.freeDrawingBrush.isTargetErasable = (target) => {
+                    return target.type === 'path' && target.erasable === true;
+                };
+            }
+
             updateBrushSettings();
         }
     }
 
     // Brush Selection Listeners
     if (drawingInputs.brushPencil) drawingInputs.brushPencil.addEventListener('click', () => setActiveBrush(drawingInputs.brushPencil, PencilBrush));
-    if (drawingInputs.brushCircle) drawingInputs.brushCircle.addEventListener('click', () => setActiveBrush(drawingInputs.brushCircle, CircleBrush));
+    if (drawingInputs.brushCircle) drawingInputs.brushCircle.addEventListener('click', () => setActiveBrush(drawingInputs.brushCircle, PatternBrush, 'circle-fill'));
     if (drawingInputs.brushSpray) drawingInputs.brushSpray.addEventListener('click', () => setActiveBrush(drawingInputs.brushSpray, SprayBrush));
     // Custom Pattern Brushes
     if (drawingInputs.brushGrid) drawingInputs.brushGrid.addEventListener('click', () => setActiveBrush(drawingInputs.brushGrid, PatternBrush, 'grid'));
+    if (drawingInputs.brushCrosshatch) drawingInputs.brushCrosshatch.addEventListener('click', () => setActiveBrush(drawingInputs.brushCrosshatch, PatternBrush, 'crosshatch'));
     if (drawingInputs.brushCirclePattern) drawingInputs.brushCirclePattern.addEventListener('click', () => setActiveBrush(drawingInputs.brushCirclePattern, PatternBrush, 'circle'));
     if (drawingInputs.brushHLine) drawingInputs.brushHLine.addEventListener('click', () => setActiveBrush(drawingInputs.brushHLine, PatternBrush, 'hline'));
     if (drawingInputs.brushVLine) drawingInputs.brushVLine.addEventListener('click', () => setActiveBrush(drawingInputs.brushVLine, PatternBrush, 'vline'));
@@ -176,4 +200,17 @@ export function initDrawing(canvas) {
 
     // Initialize with pencil
     setActiveBrush(drawingInputs.brushPencil, PencilBrush);
+
+    // Stop Drawing when leaving the Drawing tab
+    const drawingTabLink = document.getElementById('nav-drawing-tab');
+    if (drawingTabLink) {
+        drawingTabLink.addEventListener('hidden.bs.tab', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                canvas.isDrawingMode = false;
+                drawingInputs.drawToggle.classList.remove('active');
+                drawingInputs.drawToggle.innerText = 'Start Drawing';
+            }
+        });
+    }
 }
