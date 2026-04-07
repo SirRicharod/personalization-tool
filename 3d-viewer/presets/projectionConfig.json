@@ -1,0 +1,22 @@
+{
+    "models": [
+        {
+            "id": "tshirt",
+            "modelPath": "/models/tshirt.glb",
+            "projection": {
+                "meshName": "Shirt",
+                "uv": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 1.0,
+                    "height": 1.0
+                },
+                "scale": 1.0,
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+        }
+    ]
+}

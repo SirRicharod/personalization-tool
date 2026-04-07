@@ -15,7 +15,7 @@
 
 .canvas {
     width: 50%;
-    height: auto;
+    height: 750px;
     padding: 1rem 0;
     gap: 1rem;
     background: lightblue;
@@ -24,6 +24,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    position: relative;
 }
 
 canvas {
@@ -43,6 +44,14 @@ canvas {
     padding: 0.2rem 0.6rem;
     margin-right: 1rem;
     border-radius: 16px;
+}
+
+#3d-viewer-container {
+    display: none;
+    border: 1px black dashed;
+    overflow: hidden;
+    z-index: 5;
+    background-color: transparent;
 }
 
 .inspector {

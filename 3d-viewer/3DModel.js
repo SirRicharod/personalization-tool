@@ -38,6 +38,8 @@ class Model {
 
         // 4. Link Systems
         loop.updatables.push(controls);
+
+        container.appendChild(renderer.domElement);
     }
 
     async init(modelPath = '/models/tshirt.glb') {

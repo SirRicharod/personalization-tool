@@ -8,8 +8,8 @@ function createCamera(aspect = 1) {
     1000          // far clipping plane
   );
 
-  // Position camera to view the model
-  camera.position.set(0, 0, 3);
+  // Position camera to view model at optimal distance
+  camera.position.set(0, 0, 4);
 
   return camera;
 }
