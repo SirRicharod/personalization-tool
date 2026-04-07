@@ -63,7 +63,7 @@ export function initQuickActions(canvas) {
     // Listener for Delete
     deleteBtn.addEventListener('click', () => {
         const activeObjects = canvas.getActiveObjects();
-        if (activeObjects.length) {
+        if (activeObjects.length > 0) {
             canvas.discardActiveObject();
             activeObjects.forEach(obj => canvas.remove(obj));
         }

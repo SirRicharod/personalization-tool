@@ -1,5 +1,5 @@
 import { drawingInputs } from '../ui.js';
-import { PencilBrush, CircleBrush, SprayBrush, PatternBrush, Shadow } from 'fabric';
+import { PencilBrush, SprayBrush, PatternBrush, Shadow } from 'fabric';
 import { EraserBrush } from '@erase2d/fabric';
 
 // ! === DRAWING TAB ===

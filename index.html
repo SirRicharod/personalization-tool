@@ -24,7 +24,7 @@
             <h1>Viewport</h1>
             <canvas id="main-canvas" width="700" height="700"></canvas>
             <div class="toggle-view">
-                <button><i class="bi bi-badge-3d-fill"></i></button>
+                <button id="toggle-3d"><i class="bi bi-badge-3d-fill"></i></button>
                 <!-- <button><i class="bi bi-pencil-square"></i></button> -->
             </div>
         </section>
@@ -237,25 +237,20 @@
                         Upload Image
                     </div>
                     <section class="inspector-field pb-3">
-                        <div class="d-flex w-100 px-2 rounded overflow-hidden">
-                            <!-- Image only input -->
-                            <input type="file" name="image-upload" id="image-upload"
-                                class="form-control border-0 bg-white text-input-field" accept="image/*">
-                            <button class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn"
-                                id="add-image-btn">Add
-                                To Canvas</button>
+                        <div class="upload-container d-flex justify-content-center align-items-center gap-3">
+                            <!-- Image input and add button - 75% -->
+                            <div class="upload-input-wrapper">
+                                <input type="file" name="image-upload" id="image-upload"
+                                    class="form-control border-0 bg-white text-input-field flex-grow-1" accept="image/*">
+                                <button class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn"
+                                    id="add-image-btn">Add To Canvas</button>
+                            </div>
+                            <!-- Crop button - 25% -->
+                            <button id="img-crop-btn"
+                                class="btn btn-light border shadow-sm fw-medium text-dark">
+                                <i class="bi bi-crop fs-5"></i> Crop 
+                            </button>
                         </div>
-                    </section>
-
-                    <!-- Image Tools -->
-                    <div class="tab">
-                        Image Tools
-                    </div>
-                    <section class="inspector-field pb-3">
-                        <button id="img-crop-btn"
-                            class="btn btn-light border shadow-sm w-100 d-flex align-items-center justify-content-center gap-2 p-2 fw-medium text-dark action-btn">
-                            <i class="bi bi-crop fs-5"></i> Crop Image
-                        </button>
                     </section>
 
                     <!-- Adjustments & Filters -->
