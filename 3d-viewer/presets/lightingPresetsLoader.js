@@ -1,13 +1,13 @@
+import lightingPresetsData from './lightingPresets.json';
+
 // Loads and manages lighting preset configurations
 let presetsCache = null;
 
 async function loadLightingPresets() {
   if (presetsCache) return presetsCache;
-  
+
   try {
-    const response = await fetch('/3d-viewer/presets/lightingPresets.json');
-    const data = await response.json();
-    presetsCache = data.presets;
+    presetsCache = lightingPresetsData.presets;
     return presetsCache;
   } catch (error) {
     console.error('Failed to load lighting presets:', error);

@@ -1,15 +1,15 @@
 import { iconInputs } from '../ui.js';
 import { loadSVGFromURL, util } from 'fabric';
+import iconsData from '../icons.json';
 
 export function initIcons(canvas) {
     const { searchInput, categorySelect, iconsGrid } = iconInputs;
 
     let allIcons = [];
 
-    // Fetch icons.json
-    fetch('./icons.json')
-        .then(response => response.json())
-        .then(iconPacks => {
+    const loadIcons = () => {
+        try {
+            const iconPacks = iconsData;
             // Loop through JSON
             for (const [prefix, packData] of Object.entries(iconPacks)) {
 
@@ -31,11 +31,13 @@ export function initIcons(canvas) {
             }
             // Initial render
             renderIcons();
-        })
-        .catch(err => {
+        } catch(err) {
             console.error("Error loading icons.json:", err);
             iconsGrid.innerHTML = `<div class="text-danger small p-2">Failed to load icon configuration.</div>`;
-        })
+        }
+    };
+    
+    loadIcons();
 
     function renderIcons(filterText = '', filterCategory = 'all') {
         iconsGrid.innerHTML = ''; // Clear grid
