@@ -9,7 +9,7 @@ function createCamera(aspect = 1) {
   );
 
   // Position camera to view model at optimal distance
-  camera.position.set(0, 0, 4);
+  camera.position.set(0, 0, 2.5);
 
   return camera;
 }

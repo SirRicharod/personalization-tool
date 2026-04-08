@@ -14,7 +14,8 @@
 }
 
 .canvas {
-    width: 40%;
+    width: 45%;
+    max-width: 50%;
     height: 750px;
     padding: 1rem 0;
     gap: 1rem;
@@ -28,7 +29,7 @@
 }
 
 canvas {
-    border: 1px black dashed;
+    border: 1px black solid;
     background: transparent;
 }
 
@@ -52,9 +53,8 @@ canvas {
     color: white;
 }
 
-#3d-viewer-container {
+.viewer-container-3d {
     display: none;
-    border: 1px black dashed;
     overflow: hidden;
     z-index: 5;
     background-color: transparent;
@@ -63,7 +63,7 @@ canvas {
 .inspector {
     background: white;
     width: 38%;
-    min-width: 400px;
+    min-width: 725px;
     max-width: 50%;
     height: auto;
     padding-bottom: 2rem;

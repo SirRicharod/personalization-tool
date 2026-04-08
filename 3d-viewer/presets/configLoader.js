@@ -1,3 +1,5 @@
+import projectionConfig from './projectionConfig.json';
+
 //Loads and manages the projection configuration
 let configCache = null;
 
@@ -5,8 +7,8 @@ async function loadProjectionConfig() {
     if (configCache) return configCache;
 
     try {
-        const response = await fetch('/3d-viewer/presets/projectionConfig.json');
-        configCache = await response.json();
+        // Vite will bundle this json directly, no network request needed!
+        configCache = projectionConfig;
         return configCache;
     } catch (error) {
         console.error('Failed to load projection config:', error);

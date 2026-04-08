@@ -1,10 +1,11 @@
 class Resizer {
   constructor(container, camera, renderer) {
     const setSize = () => {
-      const width = container.clientWidth;
-      const height = container.clientHeight;
+      // Read actual footprint if visible, or fallback to the explicit inline styles we applied during preload
+      const width = container.clientWidth || parseInt(container.style.width) || 500;
+      const height = container.clientHeight || parseInt(container.style.height) || 500;
 
-      if (width === 0 || height === 0) return;
+      if (!width || !height) return;
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
