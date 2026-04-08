@@ -14,7 +14,7 @@
 }
 
 .canvas {
-    width: 50%;
+    width: 40%;
     height: 750px;
     padding: 1rem 0;
     gap: 1rem;
@@ -44,6 +44,12 @@ canvas {
     padding: 0.2rem 0.6rem;
     margin-right: 1rem;
     border-radius: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-view button:hover {
+    background: black;
+    color: white;
 }
 
 #3d-viewer-container {

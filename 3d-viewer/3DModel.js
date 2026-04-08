@@ -3,6 +3,7 @@ import { createScene } from './components/scene.js';
 import { createCamera } from './components/camera.js';
 import { createLights } from './components/lights.js';
 import { loadModel } from './components/model.js';
+import { updateModelTexture } from './components/textureProjector.js';
 
 // System imports
 import { createRenderer } from './systems/Renderer.js';
@@ -49,6 +50,12 @@ class Model {
         } catch (error) {
             console.error('Failed to initialize 3D Model:', error);
             // Optionally display a UI message here
+        }
+    }
+
+    updateTexture(canvasElement) {
+        if (model) {
+            updateModelTexture(model, canvasElement);
         }
     }
 

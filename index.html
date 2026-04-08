@@ -22,12 +22,11 @@
         <!-- Canvas/Viewport Section -->
         <section id="canvas" class="canvas">
             <h1>Viewport</h1>
-            <canvas id="main-canvas" width="700" height="700"></canvas>
-            <div id="3d-viewer-container"></div>
+            <canvas id="main-canvas" width="500" height="500"></canvas>
+            <div id="3d-viewer-container" style="display: none;"></div>
             <div class="toggle-view">
                 <button id="toggle-3d"><i class="bi bi-badge-3d-fill"></i></button>
             </div>
-            <!-- <button><i class="bi bi-pencil-square"></i></button> -->
         </section>
         <section id="inspector" class="inspector">
             <!-- Inspector Navigator Tabs -->
@@ -246,7 +245,7 @@
                                     accept="image/*">
                                 <button
                                     class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn"
-                                    id="add-image-btn">Add To Canvas</button>
+                                    id="add-image-btn">Add</button>
                             </div>
                             <!-- Crop button - 25% -->
                             <button id="img-crop-btn" class="btn btn-light border shadow-sm fw-medium text-dark">

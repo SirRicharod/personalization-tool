@@ -8,11 +8,13 @@ import { initExport } from './tabs/export.js';
 import { initIcons } from './tabs/icons.js';
 import { initQuickActions } from './quick-actions.js';
 
+const fabricCanvas = document.getElementById('main-canvas');
+
 // INITIALIZE CANVAS
 const canvas = new Canvas('main-canvas', {
     backgroundColor: '#ffffff',
-    width: 500,
-    height: 500,
+    width: fabricCanvas.width,
+    height: fabricCanvas.height,
 });
 
 const testText = new IText("Be Creative!", {
@@ -33,3 +35,5 @@ initLayers(canvas);
 initExport(canvas);
 initIcons(canvas);
 initQuickActions(canvas);
+
+export { canvas };
