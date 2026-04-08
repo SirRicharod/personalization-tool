@@ -29,7 +29,15 @@ async function loadModel(modelPath) {
     // Set model to white by default
     model.traverse((child) => {
       if (child.isMesh) {
+        if (!child.material.isMeshStandardMaterial) {
+          const newMat = new THREE.MeshStandardMaterial();
+          newMat.copy(child.material);
+          child.material = newMat;
+        }
         child.material.color.setHex(0xffffff);
+        // Make the material react better to lights by lowering roughness slightly
+        child.material.roughness = 0.6;
+        child.material.metalness = 0.1;
       }
     });
 

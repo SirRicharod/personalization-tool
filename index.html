@@ -29,765 +29,813 @@
             </div>
         </section>
         <section id="inspector" class="inspector">
-            <!-- Inspector Navigator Tabs -->
-            <nav>
-                <div class="nav nav-tabs justify-content-lg-between justify-content-md-center" id="nav-tab"
-                    role="tablist">
-                    <button class="nav-link active" id="nav-inspector-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-inspector" type="button" role="tab" aria-controls="nav-inspector"
-                        aria-selected="true">
-                        <i class="bi bi-search"></i> Inspector</button>
+            <div id="2d-controls">
+                <!-- Inspector Navigator Tabs -->
+                <nav>
+                    <div class="nav nav-tabs justify-content-lg-between justify-content-md-center" id="nav-tab"
+                        role="tablist">
+                        <button class="nav-link active" id="nav-inspector-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-inspector" type="button" role="tab" aria-controls="nav-inspector"
+                            aria-selected="true">
+                            <i class="bi bi-search"></i> Inspector</button>
 
-                    <button class="nav-link" id="nav-text-tab" data-bs-toggle="tab" data-bs-target="#nav-text"
-                        type="button" role="tab" aria-controls="nav-text" aria-selected="false">
-                        <i class="bi bi-textarea-t"></i> Text</button>
+                        <button class="nav-link" id="nav-text-tab" data-bs-toggle="tab" data-bs-target="#nav-text"
+                            type="button" role="tab" aria-controls="nav-text" aria-selected="false">
+                            <i class="bi bi-textarea-t"></i> Text</button>
 
-                    <button class="nav-link" id="nav-images-tab" data-bs-toggle="tab" data-bs-target="#nav-images"
-                        type="button" role="tab" aria-controls="nav-images" aria-selected="false">
-                        <i class="bi bi-image"></i> Images</button>
+                        <button class="nav-link" id="nav-images-tab" data-bs-toggle="tab" data-bs-target="#nav-images"
+                            type="button" role="tab" aria-controls="nav-images" aria-selected="false">
+                            <i class="bi bi-image"></i> Images</button>
 
-                    <button class="nav-link" id="nav-drawing-tab" data-bs-toggle="tab" data-bs-target="#nav-drawing"
-                        type="button" role="tab" aria-controls="nav-drawing" aria-selected="false">
-                        <i class="bi bi-marker-tip"></i> Drawing</button>
+                        <button class="nav-link" id="nav-drawing-tab" data-bs-toggle="tab" data-bs-target="#nav-drawing"
+                            type="button" role="tab" aria-controls="nav-drawing" aria-selected="false">
+                            <i class="bi bi-marker-tip"></i> Drawing</button>
 
-                    <button class="nav-link" id="nav-icons-tab" data-bs-toggle="tab" data-bs-target="#nav-icons"
-                        type="button" role="tab" aria-controls="nav-icons" aria-selected="false">
-                        <i class="bi bi-emoji-smile"></i> Icons</button>
+                        <button class="nav-link" id="nav-icons-tab" data-bs-toggle="tab" data-bs-target="#nav-icons"
+                            type="button" role="tab" aria-controls="nav-icons" aria-selected="false">
+                            <i class="bi bi-emoji-smile"></i> Icons</button>
 
-                    <button class="nav-link" id="nav-layers-tab" data-bs-toggle="tab" data-bs-target="#nav-layers"
-                        type="button" role="tab" aria-controls="nav-layers" aria-selected="false">
-                        <i class="bi bi-layers-half"></i> Layers</button>
+                        <button class="nav-link" id="nav-layers-tab" data-bs-toggle="tab" data-bs-target="#nav-layers"
+                            type="button" role="tab" aria-controls="nav-layers" aria-selected="false">
+                            <i class="bi bi-layers-half"></i> Layers</button>
 
-                    <button class="nav-link" id="nav-export-tab" data-bs-toggle="tab" data-bs-target="#nav-export"
-                        type="button" role="tab" aria-controls="nav-export" aria-selected="false">
-                        <i class="bi bi-file-earmark-arrow-up"></i> Export</button>
-                </div>
-            </nav>
-
-            <div class="tab-content" id="nav-tabContent">
-                <!-- Inspector Window -->
-                <div class="tab-pane fade show active" id="nav-inspector" role="tabpanel"
-                    aria-labelledby="nav-inspector-tab">
-
-                    <!-- Position & Rotation Field -->
-                    <div class="tab">
-                        Position & Rotation
+                        <button class="nav-link" id="nav-export-tab" data-bs-toggle="tab" data-bs-target="#nav-export"
+                            type="button" role="tab" aria-controls="nav-export" aria-selected="false">
+                            <i class="bi bi-file-earmark-arrow-up"></i> Export</button>
                     </div>
-                    <section id="position-rotation" class="inspector-field">
-                        <div>
-                            <div class="d-flex justify-content-center align-content-center text-center gap-3">
-                                <div class="inspector-input">
-                                    <label for="pos-rot-top">Top</label><br>
-                                    <input type="number" name="pos-rot-top" id="pos-rot-top" placeholder="45">
-                                </div>
-                                <div class="inspector-input">
-                                    <label for="pos-rot-left">Left</label><br>
-                                    <input type="number" name="pos-rot-left" id="pos-rot-left" placeholder="45">
-                                </div>
-                                <div class="inspector-input">
-                                    <label for="pos-rot-angle">Angle</label><br>
-                                    <input type="number" name="pos-rot-angle" id="pos-rot-angle" placeholder="33">
-                                </div>
-                            </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <!-- Inspector Window -->
+                    <div class="tab-pane fade show active" id="nav-inspector" role="tabpanel"
+                        aria-labelledby="nav-inspector-tab">
+
+                        <!-- Position & Rotation Field -->
+                        <div class="tab">
+                            Position & Rotation
                         </div>
-                    </section>
-
-                    <!-- Size Field -->
-                    <div class="tab">
-                        Size
-                    </div>
-                    <section id="size" class="inspector-field">
-                        <div>
-                            <div class="d-flex justify-content-center align-content-center text-center gap-3">
-                                <div class="inspector-input w-50">
-                                    <label for="size-width">Width</label><br>
-                                    <input type="number" name="size-width" id="size-width" placeholder="150">
-                                </div>
-                                <div class="inspector-input w-50">
-                                    <label for="size-height">Height</label><br>
-                                    <input type="number" name="size-height" id="size-height" placeholder="50">
+                        <section id="position-rotation" class="inspector-field">
+                            <div>
+                                <div class="d-flex justify-content-center align-content-center text-center gap-3">
+                                    <div class="inspector-input">
+                                        <label for="pos-rot-top">Top</label><br>
+                                        <input type="number" name="pos-rot-top" id="pos-rot-top" placeholder="45">
+                                    </div>
+                                    <div class="inspector-input">
+                                        <label for="pos-rot-left">Left</label><br>
+                                        <input type="number" name="pos-rot-left" id="pos-rot-left" placeholder="45">
+                                    </div>
+                                    <div class="inspector-input">
+                                        <label for="pos-rot-angle">Angle</label><br>
+                                        <input type="number" name="pos-rot-angle" id="pos-rot-angle" placeholder="33">
+                                    </div>
                                 </div>
                             </div>
+                        </section>
+
+                        <!-- Size Field -->
+                        <div class="tab">
+                            Size
                         </div>
-                    </section>
-
-                    <!-- Color Field -->
-                    <div class="tab">
-                        Color
-                    </div>
-                    <section id="color" class="inspector-field">
-                        <div>
-                            <div class="d-flex justify-content-center align-content-center text-center gap-3">
-                                <div class="inspector-input">
-                                    <label for="color-fill">Fill</label><br>
-                                    <input type="color" name="color-fill" id="color-fill">
-                                </div>
-                                <div class="inspector-input">
-                                    <label for="color-stroke">Stroke</label><br>
-                                    <input type="color" name="color-stroke" id="color-stroke">
-                                </div>
-                                <div class="inspector-input">
-                                    <label for="stroke-width">Stroke Width</label><br>
-                                    <input type="number" name="stroke-width" id="stroke-width" placeholder="10">
+                        <section id="size" class="inspector-field">
+                            <div>
+                                <div class="d-flex justify-content-center align-content-center text-center gap-3">
+                                    <div class="inspector-input w-50">
+                                        <label for="size-width">Width</label><br>
+                                        <input type="number" name="size-width" id="size-width" placeholder="150">
+                                    </div>
+                                    <div class="inspector-input w-50">
+                                        <label for="size-height">Height</label><br>
+                                        <input type="number" name="size-height" id="size-height" placeholder="50">
+                                    </div>
                                 </div>
                             </div>
+                        </section>
+
+                        <!-- Color Field -->
+                        <div class="tab">
+                            Color
                         </div>
-                    </section>
-                </div>
-
-                <!-- Text Window -->
-                <div class="tab-pane fade" id="nav-text" role="tabpanel" aria-labelledby="nav-text-tab">
-                    <!-- Text Content -->
-                    <div class="tab">
-                        Text Content
-                    </div>
-                    <section id="text-content" class="inspector-field">
-                        <div class="d-flex w-100 px-2">
-                            <input type="text" name="text-content-input" id="text-content-input"
-                                class="form-control border-0 text-input-field flex-grow-1"
-                                placeholder="Your text here...">
-                            <button class="btn btn-primary add-text-btn text-nowrap" id="add-text-btn">Add Text</button>
-                        </div>
-                    </section>
-
-                    <!-- Text Font and Size -->
-                    <div class="tab">
-                        Font
-                    </div>
-                    <section id="text-font" class="inspector-field">
-                        <div>
-                            <!-- Font Family and Size -->
-                            <div class="d-flex justify-content-between align-content-center text-center gap-3">
-                                <div class="inspector-input font-family flex-grow-1">
-                                    <label for="font-family">Font Family</label><br>
-                                    <select name="font-family" id="font-family"
-                                        class="form-select border-0 mx-auto mt-1 px-2 py-1">
-                                        <option value="Arial">Arial</option>
-                                        <option value="Helvetica">Helvetica</option>
-                                        <option value="Times New Roman">Times New Roman</option>
-                                        <option value="Courier New">Courier New</option>
-                                        <option value="Verdana">Verdana</option>
-                                        <option value="Georgia">Georgia</option>
-                                    </select>
-                                </div>
-                                <div class="inspector-input w-25">
-                                    <label for="font-size">Font Size</label><br>
-                                    <input type="number" name="font-size" id="font-size" placeholder="43">
+                        <section id="color" class="inspector-field">
+                            <div>
+                                <div class="d-flex justify-content-center align-content-center text-center gap-3">
+                                    <div class="inspector-input">
+                                        <label for="color-fill">Fill</label><br>
+                                        <input type="color" name="color-fill" id="color-fill">
+                                    </div>
+                                    <div class="inspector-input">
+                                        <label for="color-stroke">Stroke</label><br>
+                                        <input type="color" name="color-stroke" id="color-stroke">
+                                    </div>
+                                    <div class="inspector-input">
+                                        <label for="stroke-width">Stroke Width</label><br>
+                                        <input type="number" name="stroke-width" id="stroke-width" placeholder="10">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-
-                    <!-- Text Styling & Alignment -->
-                    <div class="tab">
-                        Styling & Alignment
+                        </section>
                     </div>
-                    <section id="text-styling" class="inspector-field">
-                        <div class="d-flex justify-content-center gap-3">
-                            <!-- Styling Buttons -->
-                            <div class="btn-group flex-fill" role="group">
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-bold-btn"><i
-                                        class="bi bi-type-bold"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-italic-btn"><i
-                                        class="bi bi-type-italic"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-underline-btn"><i
-                                        class="bi bi-type-underline"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-linethrough-btn"><i
-                                        class="bi bi-type-strikethrough"></i></button>
-                            </div>
-                            <!-- Alignment Buttons -->
-                            <div class="btn-group flex-fill" role="group">
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-left-btn"><i
-                                        class="bi bi-text-left"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-center-btn"><i
-                                        class="bi bi-text-center"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-right-btn"><i
-                                        class="bi bi-text-right"></i></button>
-                                <button type="button" class="btn btn-primary py-2 fs-5" id="text-justify-btn"><i
-                                        class="bi bi-justify"></i></button>
-                            </div>
-                        </div>
-                    </section>
 
-                    <!-- Line Height and Spacing -->
-                    <div class="tab">
-                        Typography
-                    </div>
-                    <section id="text-typography" class="inspector-field">
-                        <div>
-                            <div class="d-flex justify-content-center align-content-center text-center gap-3">
-                                <div class="inspector-input flex-grow-1">
-                                    <label for="font-line-height">Line Height</label><br>
-                                    <input type="number" name="font-line-height" id="font-line-height" placeholder="43">
-                                </div>
-                                <div class="inspector-input flex-grow-1">
-                                    <label for="font-spacing">Letter Spacing</label><br>
-                                    <input type="number" name="font-spacing" id="font-spacing" placeholder="43">
+                    <!-- Text Window -->
+                    <div class="tab-pane fade" id="nav-text" role="tabpanel" aria-labelledby="nav-text-tab">
+                        <!-- Text Content -->
+                        <div class="tab">
+                            Text Content
+                        </div>
+                        <section id="text-content" class="inspector-field">
+                            <div class="d-flex w-100 px-2">
+                                <input type="text" name="text-content-input" id="text-content-input"
+                                    class="form-control border-0 text-input-field flex-grow-1"
+                                    placeholder="Your text here...">
+                                <button class="btn btn-primary add-text-btn text-nowrap" id="add-text-btn">Add
+                                    Text</button>
+                            </div>
+                        </section>
+
+                        <!-- Text Font and Size -->
+                        <div class="tab">
+                            Font
+                        </div>
+                        <section id="text-font" class="inspector-field">
+                            <div>
+                                <!-- Font Family and Size -->
+                                <div class="d-flex justify-content-between align-content-center text-center gap-3">
+                                    <div class="inspector-input font-family flex-grow-1">
+                                        <label for="font-family">Font Family</label><br>
+                                        <select name="font-family" id="font-family"
+                                            class="form-select border-0 mx-auto mt-1 px-2 py-1">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Helvetica">Helvetica</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Courier New">Courier New</option>
+                                            <option value="Verdana">Verdana</option>
+                                            <option value="Georgia">Georgia</option>
+                                        </select>
+                                    </div>
+                                    <div class="inspector-input w-25">
+                                        <label for="font-size">Font Size</label><br>
+                                        <input type="number" name="font-size" id="font-size" placeholder="43">
+                                    </div>
                                 </div>
                             </div>
+                        </section>
+
+                        <!-- Text Styling & Alignment -->
+                        <div class="tab">
+                            Styling & Alignment
                         </div>
-                    </section>
-                </div>
-
-                <!-- Image Window -->
-                <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
-
-                    <!-- Upload Image -->
-                    <div class="tab">
-                        Upload Image
-                    </div>
-                    <section class="inspector-field pb-3">
-                        <div class="upload-container d-flex justify-content-center align-items-center gap-3">
-                            <!-- Image input and add button - 75% -->
-                            <div class="upload-input-wrapper">
-                                <input type="file" name="image-upload" id="image-upload"
-                                    class="form-control border-0 bg-white text-input-field flex-grow-1"
-                                    accept="image/*">
-                                <button
-                                    class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn"
-                                    id="add-image-btn">Add</button>
+                        <section id="text-styling" class="inspector-field">
+                            <div class="d-flex justify-content-center gap-3">
+                                <!-- Styling Buttons -->
+                                <div class="btn-group flex-fill" role="group">
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-bold-btn"><i
+                                            class="bi bi-type-bold"></i></button>
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-italic-btn"><i
+                                            class="bi bi-type-italic"></i></button>
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-underline-btn"><i
+                                            class="bi bi-type-underline"></i></button>
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-linethrough-btn"><i
+                                            class="bi bi-type-strikethrough"></i></button>
+                                </div>
+                                <!-- Alignment Buttons -->
+                                <div class="btn-group flex-fill" role="group">
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-left-btn"><i
+                                            class="bi bi-text-left"></i></button>
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-center-btn"><i
+                                            class="bi bi-text-center"></i></button>
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-right-btn"><i
+                                            class="bi bi-text-right"></i></button>
+                                    <button type="button" class="btn btn-primary py-2 fs-5" id="text-justify-btn"><i
+                                            class="bi bi-justify"></i></button>
+                                </div>
                             </div>
-                            <!-- Crop button - 25% -->
-                            <button id="img-crop-btn" class="btn btn-light border shadow-sm fw-medium text-dark">
-                                <i class="bi bi-crop fs-5"></i> Crop
+                        </section>
+
+                        <!-- Line Height and Spacing -->
+                        <div class="tab">
+                            Typography
+                        </div>
+                        <section id="text-typography" class="inspector-field">
+                            <div>
+                                <div class="d-flex justify-content-center align-content-center text-center gap-3">
+                                    <div class="inspector-input flex-grow-1">
+                                        <label for="font-line-height">Line Height</label><br>
+                                        <input type="number" name="font-line-height" id="font-line-height"
+                                            placeholder="43">
+                                    </div>
+                                    <div class="inspector-input flex-grow-1">
+                                        <label for="font-spacing">Letter Spacing</label><br>
+                                        <input type="number" name="font-spacing" id="font-spacing" placeholder="43">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Image Window -->
+                    <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
+
+                        <!-- Upload Image -->
+                        <div class="tab">
+                            Upload Image
+                        </div>
+                        <section class="inspector-field pb-3">
+                            <div class="upload-container d-flex justify-content-center align-items-center gap-3">
+                                <!-- Image input and add button - 75% -->
+                                <div class="upload-input-wrapper">
+                                    <input type="file" name="image-upload" id="image-upload"
+                                        class="form-control border-0 bg-white text-input-field flex-grow-1"
+                                        accept="image/*">
+                                    <button
+                                        class="btn btn-primary border-0 text-nowrap px-3 fw-medium text-white add-text-btn"
+                                        id="add-image-btn">Add</button>
+                                </div>
+                                <!-- Crop button - 25% -->
+                                <button id="img-crop-btn" class="btn btn-light border shadow-sm fw-medium text-dark">
+                                    <i class="bi bi-crop fs-5"></i> Crop
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Adjustments & Filters -->
+                        <div class="tab">
+                            Adjustments & Filters
+                        </div>
+                        <!-- Bootstrap Accordion to save space -->
+                        <section class="inspector-field p-0 border-0 bg-transparent">
+                            <div class="accordion" id="imageFiltersAccordion">
+
+                                <!-- Adjustments -->
+                                <div class="accordion-item border-0 bg-transparent mb-2">
+                                    <h2 class="accordion-header">
+                                        <button
+                                            class="accordion-button rounded fw-medium shadow-none accordion-coral-btn"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#coreAdjustments">
+                                            Adjustments
+                                        </button>
+                                    </h2>
+                                    <div id="coreAdjustments" class="accordion-collapse collapse show"
+                                        data-bs-parent="#imageFiltersAccordion">
+                                        <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
+                                            <div class="row g-3">
+                                                <!-- Brightness -->
+                                                <div class="col-6 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Brightness</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
+                                                            value="50" id="img-bright-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-bright-slider">
+                                                    </div>
+                                                </div>
+                                                <!-- Saturation -->
+                                                <div class="col-6 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Saturation</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
+                                                            value="50" id="img-sat-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-sat-slider">
+                                                    </div>
+                                                </div>
+                                                <!-- Contrast -->
+                                                <div class="col-6 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Contrast</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
+                                                            value="50" id="img-contrast-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-contrast-slider">
+                                                    </div>
+                                                </div>
+                                                <!-- Blur -->
+                                                <div class="col-6 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Blur</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
+                                                            value="0" id="img-blur-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="0"
+                                                            id="img-blur-slider">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Filters -->
+                                <div class="accordion-item border-0 bg-transparent mb-2">
+                                    <h2 class="accordion-header">
+                                        <button
+                                            class="accordion-button collapsed rounded fw-medium shadow-none accordion-coral-btn"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#photoFilters">
+                                            Filters
+                                        </button>
+                                    </h2>
+                                    <div id="photoFilters" class="accordion-collapse collapse"
+                                        data-bs-parent="#imageFiltersAccordion">
+                                        <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
+                                            <div class="d-flex overflow-auto gap-3 pb-2 preset-filters-scroll">
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-normal">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Normal</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-sepia">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Sepia</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-bw">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">B&W</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-vintage">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Vintage</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-warm">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Warm</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-cool">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Cool</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-polaroid">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Polaroid</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-technicolor">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Technicolor</span>
+                                                </button>
+                                                <button
+                                                    class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
+                                                    id="img-filter-invert">
+                                                    <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
+                                                        class="fw-bold">Invert</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Advanced Tools -->
+                                <div class="accordion-item border-0 bg-transparent">
+                                    <h2 class="accordion-header">
+                                        <button
+                                            class="accordion-button collapsed rounded fw-medium shadow-none accordion-coral-btn"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters">
+                                            Advanced Tools
+                                        </button>
+                                    </h2>
+                                    <div id="advancedFilters" class="accordion-collapse collapse"
+                                        data-bs-parent="#imageFiltersAccordion">
+                                        <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
+
+                                            <!-- Row 1: Noise, Pixelate, Blend -->
+                                            <div class="row g-4 mb-3 align-items-center">
+                                                <div class="col-4 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Noise</label>
+                                                    <div class="d-flex align-items-center gap-1 px-1">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border shadow-sm val-input-sm p-1"
+                                                            value="50" id="img-noise-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-noise-slider">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Pixelate</label>
+                                                    <div class="d-flex align-items-center gap-1 px-1">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border shadow-sm val-input-sm p-1"
+                                                            value="50" id="img-pixel-val">
+                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            id="img-pixel-slider">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <label class="fw-bold small mb-1 text-dark">Color Blend</label>
+                                                    <div class="d-flex align-items-center justify-content-center gap-1">
+                                                        <select
+                                                            class="form-select form-select-sm border shadow-sm py-1 flex-grow-1 text-xs px-1"
+                                                            id="img-blend-mode">
+                                                            <option>normal</option>
+                                                            <option>multiply</option>
+                                                            <option>difference</option>
+                                                            <option>overlay</option>
+                                                            <option>screen</option>
+                                                            <option>darken</option>
+                                                            <option>lighten</option>
+                                                            <option>subtract</option>
+                                                            <option>exclusion</option>
+                                                        </select>
+                                                        <input type="color"
+                                                            class="form-control form-control-color p-1 shadow-sm w-50"
+                                                            value="#000000" title="Choose blend color"
+                                                            id="img-blend-color">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 2: Gamma -->
+                                            <div class="mb-3 text-center">
+                                                <label
+                                                    class="fw-bold small d-block text-start mb-2 px-1 text-dark">Gamma</label>
+                                                <div class="row g-4">
+                                                    <div class="col-4">
+                                                        <div class="d-flex align-items-center gap-1 mb-1">
+                                                            <input type="number"
+                                                                class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
+                                                                value="50" id="img-gamma-red-val">
+                                                            <input type="range" class="form-range flex-grow-1"
+                                                                value="50" id="img-gamma-red-slider">
+                                                        </div>
+                                                        <span class="fw-bold text-xxs">Red</span>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="d-flex align-items-center gap-1 mb-1">
+                                                            <input type="number"
+                                                                class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
+                                                                value="50" id="img-gamma-green-val">
+                                                            <input type="range" class="form-range flex-grow-1"
+                                                                value="50" id="img-gamma-green-slider">
+                                                        </div>
+                                                        <span class="fw-bold text-xxs">Green</span>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="d-flex align-items-center gap-1 mb-1">
+                                                            <input type="number"
+                                                                class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
+                                                                value="50" id="img-gamma-blue-val">
+                                                            <input type="range" class="form-range flex-grow-1"
+                                                                value="50" id="img-gamma-blue-slider">
+                                                        </div>
+                                                        <span class="fw-bold text-xxs">Blue</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 3: Remove Color -->
+                                            <div>
+                                                <label
+                                                    class="fw-bold small d-block text-start mb-2 px-1 text-dark">Remove
+                                                    Color</label>
+                                                <div class="d-flex align-items-center gap-2 px-1">
+                                                    <div class="w-25">
+                                                        <input type="color"
+                                                            class="form-control form-control-color w-100 p-1 shadow-sm"
+                                                            value="#000000" title="Choose color to remove"
+                                                            id="img-remove-color">
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center border shadow-sm val-input-sm"
+                                                            value="50" id="img-remove-val">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <input type="range" class="form-range w-100" value="50"
+                                                            id="img-remove-slider">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Drawing Window -->
+                    <div class="tab-pane fade" id="nav-drawing" role="tabpanel" aria-labelledby="nav-drawing-tab">
+
+                        <!-- Brushes & Tools (Combined to save space) -->
+                        <div class="tab">
+                            Brushes
+                        </div>
+                        <section id="brush-selection" class="inspector-field">
+                            <!-- Start Drawing Toggle at the top -->
+                            <button type="button" class="btn btn-primary w-100 py-2 fs-5 fw-medium mb-3"
+                                id="draw-toggle-btn">
+                                <i class="bi bi-pencil-square"></i> Start Drawing
+                            </button>
+
+                            <div class="row row-cols-5 g-2 text-center">
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-pencil-btn">
+                                        <i class="bi bi-pencil-fill"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Pencil</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-circle-btn">
+                                        <i class="bi bi-circle-fill"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Circle</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-spray-btn">
+                                        <i class="bi bi-droplet-fill"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Spray</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-grid-btn">
+                                        <i class="bi bi-grid-3x3"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Grid</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-circle-pattern-btn">
+                                        <i class="bi bi-circle"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Circle Pattern</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-h-line-btn">
+                                        <i class="bi bi-dash-lg"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">H-line</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-v-line-btn">
+                                        <i class="bi bi-dash-lg" style="transform: rotate(90deg);"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">V-line</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-crosshatch-btn">
+                                        <i class="bi bi-hash"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Crosshatch</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-texture-btn">
+                                        <i class="bi bi-bricks"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Texture</small>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary text-white brush-btn"
+                                        id="brush-eraser-btn">
+                                        <i class="bi bi-eraser-fill"></i></button>
+                                    <small class="d-block mt-1 fw-medium lh-1">Eraser</small>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Settings (Compacted gaps) -->
+                        <div class="tab">
+                            Settings
+                        </div>
+                        <section id="brush-settings" class="inspector-field">
+                            <div class="row align-items-center">
+                                <!-- Left Side: Sliders -->
+                                <div class="col-8 d-flex flex-column gap-2">
+                                    <div>
+                                        <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
+                                            <label for="brush-size" class="mb-0">Brush Size</label>
+                                            <span id="brush-size-val">5</span>
+                                        </div>
+                                        <input type="range" class="form-range" id="brush-size" min="1" max="100"
+                                            value="5">
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
+                                            <label for="shadow-size" class="mb-0">Shadow Size</label>
+                                            <span id="shadow-size-val">3</span>
+                                        </div>
+                                        <input type="range" class="form-range" id="shadow-size" min="0" max="100"
+                                            value="3">
+                                    </div>
+                                    <div class="d-flex w-100 gap-4">
+                                        <div class="w-50">
+                                            <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
+                                                <label for="shadow-offset-x" class="mb-0">Shadow Offset X</label>
+                                                <span id="shadow-offset-x-val">8</span>
+                                            </div>
+                                            <input type="range" class="form-range" id="shadow-offset-x" min="-50"
+                                                max="50" value="8">
+                                        </div>
+                                        <div class="w-50">
+                                            <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
+                                                <label for="shadow-offset-y" class="mb-0">Shadow Offset Y</label>
+                                                <span id="shadow-offset-y-val">8</span>
+                                            </div>
+                                            <input type="range" class="form-range" id="shadow-offset-y" min="-50"
+                                                max="50" value="8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Side: Colors -->
+                                <div class="col-4 d-flex flex-column gap-2 text-center align-items-center">
+                                    <div class="inspector-input w-100 pb-2">
+                                        <label for="brush-color" class="lh-1 mb-1 mt-1">Line Color</label><br>
+                                        <input type="color" name="brush-color" id="brush-color" value="#000000">
+                                    </div>
+                                    <div class="inspector-input w-100 pb-2">
+                                        <label for="brush-shadow" class="lh-1 mb-1 mt-1">Shadow Color</label><br>
+                                        <input type="color" name="brush-shadow" id="brush-shadow" value="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Texture Source -->
+                            <div id="texture-settings" class="mt-3 pt-3 border-top border-white border-2">
+                                <div class="fw-bold mb-2">Texture Source</div>
+                                <div>
+                                    <input class="form-control form-control-sm border-0 bg-white" type="file"
+                                        id="texture-upload" accept="image/*">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Icons Window -->
+                    <div class="tab-pane fade" id="nav-icons" role="tabpanel" aria-labelledby="nav-icons-tab">
+
+                        <div class="tab d-flex justify-content-between align-items-center">
+                            <span>Graphics</span>
+                        </div>
+
+                        <section class="inspector-field pb-3">
+                            <!-- Search and Category Filters -->
+                            <div class="d-flex gap-2 mb-3">
+                                <input type="text"
+                                    class="form-control form-control-sm border-0 flex-grow-1 shadow-sm px-3"
+                                    id="icon-search-input" placeholder="Search graphics...">
+                                <select id="icon-category-select"
+                                    class="form-select form-select-sm border-0 shadow-sm w-50">
+                                    <!-- Other options are generated by JS -->
+                                    <option value="all">All Packs</option>
+                                </select>
+                            </div>
+
+                            <!-- Scrollable Grid Container -->
+                            <div class="bg-white rounded p-3 shadow-sm overflow-y-scroll h-75">
+                                <!-- CSS Grid for Icons -->
+                                <div id="icons-grid" class="d-grid gap-2"
+                                    style="grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));">
+                                    <!-- Icons generated by JS -->
+                                    <div class="text-center w-100 text-muted small mt-4" style="grid-column: 1 / -1;">
+                                        <div class="spinner-border spinner-border-sm text-primary mb-2" role="status">
+                                        </div>
+                                        <br>
+                                        Loading Graphics Library...
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+
+                    <!-- Layer Window -->
+                    <div class="tab-pane fade" id="nav-layers" role="tabpanel" aria-labelledby="nav-layers-tab">
+
+                        <div class="tab">
+                            Layers
+                        </div>
+                        <section class="inspector-field pb-3">
+                            <div id="layers-container" class="layers-scroll-container bg-transparent pe-2">
+                                <!-- Dynamically inject layers -->
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Export Window -->
+                    <div class="tab-pane fade" id="nav-export" role="tabpanel" aria-labelledby="nav-export-tab">
+                        <div class="tab">
+                            Canvas Settings
+                        </div>
+                        <section class="inspector-field pb-3">
+                            <div class="d-flex gap-3 align-items-center mb-2">
+                                <div class="w-25">
+                                    <label for="canvas-bg-color" class="form-label mb-1 fw-bold"
+                                        title="Background Color">
+                                        <i class="bi bi-palette"></i></label>
+                                    <input type="color" class="form-control form-control-color border-0 p-1 w-100"
+                                        id="canvas-bg-color" value="#ffffff">
+                                </div>
+                                <div class="flex-fill">
+                                    <label for="canvas-bg-image" class="fw-bold form-label mb-1">Background
+                                        Image</label>
+                                    <input type="file" class="form-control form-control-sm border-0"
+                                        id="canvas-bg-image" accept="image/*">
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="tab">
+                            Export
+                        </div>
+                        <section class="inspector-field pb-3">
+                            <!-- Export Formats & Options -->
+                            <div class="d-flex align-items-center gap-3 mb-3 border-bottom border-white border-2 pb-3">
+                                <label for="export-format" class="fw-bold text-dark small mb-0">
+                                    Options:</label>
+                                <select id="export-format" class="form-select form-select-sm w-auto border-0 shadow-sm">
+                                    <option value="png">PNG</option>
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="svg">SVG</option>
+                                </select>
+
+                                <div class="form-check form-switch mb-0 ms-auto">
+                                    <input class="form-check-input shadow-none" type="checkbox"
+                                        id="export-transparent-bg">
+                                    <label class="form-check-label small text-dark"
+                                        for="export-transparent-bg">Transparent
+                                        Background</label>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap gap-2 justify-content-between mb-3">
+                                <button id="export-canvas-btn"
+                                    class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2"
+                                    title="Export Canvas (high-res)">Export Canvas</button>
+                                <button id="export-json-btn"
+                                    class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2"
+                                    title="Copy JSON to clipboard">Copy JSON</button>
+                                <button id="import-json-btn"
+                                    class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2"
+                                    title="Import Valid JSON">Import JSON</button>
+                            </div>
+                            <div class="bg-white rounded overflow-hidden shadow-sm">
+                                <textarea id="json-io-textarea"
+                                    class="form-control border-0 shadow-none json-textarea w-100" rows="12"
+                                    placeholder="Paste JSON here..."></textarea>
+                            </div>
+                        </section>
+
+                    </div>
+                    <!-- Quick Actions Toolbar -->
+                    <div id="quick-actions-toolbar" class="quick-actions-bar d-flex gap-3 shadow-sm p-2">
+                        <div class="d-flex gap-2">
+                            <button id="qa-flip-x-btn" class="action-btn" title="Flip Horizontal">
+                                <i class="bi bi-symmetry-vertical"></i>
+                            </button>
+                            <button id="qa-flip-y-btn" class="action-btn" title="Flip Vertical">
+                                <i class="bi bi-symmetry-horizontal"></i>
+                            </button>
+                            <button id="qa-clone-btn" class="action-btn" title="Clone">
+                                <i class="bi bi-copy"></i>
                             </button>
                         </div>
-                    </section>
-
-                    <!-- Adjustments & Filters -->
-                    <div class="tab">
-                        Adjustments & Filters
-                    </div>
-                    <!-- Bootstrap Accordion to save space -->
-                    <section class="inspector-field p-0 border-0 bg-transparent">
-                        <div class="accordion" id="imageFiltersAccordion">
-
-                            <!-- Adjustments -->
-                            <div class="accordion-item border-0 bg-transparent mb-2">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button rounded fw-medium shadow-none accordion-coral-btn"
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#coreAdjustments">
-                                        Adjustments
-                                    </button>
-                                </h2>
-                                <div id="coreAdjustments" class="accordion-collapse collapse show"
-                                    data-bs-parent="#imageFiltersAccordion">
-                                    <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
-                                        <div class="row g-3">
-                                            <!-- Brightness -->
-                                            <div class="col-6 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Brightness</label>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="50" id="img-bright-val">
-                                                    <input type="range" class="form-range flex-grow-1" value="50"
-                                                        id="img-bright-slider">
-                                                </div>
-                                            </div>
-                                            <!-- Saturation -->
-                                            <div class="col-6 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Saturation</label>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="50" id="img-sat-val">
-                                                    <input type="range" class="form-range flex-grow-1" value="50"
-                                                        id="img-sat-slider">
-                                                </div>
-                                            </div>
-                                            <!-- Contrast -->
-                                            <div class="col-6 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Contrast</label>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="50" id="img-contrast-val">
-                                                    <input type="range" class="form-range flex-grow-1" value="50"
-                                                        id="img-contrast-slider">
-                                                </div>
-                                            </div>
-                                            <!-- Blur -->
-                                            <div class="col-6 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Blur</label>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                        value="0" id="img-blur-val">
-                                                    <input type="range" class="form-range flex-grow-1" value="0"
-                                                        id="img-blur-slider">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Filters -->
-                            <div class="accordion-item border-0 bg-transparent mb-2">
-                                <h2 class="accordion-header">
-                                    <button
-                                        class="accordion-button collapsed rounded fw-medium shadow-none accordion-coral-btn"
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#photoFilters">
-                                        Filters
-                                    </button>
-                                </h2>
-                                <div id="photoFilters" class="accordion-collapse collapse"
-                                    data-bs-parent="#imageFiltersAccordion">
-                                    <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
-                                        <div class="d-flex overflow-auto gap-3 pb-2 preset-filters-scroll">
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-normal">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Normal</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-sepia">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Sepia</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-bw">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">B&W</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-vintage">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Vintage</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-warm">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Warm</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-cool">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Cool</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-polaroid">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Polaroid</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-technicolor">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Technicolor</span>
-                                            </button>
-                                            <button
-                                                class="btn btn-primary border d-flex flex-column align-items-center justify-content-center flex-shrink-0 shadow-sm filter-thumb-btn"
-                                                id="img-filter-invert">
-                                                <i class="bi bi-image fs-4 mb-1 lh-1"></i><span
-                                                    class="fw-bold">Invert</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Advanced Tools -->
-                            <div class="accordion-item border-0 bg-transparent">
-                                <h2 class="accordion-header">
-                                    <button
-                                        class="accordion-button collapsed rounded fw-medium shadow-none accordion-coral-btn"
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters">
-                                        Advanced Tools
-                                    </button>
-                                </h2>
-                                <div id="advancedFilters" class="accordion-collapse collapse"
-                                    data-bs-parent="#imageFiltersAccordion">
-                                    <div class="accordion-body bg-white rounded mt-1 p-3 border-0">
-
-                                        <!-- Row 1: Noise, Pixelate, Blend -->
-                                        <div class="row g-4 mb-3 align-items-center">
-                                            <div class="col-4 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Noise</label>
-                                                <div class="d-flex align-items-center gap-1 px-1">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border shadow-sm val-input-sm p-1"
-                                                        value="50" id="img-noise-val">
-                                                    <input type="range" class="form-range flex-grow-1" value="50"
-                                                        id="img-noise-slider">
-                                                </div>
-                                            </div>
-                                            <div class="col-4 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Pixelate</label>
-                                                <div class="d-flex align-items-center gap-1 px-1">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border shadow-sm val-input-sm p-1"
-                                                        value="50" id="img-pixel-val">
-                                                    <input type="range" class="form-range flex-grow-1" value="50"
-                                                        id="img-pixel-slider">
-                                                </div>
-                                            </div>
-                                            <div class="col-4 text-center">
-                                                <label class="fw-bold small mb-1 text-dark">Color Blend</label>
-                                                <div class="d-flex align-items-center justify-content-center gap-1">
-                                                    <select
-                                                        class="form-select form-select-sm border shadow-sm py-1 flex-grow-1 text-xs px-1"
-                                                        id="img-blend-mode">
-                                                        <option>normal</option>
-                                                        <option>multiply</option>
-                                                        <option>difference</option>
-                                                        <option>overlay</option>
-                                                        <option>screen</option>
-                                                        <option>darken</option>
-                                                        <option>lighten</option>
-                                                        <option>subtract</option>
-                                                        <option>exclusion</option>
-                                                    </select>
-                                                    <input type="color"
-                                                        class="form-control form-control-color p-1 shadow-sm w-50"
-                                                        value="#000000" title="Choose blend color" id="img-blend-color">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Row 2: Gamma -->
-                                        <div class="mb-3 text-center">
-                                            <label
-                                                class="fw-bold small d-block text-start mb-2 px-1 text-dark">Gamma</label>
-                                            <div class="row g-4">
-                                                <div class="col-4">
-                                                    <div class="d-flex align-items-center gap-1 mb-1">
-                                                        <input type="number"
-                                                            class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
-                                                            value="50" id="img-gamma-red-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="50"
-                                                            id="img-gamma-red-slider">
-                                                    </div>
-                                                    <span class="fw-bold text-xxs">Red</span>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="d-flex align-items-center gap-1 mb-1">
-                                                        <input type="number"
-                                                            class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
-                                                            value="50" id="img-gamma-green-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="50"
-                                                            id="img-gamma-green-slider">
-                                                    </div>
-                                                    <span class="fw-bold text-xxs">Green</span>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="d-flex align-items-center gap-1 mb-1">
-                                                        <input type="number"
-                                                            class="form-control form-control-sm p-1 text-center border shadow-sm val-input-sm"
-                                                            value="50" id="img-gamma-blue-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="50"
-                                                            id="img-gamma-blue-slider">
-                                                    </div>
-                                                    <span class="fw-bold text-xxs">Blue</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Row 3: Remove Color -->
-                                        <div>
-                                            <label class="fw-bold small d-block text-start mb-2 px-1 text-dark">Remove
-                                                Color</label>
-                                            <div class="d-flex align-items-center gap-2 px-1">
-                                                <div class="w-25">
-                                                    <input type="color"
-                                                        class="form-control form-control-color w-100 p-1 shadow-sm"
-                                                        value="#000000" title="Choose color to remove"
-                                                        id="img-remove-color">
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <input type="number"
-                                                        class="form-control form-control-sm text-center border shadow-sm val-input-sm"
-                                                        value="50" id="img-remove-val">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <input type="range" class="form-range w-100" value="50"
-                                                        id="img-remove-slider">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Drawing Window -->
-                <div class="tab-pane fade" id="nav-drawing" role="tabpanel" aria-labelledby="nav-drawing-tab">
-
-                    <!-- Brushes & Tools (Combined to save space) -->
-                    <div class="tab">
-                        Brushes
-                    </div>
-                    <section id="brush-selection" class="inspector-field">
-                        <!-- Start Drawing Toggle at the top -->
-                        <button type="button" class="btn btn-primary w-100 py-2 fs-5 fw-medium mb-3"
-                            id="draw-toggle-btn">
-                            <i class="bi bi-pencil-square"></i> Start Drawing
-                        </button>
-
-                        <div class="row row-cols-5 g-2 text-center">
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-pencil-btn">
-                                    <i class="bi bi-pencil-fill"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Pencil</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-circle-btn">
-                                    <i class="bi bi-circle-fill"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Circle</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn" id="brush-spray-btn">
-                                    <i class="bi bi-droplet-fill"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Spray</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn" id="brush-grid-btn">
-                                    <i class="bi bi-grid-3x3"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Grid</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-circle-pattern-btn">
-                                    <i class="bi bi-circle"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Circle Pattern</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-h-line-btn">
-                                    <i class="bi bi-dash-lg"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">H-line</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-v-line-btn">
-                                    <i class="bi bi-dash-lg" style="transform: rotate(90deg);"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">V-line</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-crosshatch-btn">
-                                    <i class="bi bi-hash"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Crosshatch</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-texture-btn">
-                                    <i class="bi bi-bricks"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Texture</small>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary text-white brush-btn"
-                                    id="brush-eraser-btn">
-                                    <i class="bi bi-eraser-fill"></i></button>
-                                <small class="d-block mt-1 fw-medium lh-1">Eraser</small>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Settings (Compacted gaps) -->
-                    <div class="tab">
-                        Settings
-                    </div>
-                    <section id="brush-settings" class="inspector-field">
-                        <div class="row align-items-center">
-                            <!-- Left Side: Sliders -->
-                            <div class="col-8 d-flex flex-column gap-2">
-                                <div>
-                                    <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                        <label for="brush-size" class="mb-0">Brush Size</label>
-                                        <span id="brush-size-val">5</span>
-                                    </div>
-                                    <input type="range" class="form-range" id="brush-size" min="1" max="100" value="5">
-                                </div>
-                                <div>
-                                    <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                        <label for="shadow-size" class="mb-0">Shadow Size</label>
-                                        <span id="shadow-size-val">3</span>
-                                    </div>
-                                    <input type="range" class="form-range" id="shadow-size" min="0" max="100" value="3">
-                                </div>
-                                <div class="d-flex w-100 gap-4">
-                                    <div class="w-50">
-                                        <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                            <label for="shadow-offset-x" class="mb-0">Shadow Offset X</label>
-                                            <span id="shadow-offset-x-val">8</span>
-                                        </div>
-                                        <input type="range" class="form-range" id="shadow-offset-x" min="-50" max="50"
-                                            value="8">
-                                    </div>
-                                    <div class="w-50">
-                                        <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                            <label for="shadow-offset-y" class="mb-0">Shadow Offset Y</label>
-                                            <span id="shadow-offset-y-val">8</span>
-                                        </div>
-                                        <input type="range" class="form-range" id="shadow-offset-y" min="-50" max="50"
-                                            value="8">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Right Side: Colors -->
-                            <div class="col-4 d-flex flex-column gap-2 text-center align-items-center">
-                                <div class="inspector-input w-100 pb-2">
-                                    <label for="brush-color" class="lh-1 mb-1 mt-1">Line Color</label><br>
-                                    <input type="color" name="brush-color" id="brush-color" value="#000000">
-                                </div>
-                                <div class="inspector-input w-100 pb-2">
-                                    <label for="brush-shadow" class="lh-1 mb-1 mt-1">Shadow Color</label><br>
-                                    <input type="color" name="brush-shadow" id="brush-shadow" value="#ffffff">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Texture Source -->
-                        <div id="texture-settings" class="mt-3 pt-3 border-top border-white border-2">
-                            <div class="fw-bold mb-2">Texture Source</div>
-                            <div>
-                                <input class="form-control form-control-sm border-0 bg-white" type="file"
-                                    id="texture-upload" accept="image/*">
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Icons Window -->
-                <div class="tab-pane fade" id="nav-icons" role="tabpanel" aria-labelledby="nav-icons-tab">
-
-                    <div class="tab d-flex justify-content-between align-items-center">
-                        <span>Graphics</span>
-                    </div>
-
-                    <section class="inspector-field pb-3">
-                        <!-- Search and Category Filters -->
-                        <div class="d-flex gap-2 mb-3">
-                            <input type="text" class="form-control form-control-sm border-0 flex-grow-1 shadow-sm px-3"
-                                id="icon-search-input" placeholder="Search graphics...">
-                            <select id="icon-category-select"
-                                class="form-select form-select-sm border-0 shadow-sm w-50">
-                                <!-- Other options are generated by JS -->
-                                <option value="all">All Packs</option>
-                            </select>
-                        </div>
-
-                        <!-- Scrollable Grid Container -->
-                        <div class="bg-white rounded p-3 shadow-sm overflow-y-scroll h-75">
-                            <!-- CSS Grid for Icons -->
-                            <div id="icons-grid" class="d-grid gap-2"
-                                style="grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));">
-                                <!-- Icons generated by JS -->
-                                <div class="text-center w-100 text-muted small mt-4" style="grid-column: 1 / -1;">
-                                    <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
-                                    <br>
-                                    Loading Graphics Library...
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-                </div>
-
-                <!-- Layer Window -->
-                <div class="tab-pane fade" id="nav-layers" role="tabpanel" aria-labelledby="nav-layers-tab">
-
-                    <div class="tab">
-                        Layers
-                    </div>
-                    <section class="inspector-field pb-3">
-                        <div id="layers-container" class="layers-scroll-container bg-transparent pe-2">
-                            <!-- Dynamically inject layers -->
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Export Window -->
-                <div class="tab-pane fade" id="nav-export" role="tabpanel" aria-labelledby="nav-export-tab">
-                    <div class="tab">
-                        Canvas Settings
-                    </div>
-                    <section class="inspector-field pb-3">
-                        <div class="d-flex gap-3 align-items-center mb-2">
-                            <div class="w-25">
-                                <label for="canvas-bg-color" class="form-label mb-1 fw-bold" title="Background Color">
-                                    <i class="bi bi-palette"></i></label>
-                                <input type="color" class="form-control form-control-color border-0 p-1 w-100"
-                                    id="canvas-bg-color" value="#ffffff">
-                            </div>
-                            <div class="flex-fill">
-                                <label for="canvas-bg-image" class="fw-bold form-label mb-1">Background Image</label>
-                                <input type="file" class="form-control form-control-sm border-0" id="canvas-bg-image"
-                                    accept="image/*">
-                            </div>
-                        </div>
-                    </section>
-
-                    <div class="tab">
-                        Export
-                    </div>
-                    <section class="inspector-field pb-3">
-                        <!-- Export Formats & Options -->
-                        <div class="d-flex align-items-center gap-3 mb-3 border-bottom border-white border-2 pb-3">
-                            <label for="export-format" class="fw-bold text-dark small mb-0">
-                                Options:</label>
-                            <select id="export-format" class="form-select form-select-sm w-auto border-0 shadow-sm">
-                                <option value="png">PNG</option>
-                                <option value="jpeg">JPEG</option>
-                                <option value="svg">SVG</option>
-                            </select>
-
-                            <div class="form-check form-switch mb-0 ms-auto">
-                                <input class="form-check-input shadow-none" type="checkbox" id="export-transparent-bg">
-                                <label class="form-check-label small text-dark" for="export-transparent-bg">Transparent
-                                    Background</label>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-wrap gap-2 justify-content-between mb-3">
-                            <button id="export-canvas-btn"
-                                class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2"
-                                title="Export Canvas (high-res)">Export Canvas</button>
-                            <button id="export-json-btn"
-                                class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2"
-                                title="Copy JSON to clipboard">Copy JSON</button>
-                            <button id="import-json-btn"
-                                class="btn btn-primary flex-fill text-nowrap fw-medium px-2 py-2"
-                                title="Import Valid JSON">Import JSON</button>
-                        </div>
-                        <div class="bg-white rounded overflow-hidden shadow-sm">
-                            <textarea id="json-io-textarea"
-                                class="form-control border-0 shadow-none json-textarea w-100" rows="12"
-                                placeholder="Paste JSON here..."></textarea>
-                        </div>
-                    </section>
-
-                </div>
-                <!-- Quick Actions Toolbar -->
-                <div id="quick-actions-toolbar" class="quick-actions-bar d-flex gap-3 shadow-sm p-2">
-                    <div class="d-flex gap-2">
-                        <button id="qa-flip-x-btn" class="action-btn" title="Flip Horizontal">
-                            <i class="bi bi-symmetry-vertical"></i>
-                        </button>
-                        <button id="qa-flip-y-btn" class="action-btn" title="Flip Vertical">
-                            <i class="bi bi-symmetry-horizontal"></i>
-                        </button>
-                        <button id="qa-clone-btn" class="action-btn" title="Clone">
-                            <i class="bi bi-copy"></i>
+                        <button id="qa-delete-btn" class="action-btn delete" title="Delete">
+                            <i class="bi bi-trash3"></i>Delete
                         </button>
                     </div>
-                    <button id="qa-delete-btn" class="action-btn delete" title="Delete">
-                        <i class="bi bi-trash3"></i>Delete
-                    </button>
+                </div>
+            </div>
+            <!-- End 2d-controls -->
+
+            <div id="3d-controls" style="display: none;" class="p-3">
+                <h5 class="mb-4"><i class="bi bi-box"></i> 3D Settings</h5>
+                
+                <!-- Model Customization -->
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Base Color</label>
+                    <select class="form-select shadow-sm" id="model-color-select">
+                        <option value="0xffffff">White</option>
+                        <option value="0x1a1a1a">Black</option>
+                        <option value="0x808080">Grey</option>
+                        <option value="0x000080">Blue</option>
+                        <option value="0x8b0000">Red</option>
+                    </select>
+                </div>
+    
+                <!-- Lighting Presets -->
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Lighting Environment</label>
+                    <select class="form-select shadow-sm" id="lighting-preset-select">
+                        <!-- Presets loaded via JS -->
+                    </select>
+                </div>
+    
+                <!-- Auto-Spin -->
+                <div class="mb-4 form-check form-switch">
+                    <input class="form-check-input shadow-sm" type="checkbox" id="auto-spin-toggle">
+                    <label class="form-check-label small fw-bold text-muted text-uppercase" for="auto-spin-toggle" style="margin-top: 2px;">Auto-Spin Model</label>
                 </div>
             </div>
         </section>

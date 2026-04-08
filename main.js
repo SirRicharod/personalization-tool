@@ -1,5 +1,6 @@
 import { initiate3DViewer } from './3d-viewer/index.js';
 import { canvas } from './app.js';
+import { loadLightingPresets } from './3d-viewer/presets/lightingPresetsLoader.js';
 
 const toggleButton = document.getElementById('toggle-3d');
 const viewerContainer = document.getElementById('3d-viewer-container');
@@ -40,7 +41,10 @@ toggleButton.addEventListener('click', async () => {
     if (fabricContainer) fabricContainer.style.display = 'block';
     viewerContainer.style.display = 'none';
     is3DActive = false;
+    // Update HTML to show we're in 3D view now
     toggleButton.innerHTML = '<i class="bi bi-badge-3d"></i>';
+    document.getElementById('2d-controls').style.display = 'block';
+    document.getElementById('3d-controls').style.display = 'none';
 
   } else {
     if (fabricContainer) {
@@ -70,9 +74,47 @@ toggleButton.addEventListener('click', async () => {
       if (fabricContainer) fabricContainer.style.display = 'none';
       viewerContainer.style.display = 'block';
       is3DActive = true;
+      // Reset to 2D view
+      toggleButton.innerHTML = '<i class="bi bi-pencil-square">';
+      document.getElementById('2d-controls').style.display = 'none';
+      document.getElementById('3d-controls').style.display = 'block';
     };
-    toggleButton.innerHTML = '<i class="bi bi-pencil-square">';
 
     img.src = dataURL;
   }
 });
+
+// Setup 3D Controls
+async function setup3DControls() {
+  const autoSpinToggle = document.getElementById('auto-spin-toggle');
+  const colorSelect = document.getElementById('model-color-select');
+  const lightingSelect = document.getElementById('lighting-preset-select');
+
+  // Phase 11: Auto-Spin
+  autoSpinToggle.addEventListener('change', (e) => {
+    if (viewerInstance) viewerInstance.toggleAutoRotate(e.target.checked);
+  });
+
+  // Phase 13: Base Color (Dropdown)
+  colorSelect.addEventListener('change', (e) => {
+    if (viewerInstance) {
+      const hex = parseInt(e.target.value, 16);
+      viewerInstance.changeModelColor(hex);
+    }
+  });
+
+  // Phase 12: Lighting Presets
+  const presets = await loadLightingPresets();
+  presets.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.name;
+    lightingSelect.appendChild(opt);
+  });
+
+  lightingSelect.addEventListener('change', (e) => {
+    if (viewerInstance) viewerInstance.setLightingPreset(e.target.value);
+  });
+}
+
+setup3DControls();

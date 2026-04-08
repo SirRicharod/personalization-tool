@@ -4,7 +4,8 @@ import { createCamera } from './components/camera.js';
 import { createLights } from './components/lights.js';
 import { loadModel } from './components/model.js';
 import { updateModelTexture } from './components/textureProjector.js';
-
+import { getPreset } from './presets/lightingPresetsLoader.js';
+import { Color } from 'three';
 // System imports
 import { createRenderer } from './systems/Renderer.js';
 import { Loop } from './systems/Loop.js';
@@ -35,6 +36,9 @@ class Model {
 
         // 3. Setup Scene Elements
         const { mainLight, fillLight, ambientLight } = createLights();
+        this.mainLight = mainLight;
+        this.fillLight = fillLight;
+        this.ambientLight = ambientLight;
         scene.add(mainLight, fillLight, ambientLight);
 
         // 4. Link Systems
@@ -82,6 +86,40 @@ class Model {
 
     setAutoRotateSpeed(speed) {
         controls.autoRotateSpeed = speed;
+    }
+
+        setLightingPreset(presetId) {
+        const preset = getPreset(presetId);
+        if (!preset) return;
+
+        this.mainLight.intensity = preset.mainLight.intensity;
+        this.mainLight.position.set(...preset.mainLight.position);
+        if (preset.mainLight.color !== undefined) {
+             this.mainLight.color.setHex(parseInt(preset.mainLight.color));
+        } else {
+             this.mainLight.color.setHex(0xffffff);
+        }
+
+        this.fillLight.intensity = preset.fillLight.intensity;
+        this.fillLight.position.set(...preset.fillLight.position);
+        if (preset.fillLight.color !== undefined) {
+             this.fillLight.color.setHex(parseInt(preset.fillLight.color));
+        } else {
+             this.fillLight.color.setHex(0xffffff);
+        }
+
+        this.ambientLight.intensity = preset.ambientLight.intensity;
+        if (preset.ambientLight.color !== undefined) {
+             this.ambientLight.color.setHex(parseInt(preset.ambientLight.color));
+        } else {
+             this.ambientLight.color.setHex(0xffffff);
+        }
+
+        if (preset.backgroundColor) {
+            scene.background = new Color(parseInt(preset.backgroundColor));
+        } else {
+            scene.background = null;
+        }
     }
 
     dispose() {
