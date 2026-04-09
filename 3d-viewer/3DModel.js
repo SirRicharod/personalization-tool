@@ -71,7 +71,7 @@ class Model {
         try {
             model = await loadModel(modelPath);
             scene.add(model);
-            
+
             // Re-project the decal
             if (canvasElement) {
                 this.updateTexture(canvasElement, modelId);
@@ -106,31 +106,31 @@ class Model {
         controls.autoRotateSpeed = speed;
     }
 
-        setLightingPreset(presetId) {
+    setLightingPreset(presetId) {
         const preset = getPreset(presetId);
         if (!preset) return;
 
         this.mainLight.intensity = preset.mainLight.intensity;
         this.mainLight.position.set(...preset.mainLight.position);
         if (preset.mainLight.color !== undefined) {
-             this.mainLight.color.setHex(parseInt(preset.mainLight.color));
+            this.mainLight.color.setHex(parseInt(preset.mainLight.color));
         } else {
-             this.mainLight.color.setHex(0xffffff);
+            this.mainLight.color.setHex(0xffffff);
         }
 
         this.fillLight.intensity = preset.fillLight.intensity;
         this.fillLight.position.set(...preset.fillLight.position);
         if (preset.fillLight.color !== undefined) {
-             this.fillLight.color.setHex(parseInt(preset.fillLight.color));
+            this.fillLight.color.setHex(parseInt(preset.fillLight.color));
         } else {
-             this.fillLight.color.setHex(0xffffff);
+            this.fillLight.color.setHex(0xffffff);
         }
 
         this.ambientLight.intensity = preset.ambientLight.intensity;
         if (preset.ambientLight.color !== undefined) {
-             this.ambientLight.color.setHex(parseInt(preset.ambientLight.color));
+            this.ambientLight.color.setHex(parseInt(preset.ambientLight.color));
         } else {
-             this.ambientLight.color.setHex(0xffffff);
+            this.ambientLight.color.setHex(0xffffff);
         }
 
         if (preset.backgroundColor) {
@@ -138,6 +138,20 @@ class Model {
         } else {
             scene.background = null;
         }
+    }
+
+    exportScreenshot() {
+        renderer.render(scene, camera);
+
+        // Grab the image data
+        const dataURL = renderer.domElement.toDataURL('image/png');
+
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'my-3d-design.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     dispose() {

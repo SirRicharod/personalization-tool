@@ -168,6 +168,16 @@ async function setup3DControls() {
       img.src = dataURL;
     });
   }
+
+  // Export 3D View Button
+  const export3DBtn = document.getElementById('export-3d-btn');
+  if (export3DBtn) {
+    export3DBtn.addEventListener('click', () => {
+      if (viewerInstance) {
+        viewerInstance.exportScreenshot();
+      }
+    });
+  }
 }
 
 setup3DControls();
