@@ -811,31 +811,29 @@
 
             <div id="3d-controls" style="display: none;" class="p-3">
                 <h5 class="mb-4"><i class="bi bi-box"></i> 3D Settings</h5>
-                
+
                 <!-- Model Customization -->
                 <div class="mb-4">
-                    <label class="form-label small fw-bold text-muted text-uppercase">Base Color</label>
-                    <select class="form-select shadow-sm" id="model-color-select">
-                        <option value="0xffffff">White</option>
-                        <option value="0x1a1a1a">Black</option>
-                        <option value="0x808080">Grey</option>
-                        <option value="0x000080">Blue</option>
-                        <option value="0x8b0000">Red</option>
-                    </select>
+                    <label class="form-label small fw-bold text-muted text-uppercase mb-2">Base Color</label><br>
+                    <div id="color-swatches-container" class="d-flex flex-wrap gap-3 justify-content-center">
+                        <!-- Color circles via JS -->
+                    </div>
                 </div>
-    
+
                 <!-- Lighting Presets -->
-                <div class="mb-4">
-                    <label class="form-label small fw-bold text-muted text-uppercase">Lighting Environment</label>
-                    <select class="form-select shadow-sm" id="lighting-preset-select">
-                        <!-- Presets loaded via JS -->
-                    </select>
-                </div>
-    
-                <!-- Auto-Spin -->
-                <div class="mb-4 form-check form-switch">
-                    <input class="form-check-input shadow-sm" type="checkbox" id="auto-spin-toggle">
-                    <label class="form-check-label small fw-bold text-muted text-uppercase" for="auto-spin-toggle" style="margin-top: 2px;">Auto-Spin Model</label>
+                <div class="d-flex w-100 col justify-content-center align-content-center gap-3">
+                    <div>
+                        <label class="form-label fw-bold text-muted">Lighting Environment</label>
+                        <select class="form-select shadow-sm" id="lighting-preset-select">
+                            <!-- Presets loaded via JS -->
+                        </select>
+                    </div>
+
+                    <!-- Auto-Spin -->
+                    <div class="form-check form-switch d-flex justify-content-center row gap-3">
+                        <label class="form-check-label fw-bold text-muted" for="auto-spin-toggle">Auto-Spin Model</label>
+                        <input class="form-check-input shadow-sm" type="checkbox" id="auto-spin-toggle">
+                    </div>
                 </div>
             </div>
         </section>

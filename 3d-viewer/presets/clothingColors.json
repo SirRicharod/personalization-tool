@@ -1,0 +1,44 @@
+{
+    "colors": [
+        {
+            "name": "Classic White",
+            "hex": "FFFFFF"
+        },
+        {
+            "name": "Black",
+            "hex": "333333"
+        },
+        {
+            "name": "Heather Grey",
+            "hex": "A1A1A1"
+        },
+        {
+            "name": "Pretty Blue",
+            "hex": "5692E3"
+        },
+        {
+            "name": "Roger Orange",
+            "hex": "F54927"
+        },
+        {
+            "name": "Blood Red",
+            "hex": "BF1515"
+        },
+        {
+            "name": "Sunny Yellow",
+            "hex": "F9FA7F"
+        },
+        {
+            "name": "Booger Green",
+            "hex": "77BD46"
+        },
+        {
+            "name": "Hot Pink",
+            "hex": "FF63C6"
+        },
+        {
+            "name": "Lavender",
+            "hex": "C5A0FA"
+        }
+    ]
+}

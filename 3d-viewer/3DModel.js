@@ -74,7 +74,7 @@ class Model {
     changeModelColor(hexColor) {
         if (!model) return;
         model.traverse((child) => {
-            if (child.isMesh) {
+            if (child.isMesh && !child.userData.isProxy && child.material && child.material.color) {
                 child.material.color.setHex(hexColor);
             }
         });

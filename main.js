@@ -1,6 +1,7 @@
 import { initiate3DViewer } from './3d-viewer/index.js';
 import { canvas } from './app.js';
 import { loadLightingPresets } from './3d-viewer/presets/lightingPresetsLoader.js';
+import clothingColors from './3d-viewer/presets/clothingColors.json';
 
 const toggleButton = document.getElementById('toggle-3d');
 const viewerContainer = document.getElementById('3d-viewer-container');
@@ -87,23 +88,35 @@ toggleButton.addEventListener('click', async () => {
 // Setup 3D Controls
 async function setup3DControls() {
   const autoSpinToggle = document.getElementById('auto-spin-toggle');
-  const colorSelect = document.getElementById('model-color-select');
   const lightingSelect = document.getElementById('lighting-preset-select');
+  const colorContainer = document.getElementById('color-swatches-container');
 
-  // Phase 11: Auto-Spin
+  // Auto-Spin
   autoSpinToggle.addEventListener('change', (e) => {
     if (viewerInstance) viewerInstance.toggleAutoRotate(e.target.checked);
   });
 
-  // Phase 13: Base Color (Dropdown)
-  colorSelect.addEventListener('change', (e) => {
-    if (viewerInstance) {
-      const hex = parseInt(e.target.value, 16);
-      viewerInstance.changeModelColor(hex);
-    }
+  // Color Swatches
+  clothingColors.colors.forEach(color => {
+    const btn = document.createElement('button');
+    // Styling buttons
+    btn.className = 'btn rounded-circle shadow-sm border border-secondary p-0';
+    btn.style.width = '32px';
+    btn.style.height = '32px';
+    btn.style.backgroundColor = `#${color.hex}`;
+    btn.title = color.name; // hover tooltip
+    
+    btn.addEventListener('click', () => {
+      if (viewerInstance) {
+        // Append 0x to the hex value 
+        viewerInstance.changeModelColor(parseInt(`0x${color.hex}`, 16));
+      }
+    });
+    
+    colorContainer.appendChild(btn);
   });
 
-  // Phase 12: Lighting Presets
+  // Lighting Presets
   const presets = await loadLightingPresets();
   presets.forEach(p => {
     const opt = document.createElement('option');
