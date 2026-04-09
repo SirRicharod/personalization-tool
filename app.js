@@ -7,6 +7,8 @@ import { initLayers } from './tabs/layers.js';
 import { initExport } from './tabs/export.js';
 import { initIcons } from './tabs/icons.js';
 import { initQuickActions } from './quick-actions.js';
+import { initShortcuts } from './shortcuts.js';
+import { initAutoSave } from './auto-save.js';
 
 const fabricCanvas = document.getElementById('main-canvas');
 
@@ -15,6 +17,8 @@ const canvas = new Canvas('main-canvas', {
     backgroundColor: '#ffffff',
     width: fabricCanvas.width,
     height: fabricCanvas.height,
+    fireRightClick: true,
+    stopContextMenu: true,
 });
 
 const testText = new IText("Be Creative!", {
@@ -35,5 +39,7 @@ initLayers(canvas);
 initExport(canvas);
 initIcons(canvas);
 initQuickActions(canvas);
+initShortcuts(canvas, updateActiveObject);
+initAutoSave(canvas);
 
 export { canvas };
