@@ -7,10 +7,10 @@ import { initDrawing } from './tabs/drawing.js';
 import { initLayers } from './tabs/layers.js';
 import { initExport } from './tabs/export.js';
 import { initIcons } from './tabs/icons.js';
-import { initQuickActions } from './quick-actions.js';
-import { initShortcuts } from './shortcuts.js';
-import { initAutoSave } from './auto-save.js';
-import { initHistory } from './history.js';
+import { initQuickActions } from './functions/quick-actions.js';
+import { initShortcuts } from './functions/shortcuts.js';
+import { initAutoSave } from './functions/auto-save.js';
+import { initHistory } from './functions/history.js';
 
 // Register the custom ClippingGroup so erased objects serialize/deserialize perfectly into JSON!
 classRegistry.setClass(ClippingGroup);
@@ -34,6 +34,12 @@ const testText = new IText("Be Creative!", {
     left: canvas.width / 2,
     top: canvas.height / 2,
     fontFamily: 'Arial'
+});
+
+// Hide all scaling and stretching handles, leaving only the rotator
+testText.setControlsVisibility({
+    mt: false, mb: false, ml: false, mr: false, // middle handles
+    tl: false, tr: false, bl: false, br: false  // corner handles
 });
 
 canvas.add(testText);

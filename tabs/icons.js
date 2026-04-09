@@ -1,6 +1,6 @@
 import { iconInputs } from '../ui.js';
 import { loadSVGFromURL, util } from 'fabric';
-import iconsData from '../icons.json';
+import iconsData from '../json-config/icons.json';
 
 export function initIcons(canvas) {
     const { searchInput, categorySelect, iconsGrid } = iconInputs;

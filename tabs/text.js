@@ -1,6 +1,6 @@
 import { textInputs } from '../ui.js';
 import { IText } from 'fabric';
-import fontsData from '../fonts.json';
+import fontsData from '../json-config/fonts.json';
 
 // ! === TEXT WINDOW ===
 export function initText(canvas, updateActiveObject) {
@@ -10,11 +10,11 @@ export function initText(canvas, updateActiveObject) {
         const familySelect = textInputs.family;
         familySelect.innerHTML = ''; // Start clean
 
-        // 1. Separate system fonts from Google Fonts
+        // Separate system fonts from Google Fonts
         const systemFonts = ['Arial', 'Helvetica', 'Times New Roman'];
         const googleFonts = fontsData.fonts.filter(f => !systemFonts.includes(f));
 
-        // 2. Inject Google Fonts stylesheet directly into the document <head>
+        // Inject Google Fonts stylesheet directly into the document <head>
         if (googleFonts.length > 0) {
             const fontQuery = googleFonts.map(f => `family=${f.replace(/ /g, '+')}:wght@400;700`).join('&');
             const link = document.createElement('link');
@@ -23,7 +23,7 @@ export function initText(canvas, updateActiveObject) {
             document.head.appendChild(link);
         }
 
-        // 3. Build the styled dropdown options!
+        // Build the styled dropdown options!
         fontsData.fonts.forEach(font => {
             const opt = document.createElement('option');
             opt.value = font;
@@ -42,13 +42,22 @@ export function initText(canvas, updateActiveObject) {
         // Grab text content or use placeholder text
         const textContent = textInputs.content.value || 'Double click to edit';
 
-        // Create IText element 
+        // Create IText element
         const newText = new IText(textContent, {
             left: 100,
             top: 100,
             fontFamily: textInputs.family.value || 'Arial',
             fontSize: parseFloat(textInputs.size.value) || 40,
         });
+
+        // Hide all scaling and stretching handles
+        newText.setControlsVisibility({
+            mt: false, mb: false, ml: false, mr: false,
+            tl: false, tr: false, bl: false, br: false
+        });
+
+        // Add to canvas and select text element
+        canvas.add(newText);
 
         // Add to canvas and select text element 
         canvas.add(newText);

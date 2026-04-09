@@ -1,4 +1,4 @@
-import { quickActionInputs } from "./ui.js";
+import { quickActionInputs } from "../ui.js";
 
 export function initQuickActions(canvas) {
     const { toolbar, flipXBtn, flipYBtn, cloneBtn, deleteBtn } = quickActionInputs;

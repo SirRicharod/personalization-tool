@@ -40,5 +40,30 @@
       "ambientLight": { "intensity": 0.3, "color": "0x111144" },
       "backgroundColor": "0x0a0e27"
     }
+    ,
+    {
+      "id": "goldenHour",
+      "name": "Golden Hour",
+      "mainLight": { "intensity": 2.8, "position": [7, 4, 3], "color": "0xffb86b" },
+      "fillLight": { "intensity": 1.0, "position": [-3, 2, 4], "color": "0xffecd1" },
+      "ambientLight": { "intensity": 0.5, "color": "0xfff6e6" },
+      "backgroundColor": "0xffc973"
+    },
+    {
+      "id": "moonlit",
+      "name": "Moonlit Reverie",
+      "mainLight": { "intensity": 1.2, "position": [2, 6, 4], "color": "0xdfeeff" },
+      "fillLight": { "intensity": 0.9, "position": [-2, 3, 4], "color": "0xbfdcff" },
+      "ambientLight": { "intensity": 0.6, "color": "0xa8cbe8" },
+      "backgroundColor": "0x071427"
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora Dream",
+      "mainLight": { "intensity": 1.8, "position": [4, 7, 3], "color": "0x9bffb8" },
+      "fillLight": { "intensity": 1.6, "position": [-6, 2, 4], "color": "0xff6bd6" },
+      "ambientLight": { "intensity": 0.7, "color": "0xdfe6ff" },
+      "backgroundColor": "0x02132e"
+    }
   ]
 }

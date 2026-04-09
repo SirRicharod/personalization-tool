@@ -162,10 +162,9 @@ input::placeholder {
 }
 
 /* Scrollbar styling for icon grid */
-.icon-grid-wrapper {
-    max-height: 250px;
-    overflow-y: auto;
-    overflow-x: hidden;
+.icon-grid {
+    height: fit-content;
+    max-height: 500px;
 }
 
 .icon-grid-wrapper::-webkit-scrollbar {
