@@ -107,7 +107,7 @@ export function initExport(canvas) {
 
     // Copy JSON to clipboard
     exportJsonBtn.addEventListener('click', () => {
-        const jsonStr = JSON.stringify(canvas.toJSON());
+        const jsonStr = JSON.stringify(canvas.toJSON(['erasable']));
         navigator.clipboard.writeText(jsonStr);
     });
 

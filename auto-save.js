@@ -25,12 +25,12 @@ export function initAutoSave(canvas) {
     let saveTimeout;
     function triggerSave() {
         if (isRestoring) return; // Don't trigger saves while we are loading it in!
-        
+
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(() => {
             try {
                 // Compress to string
-                const jsonString = JSON.stringify(canvas.toJSON());
+                const jsonString = JSON.stringify(canvas.toJSON(['erasable']));
                 localStorage.setItem('personalization_canvas_state', jsonString);
                 console.log(`Auto-saved project! Size: ${(jsonString.length / 1024).toFixed(2)} KB`);
             } catch (e) {

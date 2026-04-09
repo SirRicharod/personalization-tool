@@ -1,5 +1,10 @@
-import { Canvas, IText } from 'fabric';
+import { Canvas, IText, classRegistry } from 'fabric';
+import { ClippingGroup } from '@erase2d/fabric';
 import { initInspector } from './tabs/inspector.js';
+
+// Register the custom ClippingGroup so erased objects serialize/deserialize perfectly into JSON!
+classRegistry.setClass(ClippingGroup);
+
 import { initText } from './tabs/text.js';
 import { initImage } from './tabs/image.js';
 import { initDrawing } from './tabs/drawing.js';

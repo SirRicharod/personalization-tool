@@ -24,7 +24,7 @@ export function initQuickActions(canvas) {
         const activeObj = canvas.getActiveObject();
         if (!activeObj) return;
 
-        activeObj.clone().then(clonedObj => {
+        activeObj.clone(['erasable']).then(clonedObj => {
             // Offset slightly
             clonedObj.set({
                 left: clonedObj.left + 20,
