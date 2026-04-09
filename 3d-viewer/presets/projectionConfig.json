@@ -17,6 +17,42 @@
                     "y": 0.15
                 }
             }
+        },
+        {
+            "id": "hoodie",
+            "modelPath": "/models/hoodie.glb",
+            "projection": {
+                "meshName": "Object",
+                "uv": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 1.0,
+                    "height": 1.0
+                },
+                "scale": 7.0,
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": "baseball_cap",
+            "modelPath": "/models/baseball_cap.glb",
+            "projection": {
+                "meshName": "Object",
+                "uv": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 1.0,
+                    "height": 1.0
+                },
+                "scale": 4,
+                "offset": {
+                    "x": 0,
+                    "y": -0.2
+                }
+            }
         }
     ]
 }

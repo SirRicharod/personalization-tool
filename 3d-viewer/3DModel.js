@@ -57,9 +57,27 @@ class Model {
         }
     }
 
-    updateTexture(canvasElement) {
+    updateTexture(canvasElement, modelId = 'tshirt') {
         if (model) {
-            updateModelTexture(model, canvasElement);
+            updateModelTexture(model, canvasElement, modelId);
+        }
+    }
+
+    async switchModel(modelPath, canvasElement, modelId) {
+        if (model) {
+            scene.remove(model);
+            model = null;
+        }
+        try {
+            model = await loadModel(modelPath);
+            scene.add(model);
+            
+            // Re-project the decal
+            if (canvasElement) {
+                this.updateTexture(canvasElement, modelId);
+            }
+        } catch (error) {
+            console.error('Failed to switch model:', error);
         }
     }
 

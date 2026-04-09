@@ -34,7 +34,12 @@ toggleButton.addEventListener('click', async () => {
   const fabricContainer = document.querySelector('.canvas-container');
 
   if (!viewerInstance) {
+    const spinner = document.getElementById('3d-loading-overlay');
+    if (spinner) spinner.style.display = 'block';
+
     await initPromise;
+
+    if (spinner) spinner.style.display = 'none';
   }
 
   if (is3DActive) {
@@ -70,7 +75,12 @@ toggleButton.addEventListener('click', async () => {
 
     const img = new Image();
     img.onload = () => {
-      viewerInstance.updateTexture(img);
+      // What is urrently selected in the dropdown
+      const activeModelSelect = document.getElementById('apparel-model-select');
+      const activeModelId = activeModelSelect ? activeModelSelect.value : 'tshirt';
+
+      // Pass model ID to update texture
+      viewerInstance.updateTexture(img, activeModelId);
       viewerInstance.start();
       if (fabricContainer) fabricContainer.style.display = 'none';
       viewerContainer.style.display = 'block';
@@ -105,14 +115,14 @@ async function setup3DControls() {
     btn.style.height = '32px';
     btn.style.backgroundColor = `#${color.hex}`;
     btn.title = color.name; // hover tooltip
-    
+
     btn.addEventListener('click', () => {
       if (viewerInstance) {
         // Append 0x to the hex value 
         viewerInstance.changeModelColor(parseInt(`0x${color.hex}`, 16));
       }
     });
-    
+
     colorContainer.appendChild(btn);
   });
 
@@ -128,6 +138,36 @@ async function setup3DControls() {
   lightingSelect.addEventListener('change', (e) => {
     if (viewerInstance) viewerInstance.setLightingPreset(e.target.value);
   });
+
+  // Apparel Model Select
+  const modelSelect = document.getElementById('apparel-model-select');
+  if (modelSelect) {
+    modelSelect.addEventListener('change', async (e) => {
+      if (!viewerInstance) return;
+
+      const spinner = document.getElementById('3d-loading-overlay');
+      if (spinner) spinner.style.display = 'block';
+
+      const modelId = e.target.value;
+      const modelPath = `/models/${modelId}.glb`;
+
+      // Capture latest Fabric canvas
+      canvas.discardActiveObject();
+      const originalBg = canvas.backgroundColor;
+      canvas.backgroundColor = 'transparent';
+      canvas.renderAll();
+      const dataURL = canvas.toDataURL({ format: 'png', multiplier: 2 });
+      canvas.backgroundColor = originalBg;
+      canvas.renderAll();
+
+      const img = new Image();
+      img.onload = async () => {
+        await viewerInstance.switchModel(modelPath, img, modelId);
+        if (spinner) spinner.style.display = 'none';
+      };
+      img.src = dataURL;
+    });
+  }
 }
 
 setup3DControls();

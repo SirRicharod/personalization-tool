@@ -24,6 +24,14 @@
             <h1>Viewport</h1>
             <canvas id="main-canvas" width="500" height="500"></canvas>
             <div id="3d-viewer-container" class="viewer-container-3d" style="display: none;"></div>
+
+            <!-- 3D Loading Overlay -->
+            <div id="3d-loading-overlay"
+                class="position-absolute top-50 start-50 translate-middle text-center bg-white bg-opacity-75 p-4 rounded shadow-sm"
+                style="display: none; z-index: 10;">
+                <div class="spinner-border text-primary mb-2" role="status"></div>
+                <div class="fw-bold text-dark">Initializing 3D Space...</div>
+            </div>
             <div class="toggle-view">
                 <button id="toggle-3d"><i class="bi bi-badge-3d-fill"></i></button>
             </div>
@@ -788,6 +796,7 @@
                         </section>
 
                     </div>
+
                     <!-- Quick Actions Toolbar -->
                     <div id="quick-actions-toolbar" class="quick-actions-bar d-flex gap-3 shadow-sm p-2">
                         <div class="d-flex gap-2">
@@ -812,6 +821,17 @@
             <div id="3d-controls" style="display: none;" class="p-3">
                 <h5 class="mb-4"><i class="bi bi-box"></i> 3D Settings</h5>
 
+                <!-- Apparel Type Selector -->
+                <div class="d-flex row justify-content-center align-content-center mb-4">
+                    <label class="form-label fw-bold text-muted mb-2" for="apparel-model-select">
+                        Apparel Type</label>
+                    <select class="w-25 form-select shadow-sm border-0 mb-3" id="apparel-model-select">
+                        <option value="tshirt" selected>Classic T-Shirt</option>
+                        <option value="hoodie">Premium Hoodie</option>
+                        <option value="baseball_cap">Baseball Cap</option>
+                    </select>
+                </div>
+
                 <!-- Model Customization -->
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-muted text-uppercase mb-2">Base Color</label><br>
@@ -831,7 +851,8 @@
 
                     <!-- Auto-Spin -->
                     <div class="form-check form-switch d-flex justify-content-center row gap-3">
-                        <label class="form-check-label fw-bold text-muted" for="auto-spin-toggle">Auto-Spin Model</label>
+                        <label class="form-check-label fw-bold text-muted" for="auto-spin-toggle">Auto-Spin
+                            Model</label>
                         <input class="form-check-input shadow-sm" type="checkbox" id="auto-spin-toggle">
                     </div>
                 </div>

@@ -6,7 +6,7 @@ let customMaterial = null;
 let decalProxies = [];
 
 // Initialize the shader overrides exactly once per model load to prevent memory leaks
-function initProjector(model) {
+function initProjector() {
     if (customMaterial) return;
 
     projectorCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -70,18 +70,6 @@ function initProjector(model) {
         polygonOffsetFactor: -4,
         polygonOffsetUnits: -4
     });
-
-    // Clone every mesh piece of the shirt into an invisible "Proxy overlay"
-    model.traverse((child) => {
-        if (child.isMesh && !child.userData.isProxy) {
-            const proxy = child.clone();
-            proxy.userData.isProxy = true;
-            proxy.material = customMaterial;
-            proxy.renderOrder = 100;
-            child.parent.add(proxy);
-            decalProxies.push(proxy);
-        }
-    });
 }
 
 export function updateModelTexture(model, canvasElement, modelId = 'tshirt') {
@@ -90,8 +78,22 @@ export function updateModelTexture(model, canvasElement, modelId = 'tshirt') {
     const config = getModelConfig(modelId);
     if (!config) return;
 
-    // Build or reuse the proxy
-    initProjector(model);
+    // Build the global material if it doesn't exist yet
+    initProjector();
+
+    // Clone proxies onto THIS specific model if we haven't already!
+    if (!model.userData.hasProxies) {
+        model.traverse((child) => {
+            if (child.isMesh && !child.userData.isProxy) {
+                const proxy = child.clone();
+                proxy.userData.isProxy = true;
+                proxy.material = customMaterial;
+                proxy.renderOrder = 100;
+                child.parent.add(proxy);
+            }
+        });
+        model.userData.hasProxies = true;
+    }
 
     // Prevent memory leaks by disposing of the old texture before creating the new one
     if (customMaterial.uniforms.decalTex.value) {
