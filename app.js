@@ -1,10 +1,6 @@
-import { Canvas, IText, classRegistry } from 'fabric';
+import { Canvas, IText, classRegistry, FabricObject } from 'fabric';
 import { ClippingGroup } from '@erase2d/fabric';
 import { initInspector } from './tabs/inspector.js';
-
-// Register the custom ClippingGroup so erased objects serialize/deserialize perfectly into JSON!
-classRegistry.setClass(ClippingGroup);
-
 import { initText } from './tabs/text.js';
 import { initImage } from './tabs/image.js';
 import { initDrawing } from './tabs/drawing.js';
@@ -14,6 +10,13 @@ import { initIcons } from './tabs/icons.js';
 import { initQuickActions } from './quick-actions.js';
 import { initShortcuts } from './shortcuts.js';
 import { initAutoSave } from './auto-save.js';
+import { initHistory } from './history.js';
+
+// Register the custom ClippingGroup so erased objects serialize/deserialize perfectly into JSON!
+classRegistry.setClass(ClippingGroup);
+
+// Tell Fabric's builder that 'erasable' is a valid, permanent core property when importing JSON
+FabricObject.customProperties = ['erasable'];
 
 const fabricCanvas = document.getElementById('main-canvas');
 
@@ -46,5 +49,6 @@ initIcons(canvas);
 initQuickActions(canvas);
 initShortcuts(canvas, updateActiveObject);
 initAutoSave(canvas);
+initHistory(canvas, updateActiveObject);
 
 export { canvas };

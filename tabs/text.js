@@ -1,9 +1,42 @@
 import { textInputs } from '../ui.js';
 import { IText } from 'fabric';
+import fontsData from '../fonts.json';
 
 // ! === TEXT WINDOW ===
 export function initText(canvas, updateActiveObject) {
 
+    // -- Setup Dynamic Fonts --
+    function setupFonts() {
+        const familySelect = textInputs.family;
+        familySelect.innerHTML = ''; // Start clean
+
+        // 1. Separate system fonts from Google Fonts
+        const systemFonts = ['Arial', 'Helvetica', 'Times New Roman'];
+        const googleFonts = fontsData.fonts.filter(f => !systemFonts.includes(f));
+
+        // 2. Inject Google Fonts stylesheet directly into the document <head>
+        if (googleFonts.length > 0) {
+            const fontQuery = googleFonts.map(f => `family=${f.replace(/ /g, '+')}:wght@400;700`).join('&');
+            const link = document.createElement('link');
+            link.href = `https://fonts.googleapis.com/css2?${fontQuery}&display=swap`;
+            link.rel = 'stylesheet';
+            document.head.appendChild(link);
+        }
+
+        // 3. Build the styled dropdown options!
+        fontsData.fonts.forEach(font => {
+            const opt = document.createElement('option');
+            opt.value = font;
+            opt.textContent = font;
+            // Native browsers will honor this inline style inside the dropdown menu
+            opt.style.fontFamily = `"${font}", sans-serif`;
+            familySelect.appendChild(opt);
+        });
+    }
+
+    // Run it immediately
+    setupFonts();
+    
     // Add new text to canvas
     textInputs.addBtn.addEventListener('click', () => {
         // Grab text content or use placeholder text
