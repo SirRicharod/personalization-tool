@@ -10,6 +10,8 @@ function createControls(camera, canvas) {
   controls.enablePan = true;
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
+  controls.minDistance = 1.5;
+  controls.maxDistance = 4.5;
 
   return controls;
 }
