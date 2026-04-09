@@ -31,12 +31,12 @@ export function initIcons(canvas) {
             }
             // Initial render
             renderIcons();
-        } catch(err) {
+        } catch (err) {
             console.error("Error loading icons.json:", err);
             iconsGrid.innerHTML = `<div class="text-danger small p-2">Failed to load icon configuration.</div>`;
         }
     };
-    
+
     loadIcons();
 
     function renderIcons(filterText = '', filterCategory = 'all') {
@@ -97,6 +97,7 @@ export function initIcons(canvas) {
                 top: canvas.height / 2,
                 originX: 'center',
                 originY: 'center',
+                erasable: true,
             });
 
             canvas.add(svgObj);

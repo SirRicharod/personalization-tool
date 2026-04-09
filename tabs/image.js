@@ -335,7 +335,7 @@ export function initImage(canvas, updateActiveObject) {
     imageInputs.removeVal.addEventListener('input', handleRemoveColor);
     imageInputs.removeColor.addEventListener('input', handleRemoveColor);
 
-    // Crop Image (Interactive)
+    //? Crop Image
     let croppingImage = null;
     let cropRect = null;
 

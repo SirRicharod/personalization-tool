@@ -145,13 +145,12 @@ export function initDrawing(canvas) {
         // Instantiate and apply the new brush
         if (BrushClass) {
             canvas.freeDrawingBrush = new BrushClass(canvas);
-
+            
             // Apply Eraser-specific safety overrides
             if (BrushClass === EraserBrush) {
-                // Ensure the eraser ONLY attempts to cut Paths (drawn strokes)
                 // The EraserBrush uses isTargetErasable internally, we can override it:
                 canvas.freeDrawingBrush.isTargetErasable = (target) => {
-                    return target.type === 'path' && target.erasable === true;
+                    return target.erasable === true;
                 };
             }
 
