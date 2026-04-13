@@ -1,15 +1,27 @@
 :root {
-    --wisteria-blue: #7f96ffff;
-    --punch-red: #ef233cff;
-    --pearl-beige: #f2e3bcff;
-    --grey-olive: #89826eff;
-    --carbon-black: #202020ff;
-    --white-smoke: #f5f5f5ff;
-    --periwinkle: #ADBCFF;
+    /* Semantic color palette - consolidated */
+    --primary-accent: #10b981;
+    /* Emerald green - action buttons, active states */
+    --primary-accent-hover: #059669;
+    /* Darker emerald on hover */
+    --text-primary: #0f172a;
+    /* Dark navy - headings, strong text */
+    --text-secondary: #64748b;
+    /* Warm medium gray - helper text, secondary content */
+    --bg-light: #f1f5f9;
+    /* Off-white background - less pure white */
+    --surface: #ffffff;
+    /* White cards/panels */
+    --border: #cbd5e1;
+    /* Medium gray - visible dividers */
+    --border-light: #e2e8f0;
+    /* Light gray - subtle dividers, scrollbars */
+    --destructive: #ef233c;
+    /* Delete/destructive actions */
 }
 
 body {
-    background: var(--white-smoke);
+    background: var(--bg-light);
 }
 
 .page {
@@ -34,7 +46,7 @@ body {
     height: 750px;
     padding: 1rem 0;
     gap: 1rem;
-    background: var(--pearl-beige);
+    background: var(--surface);
     border-radius: 24px;
     display: flex;
     flex-direction: column;
@@ -44,8 +56,18 @@ body {
 }
 
 canvas {
-    border: 2px var(--grey-olive) solid;
+    border: 1px solid var(--border);
     background: transparent;
+}
+
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link {
+    border: none !important;
 }
 
 .toggle-view {
@@ -56,9 +78,9 @@ canvas {
 
 .toggle-view button {
     font-size: 24px;
-    border: 2px solid var(--grey-olive);
-    color: var(--grey-olive);
-    background: var(--pearl-beige);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--surface);
     padding: 0.2rem 0.6rem;
     margin-right: 1rem;
     border-radius: 16px;
@@ -66,8 +88,9 @@ canvas {
 }
 
 .toggle-view button:hover {
-    background: var(--grey-olive);
-    color: var(--pearl-beige);
+    background: var(--primary-accent);
+    color: var(--surface);
+    border-color: var(--primary-accent);
 }
 
 .viewer-container-3d {
@@ -78,33 +101,32 @@ canvas {
 }
 
 .inspector {
-    background: var(--pearl-beige);
+    background: var(--surface);
     width: 38%;
     min-width: 725px;
     max-width: 50%;
     height: auto;
     padding-bottom: 2rem;
     border-radius: 10px 10px 0px 10px;
-    border-top: 0;
 }
 
 /* inspector tabs */
 .nav-link {
-    background: var(--wisteria-blue);
-    color: var(--white-smoke);
+    background: var(--primary-accent);
+    color: var(--surface);
     border-bottom: 0 solid transparent !important;
     margin-left: -1px;
 }
 
 /* active tab */
 .active {
-    background: var(--pearl-beige) !important;
-    color: var(--carbon-black) !important;
+    background: var(--surface) !important;
+    color: var(--text-primary) !important;
 }
 
 .tab {
     margin: 2rem 0 -1rem 1rem;
-    background: var(--periwinkle);
+    background: var(--bg-light);
     padding: 0.5rem 1rem;
     border-radius: 24px 24px 0 0;
     width: max-content;
@@ -119,18 +141,38 @@ canvas {
 
 input::placeholder {
     font-style: italic;
-    color: var(--grey-olive);
+    color: var(--text-secondary);
 }
 
 .form-control:focus {
     box-shadow: none;
 }
 
+/* Bootstrap Button Override */
+.btn-primary {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+    color: var(--surface);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-accent-hover);
+    border-color: var(--primary-accent-hover);
+    color: var(--surface);
+}
+
+.btn-primary:active,
+.btn-primary.active {
+    background-color: var(--primary-accent-hover) !important;
+    border-color: var(--primary-accent-hover) !important;
+    color: var(--surface) !important;
+}
+
 .inspector-field {
     padding: 1.5rem 1rem 1rem;
-    background: var(--periwinkle);
+    background: var(--bg-light);
     border-radius: 0 24px 24px;
-    margin: 0 1rem
+    margin: 0 1rem;
 }
 
 .inspector-input {
@@ -142,11 +184,11 @@ input::placeholder {
 .inspector-input input[type="number"] {
     width: 75%;
     border-radius: 8px;
-    border: 0;
+    border: 1px solid var(--border-light);
     padding: 0.25rem;
     padding-left: 0.5rem;
-    background-color: var(--white-smoke);
-    color: var(--carbon-black);
+    background-color: var(--surface);
+    color: var(--text-primary);
     margin-top: 0.1rem;
 }
 
@@ -190,17 +232,17 @@ input::placeholder {
 }
 
 .icon-grid-wrapper::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--border-light);
     border-radius: 10px;
 }
 
 .icon-grid-wrapper::-webkit-scrollbar-thumb {
-    background-color: white;
+    background-color: var(--text-secondary);
     border-radius: 10px;
 }
 
 .icon-grid-wrapper::-webkit-scrollbar-thumb:hover {
-    background-color: whitesmoke;
+    background-color: var(--text-primary);
 }
 
 .row-cols-10>* {
@@ -241,13 +283,17 @@ input::placeholder {
 }
 
 .preset-filters-scroll::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--border-light);
     border-radius: 4px;
 }
 
 .preset-filters-scroll::-webkit-scrollbar-thumb {
-    background-color: white;
+    background: var(--text-secondary);
     border-radius: 4px;
+}
+
+.preset-filters-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--text-primary);
 }
 
 .filter-thumb-btn {
@@ -270,26 +316,8 @@ input::placeholder {
 
 .accordion-coral-btn,
 .accordion-coral-btn:not(.collapsed) {
-    background-color: var(--periwinkle) !important;
-    color: var(--white-smoke) !important;
-}
-
-.preset-filters-scroll::-webkit-scrollbar {
-    height: 6px;
-}
-
-.preset-filters-scroll::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.preset-filters-scroll::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
-}
-
-.preset-filters-scroll::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background-color: var(--primary-accent) !important;
+    color: var(--surface) !important;
 }
 
 /* Layers Tab Classes */
@@ -305,17 +333,17 @@ input::placeholder {
 }
 
 .layers-scroll-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--border-light);
     border-radius: 4px;
 }
 
 .layers-scroll-container::-webkit-scrollbar-thumb {
-    background-color: white;
+    background-color: var(--text-secondary);
     border-radius: 4px;
 }
 
 .layers-scroll-container::-webkit-scrollbar-thumb:hover {
-    background-color: var(--white-smoke);
+    background-color: var(--text-primary);
 }
 
 .layer-item {
@@ -323,7 +351,7 @@ input::placeholder {
 }
 
 .layer-item:hover {
-    background-color: var(--wisteria-blue) !important;
+    background-color: var(--primary-accent) !important;
 }
 
 .cursor-grab {
@@ -335,7 +363,7 @@ input::placeholder {
 }
 
 .layer-delete-btn:hover i {
-    color: var(--punch-red) !important;
+    color: var(--destructive) !important;
 }
 
 /* Export Tab Classes */
@@ -344,6 +372,7 @@ input::placeholder {
     font-family: monospace;
     font-size: 0.85rem;
     height: 100px;
+    border: 1px solid var(--border-light);
 }
 
 .json-textarea::-webkit-scrollbar {
@@ -355,21 +384,21 @@ input::placeholder {
 }
 
 .json-textarea::-webkit-scrollbar-thumb {
-    background-color: var(--white-smoke);
+    background-color: var(--text-secondary);
     border-radius: 4px;
 }
 
 .json-textarea::-webkit-scrollbar-thumb:hover {
-    background-color: var(--white-smoke);
+    background-color: var(--text-primary);
 }
 
 /* Quick Actions Floating Toolbar */
 .quick-actions-bar {
     position: absolute;
     bottom: -80px;
-    right: 0px;
-    background-color: var(--pearl-beige);
-    color: black;
+    right: -1px;
+    background-color: var(--surface);
+    color: var(--text-primary);
     padding: 2px 6px;
     border-radius: 0 0 6px 6px;
     border-top: none;
@@ -378,21 +407,23 @@ input::placeholder {
 }
 
 .quick-actions-bar .action-btn {
-    background-color: var(--white-smoke);
-    color: var(--carbon-black);
-    border: none;
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
     padding: 4px 8px;
     border-radius: 4px;
     transition: all 0.2s ease-in-out;
 }
 
 .quick-actions-bar .action-btn:hover {
-    background-color: var(--periwinkle);
-    color: var(--white-smoke);
+    background-color: var(--primary-accent);
+    color: var(--surface);
+    border-color: var(--primary-accent);
 }
 
 .quick-actions-bar .action-btn.delete:hover {
-    background-color: var(--punch-red);
+    background-color: var(--destructive);
+    border-color: var(--destructive);
 }
 
 .quick-actions-bar .action-btn:disabled {
