@@ -537,70 +537,11 @@
                             <!-- Start Drawing Toggle at the top -->
                             <button type="button" class="btn btn-primary w-100 py-2 fs-5 fw-medium mb-3"
                                 id="draw-toggle-btn">
-                                <i class="bi bi-pencil-square"></i> Start Drawing
+                                Start Drawing
                             </button>
 
-                            <div class="row row-cols-5 g-2 text-center">
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-pencil-btn">
-                                        <i class="bi bi-pencil-fill"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Pencil</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-circle-btn">
-                                        <i class="bi bi-circle-fill"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Circle</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-spray-btn">
-                                        <i class="bi bi-droplet-fill"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Spray</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-grid-btn">
-                                        <i class="bi bi-grid-3x3"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Grid</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-circle-pattern-btn">
-                                        <i class="bi bi-circle"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Circle Pattern</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-h-line-btn">
-                                        <i class="bi bi-dash-lg"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">H-line</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-v-line-btn">
-                                        <i class="bi bi-dash-lg" style="transform: rotate(90deg);"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">V-line</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-crosshatch-btn">
-                                        <i class="bi bi-hash"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Crosshatch</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-texture-btn">
-                                        <i class="bi bi-bricks"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Texture</small>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary text-white brush-btn"
-                                        id="brush-eraser-btn">
-                                        <i class="bi bi-eraser-fill"></i></button>
-                                    <small class="d-block mt-1 fw-medium lh-1">Eraser</small>
-                                </div>
+                            <div class="row row-cols-5 g-2 text-center brush-buttons-container">
+                                <!-- Brush buttons generated dynamically from brushes.json -->
                             </div>
                         </section>
 

@@ -1,3 +1,5 @@
+import brushes from './json-config/brushes.json' assert { type: 'json' };
+
 //? Centralizing all the UI Elements
 //! ------------------------------------------------
 
@@ -84,21 +86,43 @@ export const imageInputs = {
 
 //! ------------------------------------------------
 
+//? Generate brush buttons dynamically from brushes.json and populate drawingInputs
+export function initializeBrushButtons() {
+  const brushButtonsContainer = document.querySelector('.brush-buttons-container');
+
+  brushes.forEach(brush => {
+    const camelCaseId = brush.id.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+    const buttonId = 'brush-' + brush.id + '-btn';
+    const inputKey = 'brush' + camelCaseId.charAt(0).toUpperCase() + camelCaseId.slice(1);
+
+    const col = document.createElement('div');
+    col.className = 'col';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-primary text-white brush-btn';
+    btn.id = buttonId;
+
+    const icon = document.createElement('i');
+    icon.className = brush.icon;
+    btn.appendChild(icon);
+
+    const label = document.createElement('small');
+    label.className = 'd-block mt-1 fw-medium lh-1';
+    label.textContent = brush.name;
+
+    col.appendChild(btn);
+    col.appendChild(label);
+    brushButtonsContainer.appendChild(col);
+
+    // Add to drawingInputs
+    drawingInputs[inputKey] = btn;
+  });
+}
+
 //? Drawing tab inputs
 export const drawingInputs = {
   drawToggle: document.getElementById('draw-toggle-btn'),
-
-  // Brush selection buttons
-  brushPencil: document.getElementById('brush-pencil-btn'),
-  brushCircle: document.getElementById('brush-circle-btn'),
-  brushSpray: document.getElementById('brush-spray-btn'),
-  brushGrid: document.getElementById('brush-grid-btn'),
-  brushCirclePattern: document.getElementById('brush-circle-pattern-btn'),
-  brushHLine: document.getElementById('brush-h-line-btn'),
-  brushVLine: document.getElementById('brush-v-line-btn'),
-  brushCrosshatch: document.getElementById('brush-crosshatch-btn'),
-  brushTexture: document.getElementById('brush-texture-btn'),
-  brushEraser: document.getElementById('brush-eraser-btn'),
 
   // Brush settings
   brushSize: document.getElementById('brush-size'),

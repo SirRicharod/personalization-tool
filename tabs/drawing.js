@@ -1,6 +1,23 @@
 import { drawingInputs } from '../ui.js';
 import { PencilBrush, SprayBrush, PatternBrush, Shadow } from 'fabric';
 import { EraserBrush } from '@erase2d/fabric';
+import brushes from '../json-config/brushes.json' assert { type: 'json' };
+
+// Helper function to get the Fabric.js brush class from the brush config
+function getBrushClass(fabricType) {
+  const classMap = {
+    'PencilBrush': PencilBrush,
+    'SprayBrush': SprayBrush,
+    'PatternBrush': PatternBrush,
+    'EraserBrush': EraserBrush
+  };
+  return classMap[fabricType];
+}
+
+// Helper function to convert kebab-case to camelCase
+function toCamelCase(str) {
+  return str.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+}
 
 // ! === DRAWING TAB ===
 export function initDrawing(canvas) {
@@ -133,11 +150,12 @@ export function initDrawing(canvas) {
     function setActiveBrush(btnElement, BrushClass, patternType = null) {
         currentPatternType = patternType;
 
-        // Remove active class from all brush buttons
-        ['brushPencil', 'brushCircle', 'brushSpray', 'brushGrid', 'brushCirclePattern',
-            'brushHLine', 'brushVLine', 'brushPattern', 'brushTexture', 'brushEraser'].forEach(key => {
-                if (drawingInputs[key]) drawingInputs[key].classList.remove('active');
-            });
+        // Remove active class from all brush buttons (dynamic from brushes config)
+        brushes.forEach(brush => {
+            const camelCaseId = toCamelCase(brush.id);
+            const buttonId = 'brush' + camelCaseId.charAt(0).toUpperCase() + camelCaseId.slice(1);
+            if (drawingInputs[buttonId]) drawingInputs[buttonId].classList.remove('active');
+        });
 
         // Set new active brush button
         if (btnElement) btnElement.classList.add('active');
@@ -158,16 +176,17 @@ export function initDrawing(canvas) {
         }
     }
 
-    // Brush Selection Listeners
-    if (drawingInputs.brushPencil) drawingInputs.brushPencil.addEventListener('click', () => setActiveBrush(drawingInputs.brushPencil, PencilBrush));
-    if (drawingInputs.brushCircle) drawingInputs.brushCircle.addEventListener('click', () => setActiveBrush(drawingInputs.brushCircle, PatternBrush, 'circle-fill'));
-    if (drawingInputs.brushSpray) drawingInputs.brushSpray.addEventListener('click', () => setActiveBrush(drawingInputs.brushSpray, SprayBrush));
-    // Custom Pattern Brushes
-    if (drawingInputs.brushGrid) drawingInputs.brushGrid.addEventListener('click', () => setActiveBrush(drawingInputs.brushGrid, PatternBrush, 'grid'));
-    if (drawingInputs.brushCrosshatch) drawingInputs.brushCrosshatch.addEventListener('click', () => setActiveBrush(drawingInputs.brushCrosshatch, PatternBrush, 'crosshatch'));
-    if (drawingInputs.brushCirclePattern) drawingInputs.brushCirclePattern.addEventListener('click', () => setActiveBrush(drawingInputs.brushCirclePattern, PatternBrush, 'circle'));
-    if (drawingInputs.brushHLine) drawingInputs.brushHLine.addEventListener('click', () => setActiveBrush(drawingInputs.brushHLine, PatternBrush, 'hline'));
-    if (drawingInputs.brushVLine) drawingInputs.brushVLine.addEventListener('click', () => setActiveBrush(drawingInputs.brushVLine, PatternBrush, 'vline'));
+    brushes.forEach(brush => {
+      const camelCaseId = toCamelCase(brush.id);
+      const buttonId = 'brush' + camelCaseId.charAt(0).toUpperCase() + camelCaseId.slice(1);
+      const brushBtn = drawingInputs[buttonId];
+      if (brushBtn) {
+        brushBtn.addEventListener('click', () => {
+          const brushClass = getBrushClass(brush.fabricType);
+          setActiveBrush(brushBtn, brushClass, brush.patternType);
+        });
+      }
+    });
 
     // Texture Upload Listener
     if (drawingInputs.textureUpload) {
@@ -188,9 +207,6 @@ export function initDrawing(canvas) {
             reader.readAsDataURL(file);
         });
     }
-
-    // Eraser Brush
-    if (drawingInputs.brushEraser) drawingInputs.brushEraser.addEventListener('click', () => setActiveBrush(drawingInputs.brushEraser, EraserBrush));
 
     // Every time a new brush stroke is finished, make sure it can be erased later!
     canvas.on('path:created', (opt) => {

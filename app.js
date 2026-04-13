@@ -11,6 +11,7 @@ import { initQuickActions } from './functions/quick-actions.js';
 import { initShortcuts } from './functions/shortcuts.js';
 import { initAutoSave } from './functions/auto-save.js';
 import { initHistory } from './functions/history.js';
+import { initializeBrushButtons } from './ui.js';
 
 // Register the custom ClippingGroup so erased objects serialize/deserialize perfectly into JSON!
 classRegistry.setClass(ClippingGroup);
@@ -44,6 +45,9 @@ testText.setControlsVisibility({
 
 canvas.add(testText);
 canvas.setActiveObject(testText);
+
+// Initialize brush buttons from JSON before drawing tab
+initializeBrushButtons();
 
 const { updateActiveObject } = initInspector(canvas);
 initText(canvas, updateActiveObject);

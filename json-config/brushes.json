@@ -1,0 +1,84 @@
+[
+    {
+        "id": "pencil",
+        "name": "Pencil",
+        "icon": "bi bi-pencil-fill",
+        "description": "Classic smooth freehand drawing",
+        "fabricType": "PencilBrush",
+        "patternType": null
+    },
+    {
+        "id": "circle",
+        "name": "Circle",
+        "icon": "bi bi-circle-fill",
+        "description": "Draw with filled circles",
+        "fabricType": "PatternBrush",
+        "patternType": "circle-fill"
+    },
+    {
+        "id": "spray",
+        "name": "Spray",
+        "icon": "bi bi-droplet-fill",
+        "description": "Spray paint effect",
+        "fabricType": "SprayBrush",
+        "patternType": null
+    },
+    {
+        "id": "grid",
+        "name": "Grid",
+        "icon": "bi bi-grid-3x3",
+        "description": "Grid pattern brush",
+        "fabricType": "PatternBrush",
+        "patternType": "grid"
+    },
+    {
+        "id": "crosshatch",
+        "name": "Crosshatch",
+        "icon": "bi bi-hash",
+        "description": "Cross-hatching pattern",
+        "fabricType": "PatternBrush",
+        "patternType": "crosshatch"
+    },
+    {
+        "id": "circle-pattern",
+        "name": "Circle Pattern",
+        "icon": "bi bi-circle",
+        "description": "Circle outline pattern",
+        "fabricType": "PatternBrush",
+        "patternType": "circle"
+    },
+    {
+        "id": "h-line",
+        "name": "H-Line",
+        "icon": "bi bi-dash-lg",
+        "description": "Horizontal lines",
+        "fabricType": "PatternBrush",
+        "patternType": "hline"
+    },
+    {
+        "id": "v-line",
+        "name": "V-Line",
+        "icon": "bi bi-dash-lg",
+        "description": "Vertical lines",
+        "fabricType": "PatternBrush",
+        "patternType": "vline"
+    },
+    {
+        "id": "texture",
+        "name": "Texture",
+        "icon": "bi bi-bricks",
+        "description": "Paint with custom uploaded texture",
+        "fabricType": "PatternBrush",
+        "patternType": "texture",
+        "requiresUpload": true
+    },
+    {
+        "id": "eraser",
+        "name": "Eraser",
+        "icon": "bi bi-eraser-fill",
+        "description": "Erase objects and strokes (shadows disable automatically)",
+        "fabricType": "EraserBrush",
+        "patternType": null,
+        "disablesShadow": true
+    }
+]
