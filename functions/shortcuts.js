@@ -1,8 +1,8 @@
 export function initShortcuts(canvas, updateActiveObject) {
     // Double Click (Left) -> Bring to Front
-    canvas.on('mousedblclick', (opt) => {
+    canvas.on('mouse:dblclick', (opt) => {
         if (opt.target) {
-            opt.target.bringToFront();
+            canvas.bringObjectToFront(opt.target);
             canvas.renderAll();
         }
     });
@@ -11,7 +11,8 @@ export function initShortcuts(canvas, updateActiveObject) {
     canvas.on('mouse:down', (opt) => {
         // e.button === 2 is a native browser right-click
         if (opt.e && opt.e.button === 2 && opt.target) {
-            opt.target.sendToBack();
+            console.log("Right Click");
+            canvas.sendObjectToBack(opt.target);
             canvas.renderAll();
         }
     });
