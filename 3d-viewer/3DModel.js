@@ -64,11 +64,17 @@ class Model {
     }
 
     async switchModel(modelPath, canvasElement, modelId) {
-        if (model) {
-            scene.remove(model);
-            model = null;
-        }
         try {
+            // Remove ALL existing models/meshes from scene first (keep lights and camera!)
+            scene.children = scene.children.filter(child => {
+                // Keep lights and other non-mesh objects
+                if (child.isLight) return true;
+                
+                // Remove everything else (old models)
+                return false;
+            });
+
+            // Now load and add the new model
             model = await loadModel(modelPath);
             scene.add(model);
 
@@ -80,6 +86,8 @@ class Model {
             console.error('Failed to switch model:', error);
         }
     }
+
+
 
     start() {
         loop.start();
