@@ -145,6 +145,9 @@ async function setup3DControls() {
     modelSelect.addEventListener('change', async (e) => {
       if (!viewerInstance) return;
 
+      // Disable dropdown while loading
+      modelSelect.disabled = true;
+
       const spinner = document.getElementById('3d-loading-overlay');
       if (spinner) spinner.style.display = 'block';
 
@@ -164,6 +167,8 @@ async function setup3DControls() {
       img.onload = async () => {
         await viewerInstance.switchModel(modelPath, img, modelId);
         if (spinner) spinner.style.display = 'none';
+        // Re-enable dropdown once model is loaded
+        modelSelect.disabled = false;
       };
       img.src = dataURL;
     });
