@@ -2,6 +2,7 @@ import { drawingInputs } from '../ui.js';
 import { PencilBrush, SprayBrush, PatternBrush, Shadow } from 'fabric';
 import { EraserBrush } from '@erase2d/fabric';
 import brushes from '../json-config/brushes.json' assert { type: 'json' };
+import { fileToDataUrl } from '../functions/fileReaderUtil.js';
 
 // Helper function to get the Fabric.js brush class from the brush config
 function getBrushClass(fabricType) {
@@ -135,7 +136,20 @@ export function initDrawing(canvas) {
     // Sliders & Color Listeners
     ['brushSize', 'shadowSize', 'shadowOffsetX', 'shadowOffsetY'].forEach(id => {
         if (drawingInputs[id]) {
-            drawingInputs[id].addEventListener('input', updateBrushSettings);
+            drawingInputs[id].addEventListener('input', (e) => {
+                const value = parseInt(e.target.value, 10);
+                
+                // Offset sliders (shadowOffsetX, shadowOffsetY) can be -50 to 50
+                const isOffsetSlider = id.includes('Offset');
+                const isInvalid = isOffsetSlider ? false : (value < 0);
+                
+                if (isInvalid) {
+                    drawingInputs[id].classList.add('is-invalid');
+                    return;
+                }
+                drawingInputs[id].classList.remove('is-invalid');
+                updateBrushSettings();
+            });
         }
     });
 
@@ -189,23 +203,23 @@ export function initDrawing(canvas) {
     });
 
     // Texture Upload Listener
-    if (drawingInputs.textureUpload) {
-        drawingInputs.textureUpload.addEventListener('change', (e) => {
+    if (drawingInputs.textureUpload) {async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = (event) => {
+            try {
+                const dataUrl = await fileToDataUrl(file);
                 const img = new Image();
                 img.onload = () => {
-                    currentTexture = img; // Save the image
-                    // Automatically switch to texture brush when an image is uploaded
+                    currentTexture = img;
                     setActiveBrush(drawingInputs.brushTexture, PatternBrush, 'texture');
                 };
-                img.src = event.target.result;
-            };
+                img.src = dataUrl;
+            } catch (error) {
+                console.error('Failed to load texture:', error);
+            }
             reader.readAsDataURL(file);
-        });
+        };
     }
 
     // Every time a new brush stroke is finished, make sure it can be erased later!

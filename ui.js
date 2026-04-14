@@ -162,6 +162,7 @@ export const layerInputs = {
 export const exportInputs = {
   bgColor: document.getElementById('canvas-bg-color'),
   bgImage: document.getElementById('canvas-bg-image'),
+  clearBgImageBtn: document.getElementById('clear-bg-image-btn'),
   exportCanvasBtn: document.getElementById('export-canvas-btn'),
   exportJsonBtn: document.getElementById('export-json-btn'),
   importJsonBtn: document.getElementById('import-json-btn'),

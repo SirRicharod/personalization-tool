@@ -1,18 +1,19 @@
 import { imageInputs } from '../ui.js';
 import { FabricImage, filters, Rect } from 'fabric';
+import { fileToDataUrl } from '../functions/fileReaderUtil.js';
+import { syncSliderInput } from '../functions/uiBindings.js';
 
 // ! === IMAGE WINDOW ===
 export function initImage(canvas, updateActiveObject) {
     // Add uploaded image to canvas
-    imageInputs.addBtn.addEventListener('click', () => {
+    imageInputs.addBtn.addEventListener('click', async () => {
         // Check if user actually uploaded a file
         const file = imageInputs.upload.files[0];
         if (!file) return;
 
-        // FileReader to read the imagefile
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const dataUrl = e.target.result;
+        try {
+            // Convert file to data URL using utility
+            const dataUrl = await fileToDataUrl(file);
 
             // Load image with a promise
             FabricImage.fromURL(dataUrl).then((img) => {
@@ -37,10 +38,9 @@ export function initImage(canvas, updateActiveObject) {
                 // Clear input field
                 imageInputs.upload.value = '';
             });
-        };
-
-        // Read file as Data URL (base64 string)
-        reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Failed to load image:', error);
+        }
 
     });
 
@@ -130,94 +130,46 @@ export function initImage(canvas, updateActiveObject) {
     }
 
     //? Brightness
-    function handleBrightness(e) {
-        const val = e.target.value;
-
-        // sync slider and value
-        imageInputs.brightSlider.value = imageInputs.brightVal.value = val;
-
+    syncSliderInput(imageInputs.brightSlider, imageInputs.brightVal, (val) => {
         // Some math because HTML slider is 0-100 but brightness uses -1.0 - 1.0
         const fabricVal = (val - 50) / 50;
-
         applySliderFilter(filters.Brightness, 'brightness', fabricVal);
-    }
-
-    // Listen to slider and number
-    imageInputs.brightSlider.addEventListener('input', handleBrightness);
-    imageInputs.brightVal.addEventListener('input', handleBrightness);
+    });
 
     //?  Saturation
-    function handleSaturation(e) {
-        const val = e.target.value;
-
-        imageInputs.satSlider.value = imageInputs.satVal.value = val;
-
+    syncSliderInput(imageInputs.satSlider, imageInputs.satVal, (val) => {
         // Convert 0-100 to -1.0 to 1.0
         const fabricVal = (val - 50) / 50;
-
         applySliderFilter(filters.Saturation, 'saturation', fabricVal);
-
-    }
-    imageInputs.satSlider.addEventListener('input', handleSaturation);
-    imageInputs.satVal.addEventListener('input', handleSaturation);
+    });
 
     //? Contrast
-    function handleContrast(e) {
-        const val = e.target.value;
-
-        imageInputs.contrastVal.value = val;
-        imageInputs.contrastSlider.value = val;
-
+    syncSliderInput(imageInputs.contrastSlider, imageInputs.contrastVal, (val) => {
         // Convert 0-100 to -1.0 to 1.0
         const fabricVal = (val - 50) / 50;
-
         applySliderFilter(filters.Contrast, 'contrast', fabricVal);
-    }
-
-    imageInputs.contrastSlider.addEventListener('input', handleContrast);
-    imageInputs.contrastVal.addEventListener('input', handleContrast);
+    });
 
     //? Blur
-    function handleBlur(e) {
-        const val = e.target.value;
-
-        imageInputs.blurVal.value = imageInputs.blurSlider.value = val;
-
+    syncSliderInput(imageInputs.blurSlider, imageInputs.blurVal, (val) => {
         // blur needs value between 0 and 1 so divide by 100
         const fabricVal = val / 100;
-
         applySliderFilter(filters.Blur, 'blur', fabricVal);
-    }
-
-    imageInputs.blurSlider.addEventListener('input', handleBlur);
-    imageInputs.blurVal.addEventListener('input', handleBlur);
+    });
 
     //? Advanced Tools
     //? Pixelate
-    function handlePixelate(e) {
-        const val = e.target.value;
-        imageInputs.pixelSlider.value = imageInputs.pixelVal.value = val;
-
+    syncSliderInput(imageInputs.pixelSlider, imageInputs.pixelVal, (val) => {
         // Pixelate goes from 1 (off) to 100 (huge pixels)
         const fabricVal = val < 2 ? 1 : Math.round(val);
-
         applySliderFilter(filters.Pixelate, 'blocksize', fabricVal);
-    }
-
-    imageInputs.pixelSlider.addEventListener('input', handlePixelate);
-    imageInputs.pixelVal.addEventListener('input', handlePixelate);
+    });
 
     //? Noise
-    function handleNoise(e) {
-        const val = e.target.value;
-        imageInputs.noiseSlider.value = imageInputs.noiseVal.value = val;
-
+    syncSliderInput(imageInputs.noiseSlider, imageInputs.noiseVal, (val) => {
         // Max noise = ~1000, slider = 0-100, multiply by 5 for good range of noise
         applySliderFilter(filters.Noise, 'noise', val * 5);
-    }
-
-    imageInputs.noiseSlider.addEventListener('input', handleNoise);
-    imageInputs.noiseVal.addEventListener('input', handleNoise);
+    });
 
     //? Color Blend
     function handleBlend() {
@@ -350,6 +302,11 @@ export function initImage(canvas, updateActiveObject) {
             // Lock the image while we adjust the crop box
             croppingImage.set({ selectable: false, evented: false });
             imageInputs.cropBtn.classList.add('active');
+            
+            // Show crop mode indicator
+            imageInputs.cropBtn.textContent = '✂️ Cropping';
+            imageInputs.cropBtn.style.backgroundColor = '#ff6b6b';
+            imageInputs.cropBtn.style.color = '#fff';
 
             // Create a cropping bounding box matched exactly to the image's visual bounds
             const imgBounds = croppingImage.getBoundingRect();
@@ -435,6 +392,11 @@ export function initImage(canvas, updateActiveObject) {
             croppingImage = null;
             cropRect = null;
             imageInputs.cropBtn.classList.remove('active');
+            
+            // Reset button styling
+            imageInputs.cropBtn.innerHTML = '<i class="bi bi-crop fs-5"></i> Crop';
+            imageInputs.cropBtn.style.backgroundColor = '';
+            imageInputs.cropBtn.style.color = '';
         }
 
         canvas.requestRenderAll();

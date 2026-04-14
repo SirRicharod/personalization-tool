@@ -182,11 +182,39 @@ export function initInspector(canvas) {
     // Position & Rotation
     inspectorInputs.top.addEventListener('input', (e) => updateActiveObject('top', e.target.value, true));
     inspectorInputs.left.addEventListener('input', (e) => updateActiveObject('left', e.target.value, true));
-    inspectorInputs.angle.addEventListener('input', (e) => updateActiveObject('angle', e.target.value, true));
+    inspectorInputs.angle.addEventListener('input', (e) => {
+        // Validate: angle must be 0-360
+        const value = parseInt(e.target.value, 10) || 0;
+        if (value < 0 || value > 360) {
+            inspectorInputs.angle.classList.add('is-invalid');
+            return;
+        }
+        inspectorInputs.angle.classList.remove('is-invalid');
+        updateActiveObject('angle', value, true);
+    });
 
     // Size
-    inspectorInputs.width.addEventListener('input', (e) => updateActiveObject('width', e.target.value, true));
-    inspectorInputs.height.addEventListener('input', (e) => updateActiveObject('height', e.target.value, true));
+    inspectorInputs.width.addEventListener('input', (e) => {
+        // Validate: width must be > 0
+        const value = parseInt(e.target.value, 10);
+        if (value <= 0) {
+            inspectorInputs.width.classList.add('is-invalid');
+            return;
+        }
+        inspectorInputs.width.classList.remove('is-invalid');
+        updateActiveObject('width', value, true);
+    });
+    
+    inspectorInputs.height.addEventListener('input', (e) => {
+        // Validate: height must be > 0
+        const value = parseInt(e.target.value, 10);
+        if (value <= 0) {
+            inspectorInputs.height.classList.add('is-invalid');
+            return;
+        }
+        inspectorInputs.height.classList.remove('is-invalid');
+        updateActiveObject('height', value, true);
+    });
 
     // Color
     inspectorInputs.fill.addEventListener('input', (e) => updateActiveObject('fill', e.target.value));

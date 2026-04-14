@@ -75,7 +75,9 @@ export function initIcons(canvas) {
     }
     // UI filters
     searchInput.addEventListener('input', (e) => {
-        renderIcons(e.target.value, categorySelect.value);
+        const query = e.target.value;
+        const category = categorySelect.value;
+        renderIcons(query, category);
     });
 
     categorySelect.addEventListener('change', (e) => {

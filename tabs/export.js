@@ -1,9 +1,10 @@
 import { exportInputs } from '../ui.js';
 import { FabricImage } from 'fabric';
+import { fileToDataUrl } from '../functions/fileReaderUtil.js';
 
 export function initExport(canvas) {
     const {
-        bgColor, bgImage, exportCanvasBtn,
+        bgColor, bgImage, clearBgImageBtn, exportCanvasBtn,
         exportJsonBtn, importJsonBtn, jsonTextarea,
         exportFormat, exportTransparentBg
     } = exportInputs;
@@ -15,16 +16,14 @@ export function initExport(canvas) {
     });
 
     // Background Image
-    bgImage.addEventListener('change', (e) => {
+    bgImage.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = (f) => {
-            const dataUrl = f.target.result;
+        try {
+            const dataUrl = await fileToDataUrl(file);
 
             FabricImage.fromURL(dataUrl).then((img) => {
-                // Scales image to canvas
                 img.set({
                     scaleX: canvas.width / img.width,
                     scaleY: canvas.height / img.height,
@@ -37,8 +36,16 @@ export function initExport(canvas) {
 
                 e.target.value = '';
             });
-        };
-        reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Failed to load background image:', error);
+        }
+    });
+
+    // Clear Background Image
+    clearBgImageBtn.addEventListener('click', () => {
+        canvas.backgroundImage = null;
+        bgImage.value = ''; // Reset file input
+        canvas.renderAll();
     });
 
     // Download helper
@@ -95,8 +102,9 @@ export function initExport(canvas) {
         }
     });
 
-    // disable transparency checkbox if JPEG is selected
+    // disable transparency checkbox if JPEG is selected, also show format tooltip
     exportFormat.addEventListener('change', (e) => {
+        // Update disable state
         if (e.target.value === 'jpeg') {
             exportTransparentBg.checked = false;
             exportTransparentBg.disabled = true;
@@ -104,6 +112,8 @@ export function initExport(canvas) {
             exportTransparentBg.disabled = false;
         }
     });
+    // Trigger on load to show default
+    exportFormat.dispatchEvent(new Event('change'));
 
     // Copy JSON to clipboard
     exportJsonBtn.addEventListener('click', () => {
@@ -115,7 +125,7 @@ export function initExport(canvas) {
     importJsonBtn.addEventListener('click', () => {
         const jsonText = jsonTextarea.value.trim();
 
-        // loadFromJSON returns a Promise in Fabric v6
+        // loadFromJSON returns a Promise in Fabric v6+
         canvas.loadFromJSON(jsonText).then(() => {
             canvas.renderAll();
             if (importJsonBtn.classList.contains('btn-danger'))

@@ -242,7 +242,7 @@
                             Upload Image
                         </div>
                         <section class="inspector-field pb-3">
-                            <div class="upload-container d-flex justify-content-center align-items-center gap-3">
+                            <div class="upload-container d-flex justify-content-between align-items-center gap-3">
                                 <!-- Image input and add button - 75% -->
                                 <div class="upload-input-wrapper">
                                     <input type="file" name="image-upload" id="image-upload"
@@ -253,7 +253,7 @@
                                         id="add-image-btn">Add</button>
                                 </div>
                                 <!-- Crop button - 25% -->
-                                <button id="img-crop-btn" class="btn btn-light border shadow-sm fw-medium text-dark">
+                                <button id="img-crop-btn" class="btn btn-light border shadow-sm fw-medium text-dark me-2 text-center">
                                     <i class="bi bi-crop fs-5"></i> Crop
                                 </button>
                             </div>
@@ -681,8 +681,14 @@
                                 <div class="flex-fill">
                                     <label for="canvas-bg-image" class="fw-bold form-label mb-1">Background
                                         Image</label>
-                                    <input type="file" class="form-control form-control-sm border-0"
-                                        id="canvas-bg-image" accept="image/*">
+                                    <div class="d-flex gap-2">
+                                        <input type="file" class="form-control form-control-sm border-0"
+                                            id="canvas-bg-image" accept="image/*">
+                                        <button id="clear-bg-image-btn" class="btn btn-sm btn-danger"
+                                            title="Remove background image">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </section>

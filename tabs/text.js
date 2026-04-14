@@ -69,7 +69,16 @@ export function initText(canvas, updateActiveObject) {
 
     // Text Properties
     textInputs.family.addEventListener('change', (e) => updateActiveObject('fontFamily', e.target.value));
-    textInputs.size.addEventListener('input', (e) => updateActiveObject('fontSize', e.target.value, true));
+    textInputs.size.addEventListener('input', (e) => {
+        // Validate: font size must be 8-256px
+        const value = parseInt(e.target.value, 10);
+        if (value < 8 || value > 256) {
+            textInputs.size.classList.add('is-invalid');
+            return;
+        }
+        textInputs.size.classList.remove('is-invalid');
+        updateActiveObject('fontSize', value, true);
+    });
     // Divide by 10 for precise spacing
     textInputs.lineHeight.addEventListener('input', (e) => updateActiveObject('lineHeight', e.target.value / 10, true));
     // Multiplying by 10 for ease of use

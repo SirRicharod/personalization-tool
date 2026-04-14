@@ -69,7 +69,11 @@ export function initLayers(canvas) {
 
             // Delete object
             layerDiv.querySelector('.layer-delete-btn').addEventListener('click', () => {
-                canvas.remove(obj);
+                // Add confirmation dialog
+                // if (confirm(`Delete layer "${obj.type.toUpperCase()}"? This cannot be undone.`)) {
+                    canvas.remove(obj);
+                    renderLayers();
+                //}
             });
 
             // Lock object
