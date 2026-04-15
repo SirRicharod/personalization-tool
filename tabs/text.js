@@ -56,9 +56,6 @@ export function initText(canvas, updateActiveObject) {
             tl: false, tr: false, bl: false, br: false
         });
 
-        // Add to canvas and select text element
-        canvas.add(newText);
-
         // Add to canvas and select text element 
         canvas.add(newText);
         canvas.setActiveObject(newText);

@@ -203,7 +203,8 @@ export function initDrawing(canvas) {
     });
 
     // Texture Upload Listener
-    if (drawingInputs.textureUpload) {async (e) => {
+    if (drawingInputs.textureUpload) {
+        drawingInputs.textureUpload.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
@@ -218,8 +219,7 @@ export function initDrawing(canvas) {
             } catch (error) {
                 console.error('Failed to load texture:', error);
             }
-            reader.readAsDataURL(file);
-        };
+        });
     }
 
     // Every time a new brush stroke is finished, make sure it can be erased later!
