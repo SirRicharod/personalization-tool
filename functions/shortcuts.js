@@ -1,5 +1,5 @@
 export function initShortcuts(canvas, updateActiveObject) {
-    // Double Click (Left) -> Bring to Front
+    // Double-click object to bring forward
     canvas.on('mouse:dblclick', (opt) => {
         if (opt.target) {
             canvas.bringObjectToFront(opt.target);
@@ -7,9 +7,9 @@ export function initShortcuts(canvas, updateActiveObject) {
         }
     });
 
-    // Single Click (Right) -> Send to Back
+    // Right-click object to send backward
     canvas.on('mouse:down', (opt) => {
-        // e.button === 2 is a native browser right-click
+        // e.button === 2 is native right-click
         if (opt.e && opt.e.button === 2 && opt.target) {
             console.log("Right Click");
             canvas.sendObjectToBack(opt.target);
@@ -17,9 +17,9 @@ export function initShortcuts(canvas, updateActiveObject) {
         }
     });
 
-    // Global Keyboard Controls
+    // Global keyboard shortcuts for object manipulation
     document.addEventListener('keydown', (e) => {
-        // Ignore physical keys if the user is typing in a UI input or editing text on canvas
+        // Skip if typing in input or text editing
         if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
         const activeObj = canvas.getActiveObject();
         if (activeObj && activeObj.isEditing) return;
@@ -51,15 +51,15 @@ export function initShortcuts(canvas, updateActiveObject) {
             }
             activeObj.setCoords();
             canvas.renderAll();
-            // Update Inspector values 
+            // Sync inspector to show new position
             if (updateActiveObject) updateActiveObject();
         }
 
-        // Rotation via Q and E
+        // Rotate with Q and E keys
         if (e.key === 'q' || e.key === 'Q' || e.key === 'e' || e.key === 'E') {
             if (!activeObj) return;
 
-            // Hold Shift to jump 15 degrees instead of 1 degree
+            // Single degree or 15 degrees if Shift held
             const rotateAmount = e.shiftKey ? 15 : 1;
             let currentAngle = activeObj.angle || 0;
 
@@ -72,7 +72,7 @@ export function initShortcuts(canvas, updateActiveObject) {
             activeObj.setCoords();
             canvas.renderAll();
 
-            // Update the HTML Inspector sliders automatically
+            // Sync inspector to show new rotation
             if (updateActiveObject) updateActiveObject();
         }
     });

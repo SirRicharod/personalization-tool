@@ -1,3 +1,4 @@
+// Main 3D viewer orchestrator using Three.js
 // Component imports
 import { createScene } from './components/scene.js';
 import { createCamera } from './components/camera.js';
@@ -24,29 +25,30 @@ class Model {
     constructor(containerElement) {
         container = containerElement;
 
-        // 1. Initialize Core Components
+        // Initialize Three.js components
         scene = createScene();
         camera = createCamera();
         renderer = createRenderer();
 
-        // 2. Initialize Systems
+        // Setup rendering loop and controls
         loop = new Loop(camera, scene, renderer);
         controls = createControls(camera, renderer.domElement);
         new Resizer(container, camera, renderer);
 
-        // 3. Setup Scene Elements
+        // Add lighting to scene
         const { mainLight, fillLight, ambientLight } = createLights();
         this.mainLight = mainLight;
         this.fillLight = fillLight;
         this.ambientLight = ambientLight;
         scene.add(mainLight, fillLight, ambientLight);
 
-        // 4. Link Systems
+        // Attach camera controls to rendering loop
         loop.updatables.push(controls);
 
         container.appendChild(renderer.domElement);
     }
 
+    // Load and initialize model from GLB file
     async init(modelPath = '/models/tshirt.glb') {
         try {
             model = await loadModel(modelPath);
@@ -57,28 +59,30 @@ class Model {
         }
     }
 
+    // Project canvas texture onto model mesh
     updateTexture(canvasElement, modelId = 'tshirt') {
         if (model) {
             updateModelTexture(model, canvasElement, modelId);
         }
     }
 
+    // Remove current model and load a new one
     async switchModel(modelPath, canvasElement, modelId) {
         try {
-            // Remove ALL existing models/meshes from scene first (keep lights and camera!)
+            // Clear all meshes from scene while keeping lights
             scene.children = scene.children.filter(child => {
-                // Keep lights and other non-mesh objects
+                // Preserve lights
                 if (child.isLight) return true;
                 
-                // Remove everything else (old models)
+                // Remove old models
                 return false;
             });
 
-            // Now load and add the new model
+            // Load and display new model
             model = await loadModel(modelPath);
             scene.add(model);
 
-            // Re-project the decal
+            // Re-apply canvas texture to new model
             if (canvasElement) {
                 this.updateTexture(canvasElement, modelId);
             }
@@ -87,12 +91,12 @@ class Model {
         }
     }
 
-
-
+    // Start animation loop
     start() {
         loop.start();
     }
 
+    // Stop animation loop
     stop() {
         loop.stop();
     }
@@ -106,14 +110,17 @@ class Model {
         });
     }
 
+    // Toggle model auto-rotation
     toggleAutoRotate(enabled) {
         controls.autoRotate = enabled;
     }
 
+    // Set speed of model auto-rotation
     setAutoRotateSpeed(speed) {
         controls.autoRotateSpeed = speed;
     }
 
+    // Apply lighting environment preset
     setLightingPreset(presetId) {
         const preset = getPreset(presetId);
         if (!preset) return;

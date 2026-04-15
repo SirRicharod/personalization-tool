@@ -1,7 +1,7 @@
 import { imageInputs } from '../ui.js';
 import { FabricImage, filters, Rect } from 'fabric';
 import { fileToDataUrl } from '../functions/fileReaderUtil.js';
-import { syncSliderInput } from '../functions/uiBindings.js';
+import { syncSliderInput, createSliderFilterHandler } from '../functions/uiBindings.js';
 
 // ! === IMAGE WINDOW ===
 export function initImage(canvas, updateActiveObject) {
@@ -130,47 +130,31 @@ export function initImage(canvas, updateActiveObject) {
 
     }
 
-    //? Brightness
-    syncSliderInput(imageInputs.brightSlider, imageInputs.brightVal, (val) => {
-        // Some math because HTML slider is 0-100 but brightness uses -1.0 - 1.0
-        const fabricVal = (val - 50) / 50;
-        applySliderFilter(filters.Brightness, 'brightness', fabricVal);
-    });
+    // Brightness adjustment slider
+    syncSliderInput(imageInputs.brightSlider, imageInputs.brightVal,
+        createSliderFilterHandler(applySliderFilter, filters.Brightness, 'brightness', (val) => (val - 50) / 50));
 
-    //?  Saturation
-    syncSliderInput(imageInputs.satSlider, imageInputs.satVal, (val) => {
-        // Convert 0-100 to -1.0 to 1.0
-        const fabricVal = (val - 50) / 50;
-        applySliderFilter(filters.Saturation, 'saturation', fabricVal);
-    });
+    // Saturation adjustment slider
+    syncSliderInput(imageInputs.satSlider, imageInputs.satVal,
+        createSliderFilterHandler(applySliderFilter, filters.Saturation, 'saturation', (val) => (val - 50) / 50));
 
-    //? Contrast
-    syncSliderInput(imageInputs.contrastSlider, imageInputs.contrastVal, (val) => {
-        // Convert 0-100 to -1.0 to 1.0
-        const fabricVal = (val - 50) / 50;
-        applySliderFilter(filters.Contrast, 'contrast', fabricVal);
-    });
+    // Contrast adjustment slider
+    syncSliderInput(imageInputs.contrastSlider, imageInputs.contrastVal,
+        createSliderFilterHandler(applySliderFilter, filters.Contrast, 'contrast', (val) => (val - 50) / 50));
 
-    //? Blur
-    syncSliderInput(imageInputs.blurSlider, imageInputs.blurVal, (val) => {
-        // blur needs value between 0 and 1 so divide by 100
-        const fabricVal = val / 100;
-        applySliderFilter(filters.Blur, 'blur', fabricVal);
-    });
+    // Blur adjustment slider
+    syncSliderInput(imageInputs.blurSlider, imageInputs.blurVal,
+        createSliderFilterHandler(applySliderFilter, filters.Blur, 'blur', (val) => val / 100));
 
-    //? Advanced Tools
-    //? Pixelate
-    syncSliderInput(imageInputs.pixelSlider, imageInputs.pixelVal, (val) => {
-        // Pixelate goes from 1 (off) to 100 (huge pixels)
-        const fabricVal = val < 2 ? 1 : Math.round(val);
-        applySliderFilter(filters.Pixelate, 'blocksize', fabricVal);
-    });
+    // Advanced image tools
 
-    //? Noise
-    syncSliderInput(imageInputs.noiseSlider, imageInputs.noiseVal, (val) => {
-        // Max noise = ~1000, slider = 0-100, multiply by 5 for good range of noise
-        applySliderFilter(filters.Noise, 'noise', val * 5);
-    });
+    // Pixelate effect slider
+    syncSliderInput(imageInputs.pixelSlider, imageInputs.pixelVal,
+        createSliderFilterHandler(applySliderFilter, filters.Pixelate, 'blocksize', (val) => val < 2 ? 1 : Math.round(val)));
+
+    // Noise effect slider
+    syncSliderInput(imageInputs.noiseSlider, imageInputs.noiseVal,
+        createSliderFilterHandler(applySliderFilter, filters.Noise, 'noise', (val) => val * 5));
 
     //? Color Blend
     function handleBlend() {

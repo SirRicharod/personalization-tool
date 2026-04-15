@@ -13,10 +13,10 @@ import { initAutoSave } from './functions/auto-save.js';
 import { initHistory } from './functions/history.js';
 import { initializeBrushButtons } from './ui.js';
 
-// Register the custom ClippingGroup so erased objects serialize/deserialize perfectly into JSON!
+// Register eraser plugin for JSON serialization compatibility
 classRegistry.setClass(ClippingGroup);
 
-// Tell Fabric's builder that 'erasable' is a valid, permanent core property when importing JSON
+// Mark 'erasable' property as persistent during JSON round-trips
 FabricObject.customProperties = ['erasable'];
 
 const fabricCanvas = document.getElementById('main-canvas');

@@ -1,10 +1,10 @@
 export function initAutoSave(canvas) {
     let isRestoring = false;
 
-    // Check for existing save on startup
+    // Attempt to recover previous session on load
     const savedData = localStorage.getItem('personalization_canvas_state');
     if (savedData) {
-        // Ask the user via native browser confirm dialogue
+        // Prompt user to restore
         if (confirm("Restore previous session?")) {
             isRestoring = true;
             // Fabric v6 loadFromJSON is Promise-based
@@ -16,30 +16,30 @@ export function initAutoSave(canvas) {
                 isRestoring = false;
             });
         } else {
-            // They chose not to restore, so clear the old memory
+            // User declined restore, clear old data
             localStorage.removeItem('personalization_canvas_state');
         }
     }
 
-    // Debounce mechanism to prevent lag while actively dragging
+    // Throttle saves to prevent performance issues during active editing
     let saveTimeout;
     function triggerSave() {
-        if (isRestoring) return; // Don't trigger saves while we are loading it in!
+        if (isRestoring) return;
 
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(() => {
             try {
-                // Compress to string
+                // Serialize canvas to JSON string
                 const jsonString = JSON.stringify(canvas.toJSON(['erasable']));
                 localStorage.setItem('personalization_canvas_state', jsonString);
                 console.log(`Auto-saved project! Size: ${(jsonString.length / 1024).toFixed(2)} KB`);
             } catch (e) {
                 console.warn("Auto-save bypassed: LocalStorage size limit exceeded.", e);
             }
-        }, 1000); // Triggers exactly 1 second after their last modification
+        }, 1000);
     }
 
-    // Listen to canvas events to trigger the background save
+    // Trigger save on canvas modification events
     canvas.on('object:modified', triggerSave);
     canvas.on('object:added', triggerSave);
     canvas.on('object:removed', triggerSave);
