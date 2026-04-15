@@ -53,6 +53,12 @@ export function initIcons(canvas) {
             return matchesText && matchesCat
         });
 
+        // Update result counter
+        const resultCountDiv = document.getElementById('icon-result-count');
+        if (resultCountDiv) {
+            resultCountDiv.textContent = `${filteredIcons.length} found`;
+        }
+
         // No icons found
         if (filteredIcons.length === 0) {
             iconsGrid.innerHTML = `<div class="text-center w-100 text-muted small mt-4" style="grid-column: 1 / -1;">No graphics found.</div>`;

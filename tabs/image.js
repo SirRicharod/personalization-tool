@@ -380,6 +380,9 @@ export function initImage(canvas, updateActiveObject) {
             imageInputs.cropBtn.innerHTML = '<i class="bi bi-crop fs-5"></i> Crop';
             imageInputs.cropBtn.style.backgroundColor = '';
             imageInputs.cropBtn.style.color = '';
+            
+            // Refresh layers panel to show updated lock state
+            document.dispatchEvent(new Event('refresh-layers'));
         }
 
         canvas.requestRenderAll();

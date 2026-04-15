@@ -105,6 +105,9 @@ export function initLayers(canvas) {
     // Listeners for canvas events
     canvas.on('object:added', renderLayers);
     canvas.on('object:removed', renderLayers);
+    
+    // Listen for custom refresh event (e.g., after crop)
+    document.addEventListener('refresh-layers', renderLayers);
 
     // Initial render
     renderLayers();

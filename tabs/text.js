@@ -75,10 +75,26 @@ export function initText(canvas, updateActiveObject) {
         textInputs.size.classList.remove('is-invalid');
         updateActiveObject('fontSize', value, true);
     });
-    // Line height stored as decimal, UI uses scaled value
-    textInputs.lineHeight.addEventListener('input', (e) => updateActiveObject('lineHeight', e.target.value / 10, true));
-    // Multiplying by 10 for ease of use
-    textInputs.spacing.addEventListener('input', (e) => updateActiveObject('charSpacing', e.target.value * 10, true));
+    // Line height stored as decimal, UI uses 1-30 range (divided by 10 for Fabric.js)
+    textInputs.lineHeight.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        if (value < 1 || value > 30) {
+            textInputs.lineHeight.classList.add('is-invalid');
+            return;
+        }
+        textInputs.lineHeight.classList.remove('is-invalid');
+        updateActiveObject('lineHeight', value / 10, true);
+    });
+    // Letter spacing with validation
+    textInputs.spacing.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value < -100 || value > 100) {
+            textInputs.spacing.classList.add('is-invalid');
+            return;
+        }
+        textInputs.spacing.classList.remove('is-invalid');
+        updateActiveObject('charSpacing', value * 10, true);
+    });
 
     // Text styling toggles (bold, italic, etc)
     // Toggle bold styling

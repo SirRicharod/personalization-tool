@@ -87,15 +87,15 @@
                                 <div class="d-flex justify-content-center align-content-center text-center gap-3">
                                     <div class="inspector-input">
                                         <label for="pos-rot-top">Top</label><br>
-                                        <input type="number" name="pos-rot-top" id="pos-rot-top" placeholder="45">
+                                        <input type="number" name="pos-rot-top" id="pos-rot-top" placeholder="45" step="1">
                                     </div>
                                     <div class="inspector-input">
                                         <label for="pos-rot-left">Left</label><br>
-                                        <input type="number" name="pos-rot-left" id="pos-rot-left" placeholder="45">
+                                        <input type="number" name="pos-rot-left" id="pos-rot-left" placeholder="45" step="1">
                                     </div>
                                     <div class="inspector-input">
-                                        <label for="pos-rot-angle">Angle</label><br>
-                                        <input type="number" name="pos-rot-angle" id="pos-rot-angle" placeholder="33">
+                                        <label for="pos-rot-angle" title="0-360 degrees">Angle</label><br>
+                                        <input type="number" name="pos-rot-angle" id="pos-rot-angle" placeholder="33" min="0" max="360" step="1">
                                     </div>
                                 </div>
                             </div>
@@ -109,12 +109,12 @@
                             <div>
                                 <div class="d-flex justify-content-center align-content-center text-center gap-3">
                                     <div class="inspector-input w-50">
-                                        <label for="size-width">Width</label><br>
-                                        <input type="number" name="size-width" id="size-width" placeholder="150">
+                                        <label for="size-width" title="Must be greater than 0">Width</label><br>
+                                        <input type="number" name="size-width" id="size-width" placeholder="150" min="1" step="1">
                                     </div>
                                     <div class="inspector-input w-50">
-                                        <label for="size-height">Height</label><br>
-                                        <input type="number" name="size-height" id="size-height" placeholder="50">
+                                        <label for="size-height" title="Must be greater than 0">Height</label><br>
+                                        <input type="number" name="size-height" id="size-height" placeholder="50" min="1" step="1">
                                     </div>
                                 </div>
                             </div>
@@ -136,8 +136,8 @@
                                         <input type="color" name="color-stroke" id="color-stroke">
                                     </div>
                                     <div class="inspector-input">
-                                        <label for="stroke-width">Stroke Width</label><br>
-                                        <input type="number" name="stroke-width" id="stroke-width" placeholder="10">
+                                        <label for="stroke-width" title="Must be 0 or greater">Stroke Width</label><br>
+                                        <input type="number" name="stroke-width" id="stroke-width" placeholder="10" min="0" step="0.5">
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +175,8 @@
                                         </select>
                                     </div>
                                     <div class="inspector-input w-25">
-                                        <label for="font-size">Font Size</label><br>
-                                        <input type="number" name="font-size" id="font-size" placeholder="43">
+                                        <label for="font-size" title="Font size: 8-256 px">Font Size</label><br>
+                                        <input type="number" name="font-size" id="font-size" placeholder="43" min="8" max="256" step="1">
                                     </div>
                                 </div>
                             </div>
@@ -221,13 +221,12 @@
                             <div>
                                 <div class="d-flex justify-content-center align-content-center text-center gap-3">
                                     <div class="inspector-input flex-grow-1">
-                                        <label for="font-line-height">Line Height</label><br>
-                                        <input type="number" name="font-line-height" id="font-line-height"
-                                            placeholder="43">
+                                        <label for="font-line-height" title="Space between lines (1 - 30)">Line Height</label><br>
+                                        <input type="number" name="font-line-height" id="font-line-height" placeholder="12" step="1" min="1" max="30">
                                     </div>
                                     <div class="inspector-input flex-grow-1">
-                                        <label for="font-spacing">Letter Spacing</label><br>
-                                        <input type="number" name="font-spacing" id="font-spacing" placeholder="43">
+                                        <label for="font-spacing" title="Space between letters (-100 - 100)">Letter Spacing</label><br>
+                                        <input type="number" name="font-spacing" id="font-spacing" placeholder="43" step="1" min="-100" max="100">
                                     </div>
                                 </div>
                             </div>
@@ -279,45 +278,45 @@
                                             <div class="row g-3">
                                                 <!-- Brightness -->
                                                 <div class="col-6 text-center">
-                                                    <label class="fw-bold small mb-1 text-dark">Brightness</label>
+                                                    <label class="fw-bold small mb-1 text-dark" title="-100 to 100">Brightness</label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <input type="number"
                                                             class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                            value="50" id="img-bright-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            value="50" id="img-bright-val" min="0" max="100" step="1">
+                                                        <input type="range" class="form-range flex-grow-1" value="50" min="0" max="100"
                                                             id="img-bright-slider">
                                                     </div>
                                                 </div>
                                                 <!-- Saturation -->
                                                 <div class="col-6 text-center">
-                                                    <label class="fw-bold small mb-1 text-dark">Saturation</label>
+                                                    <label class="fw-bold small mb-1 text-dark" title="-100 to 100 saturation">Saturation</label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <input type="number"
                                                             class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                            value="50" id="img-sat-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            value="50" id="img-sat-val" min="0" max="100" step="1">
+                                                        <input type="range" class="form-range flex-grow-1" value="50" min="0" max="100"
                                                             id="img-sat-slider">
                                                     </div>
                                                 </div>
                                                 <!-- Contrast -->
                                                 <div class="col-6 text-center">
-                                                    <label class="fw-bold small mb-1 text-dark">Contrast</label>
+                                                    <label class="fw-bold small mb-1 text-dark" title="-100 to 100 contrast">Contrast</label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <input type="number"
                                                             class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                            value="50" id="img-contrast-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="50"
+                                                            value="50" id="img-contrast-val" min="0" max="100" step="1">
+                                                        <input type="range" class="form-range flex-grow-1" value="50" min="0" max="100"
                                                             id="img-contrast-slider">
                                                     </div>
                                                 </div>
                                                 <!-- Blur -->
                                                 <div class="col-6 text-center">
-                                                    <label class="fw-bold small mb-1 text-dark">Blur</label>
+                                                    <label class="fw-bold small mb-1 text-dark" title="Blur amount (0-100)">Blur</label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <input type="number"
                                                             class="form-control form-control-sm text-center border-0 fw-medium shadow-sm val-input-sm"
-                                                            value="0" id="img-blur-val">
-                                                        <input type="range" class="form-range flex-grow-1" value="0"
+                                                            value="0" id="img-blur-val" min="0" max="100" step="1">
+                                                        <input type="range" class="form-range flex-grow-1" value="0" min="0" max="100"
                                                             id="img-blur-slider">
                                                     </div>
                                                 </div>
@@ -555,36 +554,36 @@
                                 <div class="col-8 d-flex flex-column gap-2">
                                     <div>
                                         <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                            <label for="brush-size" class="mb-0">Brush Size</label>
+                                            <label for="brush-size" class="mb-0" title="1-100 pixels">Brush Size</label>
                                             <span id="brush-size-val">5</span>
                                         </div>
-                                        <input type="range" class="form-range" id="brush-size" min="1" max="100"
+                                        <input type="range" class="form-range" id="brush-size" min="1" max="100" step="1"
                                             value="5">
                                     </div>
                                     <div>
                                         <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                            <label for="shadow-size" class="mb-0">Shadow Size</label>
+                                            <label for="shadow-size" class="mb-0" title="Shadow blur (0-100)">Shadow Size</label>
                                             <span id="shadow-size-val">3</span>
                                         </div>
-                                        <input type="range" class="form-range" id="shadow-size" min="0" max="100"
+                                        <input type="range" class="form-range" id="shadow-size" min="0" max="100" step="1"
                                             value="3">
                                     </div>
                                     <div class="d-flex w-100 gap-4">
                                         <div class="w-50">
                                             <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                                <label for="shadow-offset-x" class="mb-0">Shadow Offset X</label>
+                                                <label for="shadow-offset-x" class="mb-0" title="Horizontal offset (-50 to 50)">Shadow Offset X</label>
                                                 <span id="shadow-offset-x-val">8</span>
                                             </div>
                                             <input type="range" class="form-range" id="shadow-offset-x" min="-50"
-                                                max="50" value="8">
+                                                max="50" step="1" value="8">
                                         </div>
                                         <div class="w-50">
                                             <div class="d-flex justify-content-between fw-medium mb-1 lh-1">
-                                                <label for="shadow-offset-y" class="mb-0">Shadow Offset Y</label>
+                                                <label for="shadow-offset-y" class="mb-0" title="Vertical offset (-50 to 50)">Shadow Offset Y</label>
                                                 <span id="shadow-offset-y-val">8</span>
                                             </div>
                                             <input type="range" class="form-range" id="shadow-offset-y" min="-50"
-                                                max="50" value="8">
+                                                max="50" step="1" value="8">
                                         </div>
                                     </div>
                                 </div>
@@ -622,7 +621,7 @@
 
                         <section class="inspector-field pb-3">
                             <!-- Search and Category Filters -->
-                            <div class="d-flex gap-2 mb-3">
+                            <div class="d-flex gap-2 mb-3 align-items-center">
                                 <input type="text"
                                     class="form-control form-control-sm border-0 flex-grow-1 shadow-sm px-3"
                                     id="icon-search-input" placeholder="Search graphics...">
@@ -631,6 +630,7 @@
                                     <!-- Other options are generated by JS -->
                                     <option value="all">All Packs</option>
                                 </select>
+                                <div id="icon-result-count" class="small text-muted fw-medium" style="min-width: 60px; text-align: right;"></div>
                             </div>
 
                             <!-- Scrollable Grid Container -->

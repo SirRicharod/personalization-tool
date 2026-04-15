@@ -179,12 +179,9 @@ export function initInspector(canvas) {
     inspectorInputs.top.addEventListener('input', (e) => updateActiveObject('top', e.target.value, true));
     inspectorInputs.left.addEventListener('input', (e) => updateActiveObject('left', e.target.value, true));
     inspectorInputs.angle.addEventListener('input', (e) => {
-        // Validate: angle must be 0-360
-        const value = parseInt(e.target.value, 10) || 0;
-        if (value < 0 || value > 360) {
-            inspectorInputs.angle.classList.add('is-invalid');
-            return;
-        }
+        // Normalize angle to 0-360 range (wraps around)
+        let value = parseInt(e.target.value, 10) || 0;
+        value = ((value % 360) + 360) % 360;
         inspectorInputs.angle.classList.remove('is-invalid');
         updateActiveObject('angle', value, true);
     });
@@ -215,7 +212,16 @@ export function initInspector(canvas) {
     // Color
     inspectorInputs.fill.addEventListener('input', (e) => updateActiveObject('fill', e.target.value));
     inspectorInputs.stroke.addEventListener('input', (e) => updateActiveObject('stroke', e.target.value));
-    inspectorInputs.strokeWidth.addEventListener('input', (e) => updateActiveObject('strokeWidth', e.target.value, true));
+    inspectorInputs.strokeWidth.addEventListener('input', (e) => {
+        // Validate: stroke width must be >= 0
+        const value = parseFloat(e.target.value) || 0;
+        if (value < 0) {
+            inspectorInputs.strokeWidth.classList.add('is-invalid');
+            return;
+        }
+        inspectorInputs.strokeWidth.classList.remove('is-invalid');
+        updateActiveObject('strokeWidth', value, true);
+    });
 
     return { updateActiveObject };
 }
