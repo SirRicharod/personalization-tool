@@ -37,7 +37,7 @@ export function initText(canvas, updateActiveObject) {
     setupFonts();
     
     // Create and add text object to canvas
-    textInputs.addBtn.addEventListener('click', () => {
+    function addTextToCanvas() {
         // Grab text content or use placeholder text
         const textContent = textInputs.content.value || 'Double click to edit';
 
@@ -61,6 +61,17 @@ export function initText(canvas, updateActiveObject) {
 
         // Clear input field
         textInputs.content.value = '';
+    }
+
+    // Add text on button click
+    textInputs.addBtn.addEventListener('click', addTextToCanvas);
+    
+    // Add text on Enter keypress in textarea
+    textInputs.content.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault(); // Prevent newline in textarea
+            addTextToCanvas();
+        }
     });
 
     // Font and size controls

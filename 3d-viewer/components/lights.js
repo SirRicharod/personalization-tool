@@ -1,5 +1,8 @@
 import { DirectionalLight, AmbientLight } from 'three';
 
+/**
+ * Creates a three-light setup for the 3D scene
+ */
 function createLights() {
   // Main directional light
   const mainLight = new DirectionalLight(0xffffff, 1.5);

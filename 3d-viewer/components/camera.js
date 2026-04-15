@@ -1,5 +1,8 @@
 import { PerspectiveCamera } from 'three';
 
+/**
+ * Creates a PerspectiveCamera configured for viewing the 3D model
+ */
 function createCamera(aspect = 1) {
   const camera = new PerspectiveCamera(
     75,           // field of view

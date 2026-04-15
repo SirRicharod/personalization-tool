@@ -1,8 +1,14 @@
 import projectionConfig from './projectionConfig.json';
 
+/**
+ * Loads and manages the projection configuration
+ */
 //Loads and manages the projection configuration
 let configCache = null;
 
+/**
+ * Loads the projection configuration from JSON (cached after first load)
+ */
 async function loadProjectionConfig() {
     if (configCache) return configCache;
 
@@ -16,6 +22,9 @@ async function loadProjectionConfig() {
     }
 }
 
+/**
+ * Retrieves the configuration for a specific model by ID
+ */
 function getModelConfig(modelId) {
     if (!configCache) {
         console.error('Config not loaded yet. Call loadProjectionConfig() first.');

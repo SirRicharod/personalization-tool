@@ -22,6 +22,9 @@ let model;
 let container;
 
 class Model {
+    /**
+     * Constructor initializes the Three.js scene, renderer, camera, and systems
+     */
     constructor(containerElement) {
         container = containerElement;
 
@@ -48,6 +51,9 @@ class Model {
         container.appendChild(renderer.domElement);
     }
 
+    /**
+     * Loads a 3D model from a GLB file and adds it to the scene
+     */
     // Load and initialize model from GLB file
     async init(modelPath = '/models/tshirt.glb') {
         try {
@@ -59,6 +65,9 @@ class Model {
         }
     }
 
+    /**
+     * Projects a canvas texture (Fabric.js canvas) onto the active model mesh
+     */
     // Project canvas texture onto model mesh
     updateTexture(canvasElement, modelId = 'tshirt') {
         if (model) {
@@ -66,6 +75,9 @@ class Model {
         }
     }
 
+    /**
+     * Removes the current model, loads a new one, and re-applies the canvas texture
+     */
     // Remove current model and load a new one
     async switchModel(modelPath, canvasElement, modelId) {
         try {
@@ -91,16 +103,25 @@ class Model {
         }
     }
 
+    /**
+     * Starts the animation loop (rendering, controls update, etc.)
+     */
     // Start animation loop
     start() {
         loop.start();
     }
 
+    /**
+     * Stops the animation loop
+     */
     // Stop animation loop
     stop() {
         loop.stop();
     }
 
+    /**
+     * Changes the base color of the model mesh (excluding texture proxy meshes)
+     */
     changeModelColor(hexColor) {
         if (!model) return;
         model.traverse((child) => {
@@ -110,16 +131,25 @@ class Model {
         });
     }
 
+    /**
+     * Toggles model auto-rotation
+     */
     // Toggle model auto-rotation
     toggleAutoRotate(enabled) {
         controls.autoRotate = enabled;
     }
 
+    /**
+     * Sets the speed of model auto-rotation
+     */
     // Set speed of model auto-rotation
     setAutoRotateSpeed(speed) {
         controls.autoRotateSpeed = speed;
     }
 
+    /**
+     * Applies a lighting preset by ID (e.g., 'studio', 'dramatic', 'outdoor')
+     */
     // Apply lighting environment preset
     setLightingPreset(presetId) {
         const preset = getPreset(presetId);
@@ -155,6 +185,9 @@ class Model {
         }
     }
 
+    /**
+     * Captures the current 3D view as a PNG screenshot and triggers a download
+     */
     exportScreenshot() {
         renderer.render(scene, camera);
 
@@ -169,6 +202,10 @@ class Model {
         document.body.removeChild(link);
     }
 
+    /**
+     * Cleans up Three.js resources and detaches the renderer from the DOM
+     * Call this when disposing of the 3D viewer to prevent memory leaks
+     */
     dispose() {
         loop.stop();
         renderer.dispose();

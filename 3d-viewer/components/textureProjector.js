@@ -5,6 +5,9 @@ let projectorCamera = null;
 let customMaterial = null;
 let decalProxies = [];
 
+/**
+ * Initializes the custom shader material for texture projection (one-time setup)
+ */
 // Initialize the shader overrides exactly once per model load to prevent memory leaks
 function initProjector() {
     if (customMaterial) return;

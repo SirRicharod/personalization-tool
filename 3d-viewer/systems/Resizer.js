@@ -1,4 +1,10 @@
+/**
+ * Manages responsive resizing of the 3D viewer canvas
+ */
 class Resizer {
+  /**
+   * Sets up resize observers and event listeners for the container
+   */
   constructor(container, camera, renderer) {
     const setSize = () => {
       // Read actual footprint if visible, or fallback to the explicit inline styles we applied during preload

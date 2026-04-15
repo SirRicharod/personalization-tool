@@ -1,5 +1,8 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+/**
+ * Creates OrbitControls for mouse-based 3D camera manipulation
+ */
 function createControls(camera, canvas) {
   const controls = new OrbitControls(camera, canvas);
 

@@ -3,6 +3,9 @@ import * as THREE from 'three';
 
 const loader = new GLTFLoader();
 
+/**
+ * Loads a GLB model from a file path, applies default material, and normalizes scale
+ */
 async function loadModel(modelPath) {
   try {
     const gltf = await loader.loadAsync(modelPath);

@@ -4,6 +4,9 @@ import { loadLightingPresets } from './presets/lightingPresetsLoader.js';
 
 let viewerInstance = null;
 
+/**
+ * Initializes the 3D viewer asynchronously
+ */
 // Initialize 3D viewer with configs loaded
 async function initiate3DViewer(containerElement) {
   // Load configuration data first
