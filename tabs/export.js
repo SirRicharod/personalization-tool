@@ -15,7 +15,7 @@ export function initExport(canvas) {
         canvas.renderAll();
     });
 
-    // Background Image
+    // Load and scale background image to fit canvas
     bgImage.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -48,7 +48,7 @@ export function initExport(canvas) {
         canvas.renderAll();
     });
 
-    // Download helper
+    // Helper to trigger file download from data URL
     function downloadDataUrl(dataUrl, filename) {
         const link = document.createElement('a');
         link.href = dataUrl;
@@ -56,16 +56,16 @@ export function initExport(canvas) {
         link.click();
     }
 
-    // Export Canvas
+    // Export canvas to PNG, JPEG, or SVG format
     exportCanvasBtn.addEventListener('click', () => {
-        // Drop active bounding boxes
+        // Deselect objects before export
         canvas.discardActiveObject();
         canvas.renderAll();
 
         const format = exportFormat.value; // 'png', 'jpeg', or 'svg'
         const needsTransparency = exportTransparentBg.checked;
 
-        // Save background to restore after export
+        // Preserve original background for later restoration
         const originalBgColor = canvas.backgroundColor;
         const originalBgImage = canvas.backgroundImage;
 
@@ -76,10 +76,11 @@ export function initExport(canvas) {
             canvas.renderAll();
         }
 
-        // Handle SVG generation vs Image Generation
+        // Export as SVG or raster image based on format
         if (format === 'svg') {
+            // Generate SVG markup
             const svgString = canvas.toSVG();
-            // Create a Blob to safely handle all characters
+            // Use Blob for safe data handling
             const blob = new Blob([svgString], { type: 'image/svg+xml' });
             const dataUrl = URL.createObjectURL(blob);
             downloadDataUrl(dataUrl, 'canvas-export.svg');
@@ -87,6 +88,7 @@ export function initExport(canvas) {
             // Clean up the URL object
             setTimeout(() => URL.revokeObjectURL(dataUrl), 100);
         } else {
+            // Generate raster image at 2x resolution
             const dataUrl = canvas.toDataURL({
                 format: format,
                 multiplier: 2 // resolution
@@ -94,7 +96,7 @@ export function initExport(canvas) {
             downloadDataUrl(dataUrl, `high-res-export.${format}`);
         }
 
-        // restore background
+        // Restore original background state
         if (needsTransparency && format !== 'jpeg') {
             canvas.backgroundColor = originalBgColor;
             canvas.backgroundImage = originalBgImage;
@@ -102,7 +104,7 @@ export function initExport(canvas) {
         }
     });
 
-    // disable transparency checkbox if JPEG is selected, also show format tooltip
+    // Disable transparency option for JPEG format
     exportFormat.addEventListener('change', (e) => {
         // Update disable state
         if (e.target.value === 'jpeg') {
@@ -121,11 +123,11 @@ export function initExport(canvas) {
         navigator.clipboard.writeText(jsonStr);
     });
 
-    // Import JSON from Textarea
+    // Restore canvas from JSON data in textarea
     importJsonBtn.addEventListener('click', () => {
         const jsonText = jsonTextarea.value.trim();
 
-        // loadFromJSON returns a Promise in Fabric v6+
+        // Fabric v6+ returns Promise from loadFromJSON
         canvas.loadFromJSON(jsonText).then(() => {
             canvas.renderAll();
             if (importJsonBtn.classList.contains('btn-danger'))

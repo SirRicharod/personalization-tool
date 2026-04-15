@@ -4,12 +4,11 @@ import { Color, filters } from 'fabric';
 // ! === INSPECTOR WINDOW ===
 export function initInspector(canvas) {
 
-    // Update Inspector when interacting with object (Canvas --> Inspector)
+    // Sync inspector fields with currently selected canvas object
     function updateInspectorUI() {
         const activeObj = canvas.getActiveObject();
-        if (!activeObj) return; // no object, do nothing
+        if (!activeObj) return;
 
-        //* Update Inspector Fields
         // Update Position & Angle
         inspectorInputs.top.value = Math.round(activeObj.top);
         inspectorInputs.left.value = Math.round(activeObj.left);
@@ -52,10 +51,10 @@ export function initInspector(canvas) {
         //* Update Image Properties if an image is selected
         if (activeObj.type === 'image') {
 
-            // Check if we have filters applied
+            // Determine which filters are active on image
             const hasFilter = (FilterClass) => activeObj.filters.some(f => f instanceof FilterClass);
 
-            // Toggle active filters
+            // Highlight enabled preset filters
             imageInputs.filterSepia.classList.toggle('active', hasFilter(filters.Sepia));
             imageInputs.filterBW.classList.toggle('active', hasFilter(filters.Grayscale));
             imageInputs.filterVintage.classList.toggle('active', hasFilter(filters.Vintage));
@@ -65,14 +64,14 @@ export function initInspector(canvas) {
             imageInputs.filterWarm.classList.toggle('active', hasFilter(filters.Brownie));
             imageInputs.filterCool.classList.toggle('active', hasFilter(filters.Kodachrome));
 
-            // Grab slider value or default
+            // Extract filter property or use default if not applied
             const getSliderVal = (FilterClass, prop, defaultVal) => {
                 const f = activeObj.filters.find(f => f instanceof FilterClass);
                 return f ? f[prop] : defaultVal;
             };
 
-            // Sync Sliders
-            // (value * 50) + 50
+            // Map filter values to slider ranges for UI display
+            // Different filters use different value ranges, normalized to 0-100
             const bright = Math.round((getSliderVal(filters.Brightness, 'brightness', 0) * 50) + 50);
             imageInputs.brightVal.value = bright;
             imageInputs.brightSlider.value = bright;
@@ -141,7 +140,7 @@ export function initInspector(canvas) {
         }
     }
 
-    // Run updateInspectorUI when these events trigger
+    // Refresh inspector when object selection or properties change
     canvas.on('selection:created', updateInspectorUI);
     canvas.on('selection:updated', updateInspectorUI);
     canvas.on('object:modified', updateInspectorUI);
@@ -149,18 +148,17 @@ export function initInspector(canvas) {
     canvas.on('object:scaling', updateInspectorUI);
     canvas.on('object:rotating', updateInspectorUI);
 
-    // Run once on startup
     updateInspectorUI();
 
-    // Update active object when changing values in Inspector (Inspector --> Canvas)
+    // Apply inspector field changes back to canvas object
     function updateActiveObject(property, value, isNumeric = false) {
         const activeObj = canvas.getActiveObject();
         if (!activeObj) return;
 
-        // convert string inputs to numbers if necessary
+        // Type convert input values if needed
         const finalValue = isNumeric ? parseFloat(value) : value;
 
-        // Handle width and height edge cases => reset scale to 1 to avoid miscalculations
+        // Width and height require scale adjustment instead of direct size change
         if (property === 'width') {
             // Dynamically scale
             activeObj.set({ scaleX: finalValue / activeObj.width });
@@ -168,13 +166,11 @@ export function initInspector(canvas) {
             // Dynamically scale
             activeObj.set({ scaleY: finalValue / activeObj.height });
         } else {
-            // Default set property to value
+            // Set property directly
             activeObj.set(property, finalValue);
         }
 
-        // Redraw canvas to reflect changes
         canvas.requestRenderAll();
-        // Keep UI in sync
         updateInspectorUI();
     }
 

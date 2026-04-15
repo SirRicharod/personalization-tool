@@ -5,16 +5,16 @@ import fontsData from '../json-config/fonts.json';
 // ! === TEXT WINDOW ===
 export function initText(canvas, updateActiveObject) {
 
-    // -- Setup Dynamic Fonts --
+    // Load and organize fonts into dropdown
     function setupFonts() {
         const familySelect = textInputs.family;
-        familySelect.innerHTML = ''; // Start clean
+        familySelect.innerHTML = '';
 
         // Separate system fonts from Google Fonts
         const systemFonts = ['Arial', 'Helvetica', 'Times New Roman'];
         const googleFonts = fontsData.fonts.filter(f => !systemFonts.includes(f));
 
-        // Inject Google Fonts stylesheet directly into the document <head>
+        // Load Google Fonts stylesheet for web font support
         if (googleFonts.length > 0) {
             const fontQuery = googleFonts.map(f => `family=${f.replace(/ /g, '+')}:wght@400;700`).join('&');
             const link = document.createElement('link');
@@ -23,29 +23,28 @@ export function initText(canvas, updateActiveObject) {
             document.head.appendChild(link);
         }
 
-        // Build the styled dropdown options!
+        // Populate dropdown with font options
         fontsData.fonts.forEach(font => {
             const opt = document.createElement('option');
             opt.value = font;
             opt.textContent = font;
-            // Native browsers will honor this inline style inside the dropdown menu
+            // Style option with actual font for preview
             opt.style.fontFamily = `"${font}", sans-serif`;
             familySelect.appendChild(opt);
         });
     }
 
-    // Run it immediately
     setupFonts();
     
-    // Add new text to canvas
+    // Create and add text object to canvas
     textInputs.addBtn.addEventListener('click', () => {
         // Grab text content or use placeholder text
         const textContent = textInputs.content.value || 'Double click to edit';
 
         // Create IText element
         const newText = new IText(textContent, {
-            left: 100,
-            top: 100,
+            left: canvas.width / 2, // Middle of screen
+            top: canvas.height / 2,
             fontFamily: textInputs.family.value || 'Arial',
             fontSize: parseFloat(textInputs.size.value) || 40,
         });
@@ -64,10 +63,10 @@ export function initText(canvas, updateActiveObject) {
         textInputs.content.value = '';
     });
 
-    // Text Properties
+    // Font and size controls
     textInputs.family.addEventListener('change', (e) => updateActiveObject('fontFamily', e.target.value));
     textInputs.size.addEventListener('input', (e) => {
-        // Validate: font size must be 8-256px
+        // Enforce min and max font sizes
         const value = parseInt(e.target.value, 10);
         if (value < 8 || value > 256) {
             textInputs.size.classList.add('is-invalid');
@@ -76,13 +75,13 @@ export function initText(canvas, updateActiveObject) {
         textInputs.size.classList.remove('is-invalid');
         updateActiveObject('fontSize', value, true);
     });
-    // Divide by 10 for precise spacing
+    // Line height stored as decimal, UI uses scaled value
     textInputs.lineHeight.addEventListener('input', (e) => updateActiveObject('lineHeight', e.target.value / 10, true));
     // Multiplying by 10 for ease of use
     textInputs.spacing.addEventListener('input', (e) => updateActiveObject('charSpacing', e.target.value * 10, true));
 
-    //* Styling Toggles
-    // Add event listener
+    // Text styling toggles (bold, italic, etc)
+    // Toggle bold styling
     textInputs.bold.addEventListener('click', () => {
         // Get the active object
         const obj = canvas.getActiveObject();
@@ -95,6 +94,7 @@ export function initText(canvas, updateActiveObject) {
         }
     });
 
+    // Toggle italic styling
     textInputs.italic.addEventListener('click', () => {
         const obj = canvas.getActiveObject();
         if (obj && obj.type === 'i-text') {
@@ -103,6 +103,7 @@ export function initText(canvas, updateActiveObject) {
         }
     });
 
+    // Toggle underline styling
     textInputs.underline.addEventListener('click', () => {
         const obj = canvas.getActiveObject();
         if (obj && obj.type === 'i-text') {
@@ -111,6 +112,7 @@ export function initText(canvas, updateActiveObject) {
         }
     });
 
+    // Toggle strikethrough styling
     textInputs.linethrough.addEventListener('click', () => {
         const obj = canvas.getActiveObject();
         if (obj && obj.type === 'i-text') {
@@ -119,7 +121,8 @@ export function initText(canvas, updateActiveObject) {
         }
     });
 
-    // Alignment
+    // Text alignment options
+    // Set text alignment to selected option
     textInputs.alignLeft.addEventListener('click', () => updateActiveObject('textAlign', 'left'));
     textInputs.alignCenter.addEventListener('click', () => updateActiveObject('textAlign', 'center'));
     textInputs.alignRight.addEventListener('click', () => updateActiveObject('textAlign', 'right'));

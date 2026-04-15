@@ -27,8 +27,8 @@ export function initImage(canvas, updateActiveObject) {
                 }
 
                 img.set({
-                    left: 100,
-                    top: 100,
+                    left: canvas.width / 2,
+                    top: canvas.height / 2,
                 });
 
                 // Add image to canvas
@@ -45,12 +45,13 @@ export function initImage(canvas, updateActiveObject) {
     });
 
     //? Filters
-    // Function to apply filters
+    // Toggle preset filter, keep adjustments separate
     function togglePresetFilter(btnElement, FilterClass) {
         const obj = canvas.getActiveObject();
 
         if (!obj || obj.type !== 'image') return;
 
+        // Look for existing instance of this filter
         const filterIndex = obj.filters.findIndex(f => f instanceof FilterClass);
 
         if (obj && obj.type === 'image') {
@@ -69,8 +70,8 @@ export function initImage(canvas, updateActiveObject) {
         }
     }
 
-    // Preset Filter Event Listeners
-    // Clears all Preset Filters but LEAVE adjustments
+    //? Preset Filter Event Listeners
+    // Clears all Preset Filters but not adjustments
     imageInputs.filterNormal.addEventListener('click', () => {
         const obj = canvas.getActiveObject();
         if (!obj || obj.type !== 'image') return;
@@ -96,7 +97,7 @@ export function initImage(canvas, updateActiveObject) {
         canvas.requestRenderAll();
     });
 
-    // Built-in vintage/color filters
+    // Built-in color filters
     imageInputs.filterSepia.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Sepia));
     imageInputs.filterBW.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Grayscale));
     imageInputs.filterVintage.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Vintage));
@@ -107,7 +108,7 @@ export function initImage(canvas, updateActiveObject) {
     imageInputs.filterTechnicolor.addEventListener('click', (e) => togglePresetFilter(e.currentTarget, filters.Technicolor));
 
     //? Image Adjustments
-    //helper function to keep adjustments made
+    // Helper function to keep adjustments made
     function applySliderFilter(FilterClass, propName, value) {
         const obj = canvas.getActiveObject();
         if (!obj || obj.type !== 'image') return;
@@ -173,11 +174,11 @@ export function initImage(canvas, updateActiveObject) {
 
     //? Color Blend
     function handleBlend() {
-        const mode = imageInputs.blendMode.value.toLowerCase(); // lowercase
-        const color = imageInputs.blendColor.value; // Hex value
-
         const obj = canvas.getActiveObject();
         if (!obj || obj.type !== 'image') return;
+
+        const mode = imageInputs.blendMode.value.toLowerCase(); // lowercase
+        const color = imageInputs.blendColor.value; // Hex value
 
         let filter = obj.filters.find(f => f instanceof filters.BlendColor);
 
@@ -206,16 +207,14 @@ export function initImage(canvas, updateActiveObject) {
 
     //? Gamma (RGB)
     function handleGamma(e) {
-
-        // Get value from event
         const val = e.target.value;
 
-        // Check which slider to sync
+        // Determine which RGB channel was changed
         const isRed = e.target === imageInputs.gammaRSlider || e.target === imageInputs.gammaRVal;
         const isGreen = e.target === imageInputs.gammaGSlider || e.target === imageInputs.gammaGVal;
         const isBlue = e.target === imageInputs.gammaBSlider || e.target === imageInputs.gammaBVal;
 
-        // sync slider and number input
+        // Keep slider and input in sync for all three channels
         if (isRed) imageInputs.gammaRSlider.value = imageInputs.gammaRVal.value = val;
         if (isGreen) imageInputs.gammaGSlider.value = imageInputs.gammaGVal.value = val;
         if (isBlue) imageInputs.gammaBSlider.value = imageInputs.gammaBVal.value = val;
@@ -302,13 +301,13 @@ export function initImage(canvas, updateActiveObject) {
             // Lock the image while we adjust the crop box
             croppingImage.set({ selectable: false, evented: false });
             imageInputs.cropBtn.classList.add('active');
-            
+
             // Show crop mode indicator
             imageInputs.cropBtn.textContent = '✂️ Cropping';
             imageInputs.cropBtn.style.backgroundColor = '#ff6b6b';
             imageInputs.cropBtn.style.color = '#fff';
 
-            // Create a cropping bounding box matched exactly to the image's visual bounds
+            // Create crop box overlay matching image's visual bounds (includes scale)
             const imgBounds = croppingImage.getBoundingRect();
             cropRect = new Rect({
                 left: imgBounds.left,
@@ -321,10 +320,10 @@ export function initImage(canvas, updateActiveObject) {
                 strokeDashArray: [5, 5],
                 originX: 'left',
                 originY: 'top',
-                lockRotation: true // Prevent rotation
+                lockRotation: true
             });
 
-            // Remove the rotating handle (mtr) from the crop box entirely
+            // Hide rotating handle (resize/move only)
             cropRect.setControlsVisibility({ mtr: false });
 
             canvas.add(cropRect);
@@ -334,23 +333,23 @@ export function initImage(canvas, updateActiveObject) {
             const scaleX = croppingImage.scaleX;
             const scaleY = croppingImage.scaleY;
 
-            // Get visual bounding boxes
+            // Get visual bounds for crop rect and image on canvas
             const cropBounds = cropRect.getBoundingRect();
             const imgBounds = croppingImage.getBoundingRect();
 
-            // Calculate visual offset on the canvas
+            // Calculate visual offset
             const deltaX = cropBounds.left - imgBounds.left;
             const deltaY = cropBounds.top - imgBounds.top;
 
-            // Convert the canvas offset into unscaled image pixels for crop mapping
+            // Convert visual offset to unscaled image pixels via scale factors
             const unscaledDeltaX = deltaX / scaleX;
             const unscaledDeltaY = deltaY / scaleY;
 
-            // Calculate the new cropped dimensions in unscaled pixels
+            // Calculate new crop dimensions in unscaled image space
             const newWidth = cropRect.getScaledWidth() / scaleX;
             const newHeight = cropRect.getScaledHeight() / scaleY;
 
-            // Factor in any existing crops
+            // Support stacked crops (multiple crops in sequence)
             const currentCropX = croppingImage.cropX || 0;
             const currentCropY = croppingImage.cropY || 0;
 
@@ -392,7 +391,7 @@ export function initImage(canvas, updateActiveObject) {
             croppingImage = null;
             cropRect = null;
             imageInputs.cropBtn.classList.remove('active');
-            
+
             // Reset button styling
             imageInputs.cropBtn.innerHTML = '<i class="bi bi-crop fs-5"></i> Crop';
             imageInputs.cropBtn.style.backgroundColor = '';

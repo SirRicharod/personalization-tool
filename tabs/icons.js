@@ -7,19 +7,20 @@ export function initIcons(canvas) {
 
     let allIcons = [];
 
+    // Load icons from config and populate dropdown
     const loadIcons = () => {
         try {
             const iconPacks = iconsData;
             // Loop through JSON
             for (const [prefix, packData] of Object.entries(iconPacks)) {
 
-                // Create the dropdown option
+                // Add category option to dropdown
                 const option = document.createElement('option');
                 option.value = prefix;
                 option.textContent = packData.name;
                 categorySelect.appendChild(option);
 
-                // Gather the icons
+                // Collect all icons from this pack
                 packData.icons.forEach(name => {
                     allIcons.push({
                         id: `${prefix}:${name}`,
@@ -39,6 +40,7 @@ export function initIcons(canvas) {
 
     loadIcons();
 
+    // Filter and display icons in grid
     function renderIcons(filterText = '', filterCategory = 'all') {
         iconsGrid.innerHTML = ''; // Clear grid
 
@@ -57,13 +59,14 @@ export function initIcons(canvas) {
             return;
         }
 
+        // Create clickable button for each icon
         filteredIcons.forEach(icon => {
             const btn = document.createElement('button');
             btn.className = 'btn btn-light border p-1 d-flex align-items-center justify-content-center shadow-sm icon-btn';
             btn.style.height = '45px';
             btn.title = icon.name.replace(/-/g, ' ');
 
-            // render the fetched SVG 
+            // Load and display icon SVG 
             btn.innerHTML = `<img src="${icon.url}" alt="${icon.name}" style="width: 24px; height: 24px; object-fit: contain;">`;
 
             btn.addEventListener('click', () => {
@@ -73,7 +76,7 @@ export function initIcons(canvas) {
         });
 
     }
-    // UI filters
+    // Listen for search and category filter changes
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value;
         const category = categorySelect.value;
@@ -84,7 +87,7 @@ export function initIcons(canvas) {
         renderIcons(searchInput.value, e.target.value);
     });
 
-    // load SVG and place on canvas
+    // Load SVG icon and add to canvas
     function addIconToCanvas(url) {
         loadSVGFromURL(url).then(({ objects, options }) => {
             // Group svg if composed of multiple parts

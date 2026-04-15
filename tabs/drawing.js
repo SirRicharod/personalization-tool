@@ -22,7 +22,7 @@ function toCamelCase(str) {
 
 // ! === DRAWING TAB ===
 export function initDrawing(canvas) {
-    // Basic drawing state
+    // Track drawing mode, pattern type, and uploaded texture
     let isDrawing = false;
     let currentPatternType = null;
     let currentTexture = null;
@@ -40,9 +40,9 @@ export function initDrawing(canvas) {
         }
     });
 
-    // Custom Pattern Generator
+    // Generate pattern canvas for custom brush strokes
     function createPatternSource(type, color, size = 20) {
-        // Create invisible canvas
+        // Create temporary canvas to render pattern
         const patternCanvas = document.createElement('canvas');
         const ctx = patternCanvas.getContext('2d');
         patternCanvas.width = size;
@@ -77,7 +77,7 @@ export function initDrawing(canvas) {
         return patternCanvas;
     }
 
-    // Brush Settings
+    // Apply color, width, pattern, and shadow to active brush
     function updateBrushSettings() {
         if (!canvas.freeDrawingBrush) return;
 
@@ -164,7 +164,7 @@ export function initDrawing(canvas) {
     function setActiveBrush(btnElement, BrushClass, patternType = null) {
         currentPatternType = patternType;
 
-        // Remove active class from all brush buttons (dynamic from brushes config)
+        // Deselect all other brush buttons
         brushes.forEach(brush => {
             const camelCaseId = toCamelCase(brush.id);
             const buttonId = 'brush' + camelCaseId.charAt(0).toUpperCase() + camelCaseId.slice(1);
@@ -174,14 +174,15 @@ export function initDrawing(canvas) {
         // Set new active brush button
         if (btnElement) btnElement.classList.add('active');
 
-        // Instantiate and apply the new brush
+        // Create and configure brush instance
         if (BrushClass) {
             canvas.freeDrawingBrush = new BrushClass(canvas);
             
-            // Apply Eraser-specific safety overrides
+            // Eraser brush needs custom target validation
             if (BrushClass === EraserBrush) {
                 // The EraserBrush uses isTargetErasable internally, we can override it:
-                canvas.freeDrawingBrush.isTargetErasable = (target) => {
+                // Only allow erasing objects marked as erasable
+            canvas.freeDrawingBrush.isTargetErasable = (target) => {
                     return target.erasable === true;
                 };
             }
@@ -190,6 +191,7 @@ export function initDrawing(canvas) {
         }
     }
 
+    // Attach click handlers to brush selection buttons
     brushes.forEach(brush => {
       const camelCaseId = toCamelCase(brush.id);
       const buttonId = 'brush' + camelCaseId.charAt(0).toUpperCase() + camelCaseId.slice(1);
@@ -222,7 +224,7 @@ export function initDrawing(canvas) {
         });
     }
 
-    // Every time a new brush stroke is finished, make sure it can be erased later!
+    // Mark strokes as erasable when created
     canvas.on('path:created', (opt) => {
         opt.path.set({ erasable: true });
     });
@@ -230,7 +232,7 @@ export function initDrawing(canvas) {
     // Initialize with pencil
     setActiveBrush(drawingInputs.brushPencil, PencilBrush);
 
-    // Stop Drawing when leaving the Drawing tab
+    // Disable drawing mode when switching tabs
     const drawingTabLink = document.getElementById('nav-drawing-tab');
     if (drawingTabLink) {
         drawingTabLink.addEventListener('hidden.bs.tab', () => {

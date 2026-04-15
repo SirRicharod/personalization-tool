@@ -3,20 +3,22 @@ import { layerInputs } from '../ui.js';
 export function initLayers(canvas) {
     const { container } = layerInputs;
 
+    // Rebuild layer panel to match current canvas state
     function renderLayers() {
         container.innerHTML = ''; // Clear current layers
 
-        // Get all canvas objects in reverse
+        // Get canvas objects in reverse z-order (top to bottom)
         const objects = [...canvas.getObjects()].reverse();
 
         objects.forEach((obj, index) => {
-            // Get actual z-index
+            // Calculate true z-index for display
             const realIndex = objects.length - 1 - index;
 
+            // Create layer item DOM structure
             const layerDiv = document.createElement('div');
             layerDiv.className = 'd-flex align-items-center justify-content-between bg-white rounded p-2 mb-2 shadow-sm layer-item';
 
-            // Add layer controls
+            // Build layer UI with lock, visibility, and action buttons
             layerDiv.innerHTML = `
                 <div class="d-flex align-items-center text-dark">
                     <button class="btn btn-sm btn-light border p-1 me-2 lh-1 toggle-lock-btn" title="Toggle Lock">
@@ -44,13 +46,13 @@ export function initLayers(canvas) {
                 </div>
             `;
 
-            //? Wire up buttons
-            // Visibility
+            // Attach event handlers for layer controls
+            // Visibility toggle
             layerDiv.querySelector('.toggle-visibility-btn').addEventListener('click', () => {
-                obj.visible = obj.visible === false ? true : false; // Toggle
+                obj.visible = !obj.visible;
                 if (canvas.getActiveObject() === obj) canvas.discardActiveObject();
                 canvas.renderAll();
-                renderLayers(); // Re-render to update eye icon
+                renderLayers();
             });
 
             // Move up one
@@ -67,18 +69,14 @@ export function initLayers(canvas) {
                 renderLayers();
             });
 
-            // Delete object
+            // Delete layer from canvas
             layerDiv.querySelector('.layer-delete-btn').addEventListener('click', () => {
-                // Add confirmation dialog
-                // if (confirm(`Delete layer "${obj.type.toUpperCase()}"? This cannot be undone.`)) {
-                    canvas.remove(obj);
-                    renderLayers();
-                //}
+                canvas.remove(obj);
+                renderLayers();
             });
 
-            // Lock object
+            // Lock or unlock layer for editing
             layerDiv.querySelector('.toggle-lock-btn').addEventListener('click', () => {
-                // selectable = false => locked
                 const isLocked = obj.selectable === false;
 
                 obj.set({
@@ -97,7 +95,7 @@ export function initLayers(canvas) {
                 }
 
                 canvas.renderAll();
-                renderLayers(); // update layer UI
+                renderLayers();
             })
 
             container.appendChild(layerDiv);
