@@ -440,6 +440,80 @@ input::placeholder {
     border-radius: 4px;
 }
 
+@media (max-width: 992px) {
+    /* 1. Reset the main container to prevent any horizontal overflow */
+    .page {
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 5px !important;
+        overflow-x: hidden !important;
+        width: 100vw !important;
+    }
+
+    /* 2. Force the Inspector to stay within the glass of the phone */
+    .inspector {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important; /* This kills the 725px min-width from line 103 */
+        margin: 0 !important;
+        margin-top: 150px !important;
+        padding: 5px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. FIX THE OFF-SCREEN INPUTS: Stack them instead of 33% width */
+    .inspector-field {
+        display: flex !important;
+        flex-direction: column !important; /* Stacks Top/Left/Angle vertically */
+        padding: 10px !important;
+        margin: 0 5px !important;
+    }
+
+    .inspector-input {
+        width: 100% !important; /* No more 33% width crowding */
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0 !important;
+    }
+
+    .inspector-input input, 
+    .inspector-input select {
+        width: 60% !important; /* Gives the actual input enough room */
+    }
+
+    /* 4. Fix the Quick Actions (The buttons at the bottom) */
+    .quick-actions-bar {
+        position: static !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        margin-top: 10px !important;
+        transform: none !important;
+    }
+
+    /* 5. Fix the Tabs from pushing the width */
+    .nav-tabs {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+    }
+
+    .nav-item {
+        flex: 1 0 30% !important;
+    }
+
+    /* 6. Ensure the canvas doesn't overflow */
+    .canvas, .canvas-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1/1;
+    }
+}
+
 .json-textarea::-webkit-scrollbar-thumb:hover {
     background-color: var(--text-primary);
 }
