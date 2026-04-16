@@ -2,6 +2,7 @@ import { initiate3DViewer } from './3d-viewer/index.js';
 import { canvas } from './app.js';
 import { loadLightingPresets } from './3d-viewer/presets/lightingPresetsLoader.js';
 import clothingColors from './3d-viewer/presets/clothingColors.json';
+import { getModels } from './3d-viewer/presets/configLoader.js';
 
 const toggleButton = document.getElementById('toggle-3d');
 const viewerContainer = document.getElementById('3d-viewer-container');
@@ -28,6 +29,23 @@ async function preLoad3D() {
 
 // Start background loading immediately!
 initPromise = preLoad3D();
+
+// Populate the apparel model select from the projection config
+async function populateModelSelect() {
+  const modelSelect = document.getElementById('apparel-model-select');
+  if (!modelSelect) return;
+
+  modelSelect.disabled = true;
+  const models = await getModels();
+  modelSelect.innerHTML = '';
+  models.forEach(model => {
+    const opt = document.createElement('option');
+    opt.value = model.id;
+    opt.textContent = model.name || model.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    modelSelect.appendChild(opt);
+  });
+  modelSelect.disabled = false;
+}
 
 toggleButton.addEventListener('click', async () => {
   // Get Fabric's actual wrapper
@@ -185,4 +203,8 @@ async function setup3DControls() {
   }
 }
 
-setup3DControls();
+// Ensure model select is populated before wiring controls
+(async () => {
+  await populateModelSelect();
+  await setup3DControls();
+})();

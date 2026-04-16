@@ -123,8 +123,12 @@ export function updateModelTexture(model, canvasElement, modelId = 'tshirt') {
     // Lock Aspect Ratio so rectangular canvases don't warp
     const aspect = canvasElement.width / canvasElement.height;
     
-    // Scale camera footprint to match your config
-    const targetWidth = (size.x * 0.8) / (config.projection.scale || 1.0);
+    // Scale camera footprint to match your config (use safe defaults)
+    const proj = config.projection || {};
+    const scale = (typeof proj.scale === 'number') ? proj.scale : 1.0;
+    const offset = proj.offset || { x: 0, y: 0 };
+
+    const targetWidth = (size.x * 0.8) / scale;
     const targetHeight = targetWidth / aspect;
 
     projectorCamera.left = -targetWidth / 2;
@@ -141,8 +145,8 @@ export function updateModelTexture(model, canvasElement, modelId = 'tshirt') {
     projectorCamera.updateProjectionMatrix();
 
     // Map offset variables from JSON config
-    const anchorX = center.x + (config.projection.offset.x || 0);
-    const anchorY = center.y + (size.y * 0.15) + (config.projection.offset.y || 0);
+    const anchorX = center.x + (offset.x || 0);
+    const anchorY = center.y + (size.y * 0.15) + (offset.y || 0);
 
     projectorCamera.position.set(anchorX, anchorY, anchorZ);
     projectorCamera.lookAt(anchorX, anchorY, center.z);

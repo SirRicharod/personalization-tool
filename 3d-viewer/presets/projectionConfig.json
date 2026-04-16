@@ -5,16 +5,11 @@
             "modelPath": "/models/tshirt.glb",
             "projection": {
                 "meshName": "Object",
-                "uv": {
-                    "x": 0,
-                    "y": 0,
-                    "width": 1.0,
-                    "height": 1.0
-                },
+                "uv": { "x": 0.1, "y": 0.05 },
                 "scale": 3.0,
                 "offset": {
                     "x": 0,
-                    "y": 0.15
+                    "y": 0.12
                 }
             }
         },
@@ -23,16 +18,11 @@
             "modelPath": "/models/hoodie.glb",
             "projection": {
                 "meshName": "Object",
-                "uv": {
-                    "x": 0,
-                    "y": 0,
-                    "width": 1.0,
-                    "height": 1.0
-                },
-                "scale": 7.0,
+                "uv": { "x": 0.12, "y": 0.05 },
+                "scale": 5.0,
                 "offset": {
                     "x": 0,
-                    "y": 0
+                    "y": -0.05
                 }
             }
         },
@@ -40,17 +30,51 @@
             "id": "baseball_cap",
             "modelPath": "/models/baseball_cap.glb",
             "projection": {
-                "meshName": "Object",
-                "uv": {
-                    "x": 0,
-                    "y": 0,
-                    "width": 1.0,
-                    "height": 1.0
-                },
+                "meshName": "cap",
+                "uv": { "x": 0.2, "y": 0.2 },
                 "scale": 4,
                 "offset": {
                     "x": 0,
-                    "y": -0.2
+                    "y": -0.1
+                }
+            }
+        },
+        {
+            "id": "romper",
+            "modelPath": "/models/romper.glb",
+            "projection": {
+                "meshName": "romper",
+                "uv": { "x": 0.12, "y": 0.02 },
+                "scale": 2.5,
+                "offset": {
+                    "x": 0.0,
+                    "y": 0.2
+                }
+            }
+        },
+        {
+            "id": "beanie",
+            "modelPath": "/models/beanie.glb",
+            "projection": {
+                "meshName": "beanie",
+                "uv": { "x": 0.2, "y": 0.25 },
+                "scale": 3.5,
+                "offset": {
+                    "x": 0,
+                    "y": -0.55
+                }
+            }
+        },
+        {
+            "id": "blanket",
+            "modelPath": "/models/blanket.glb",
+            "projection": {
+                "meshName": "blanket",
+                "uv": { "x": 0, "y": 0 },
+                "scale": 2.75,
+                "offset": {
+                    "x": -0.6,
+                    "y": 0.25
                 }
             }
         }

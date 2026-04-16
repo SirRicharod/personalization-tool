@@ -23,15 +23,27 @@ async function loadProjectionConfig() {
 }
 
 /**
- * Retrieves the configuration for a specific model by ID
+ * Generates the HTML options for the model selector dropdown
  */
-function getModelConfig(modelId) {
-    if (!configCache) {
-        console.error('Config not loaded yet. Call loadProjectionConfig() first.');
-        return null;
-    }
+/* generateModelOptions removed — use `getModels()` and build DOM options in the caller */
 
-    return configCache.models.find(m => m.id === modelId);
+/**
+ * Returns the models array from the loaded projection config
+ */
+async function getModels() {
+    const cfg = await loadProjectionConfig();
+    return (cfg && cfg.models) ? cfg.models : [];
 }
 
-export { loadProjectionConfig, getModelConfig };
+/**
+ * Returns the configuration object for a single model by id
+ */
+function getModelConfig(modelId) {
+    if (!modelId) return null;
+    // If configCache hasn't been populated yet, fall back to the bundled JSON
+    if (!configCache) configCache = projectionConfig;
+    if (!configCache.models) return null;
+    return configCache.models.find(m => m.id === modelId) || null;
+}
+
+export { loadProjectionConfig, getModels, getModelConfig };
