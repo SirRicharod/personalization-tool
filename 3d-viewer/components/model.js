@@ -38,9 +38,13 @@ async function loadModel(modelPath) {
           child.material = newMat;
         }
         child.material.color.setHex(0xffffff);
-        // Make the material react better to lights by lowering roughness slightly
-        child.material.roughness = 0.6;
-        child.material.metalness = 0.1;
+        // Make the material more matte: high roughness, no metal, subtle environment response
+        child.material.roughness = 0.9;
+        child.material.metalness = 0.0;
+        // Reduce environment reflection strength when present
+        if (child.material.envMapIntensity !== undefined) child.material.envMapIntensity = 0.5;
+        // Disable clearcoat for flatter appearance
+        child.material.clearcoat = 0.0;
       }
     });
 
