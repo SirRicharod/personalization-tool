@@ -58,7 +58,7 @@
     {
         "id": "v-line",
         "name": "V-Line",
-        "icon": "bi bi-dash-lg",
+        "icon": "bi bi-grip-vertical",
         "description": "Vertical lines",
         "fabricType": "PatternBrush",
         "patternType": "vline"
@@ -69,8 +69,7 @@
         "icon": "bi bi-bricks",
         "description": "Paint with custom uploaded texture",
         "fabricType": "PatternBrush",
-        "patternType": "texture",
-        "requiresUpload": true
+        "patternType": "texture"
     },
     {
         "id": "eraser",
