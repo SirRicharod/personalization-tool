@@ -89,6 +89,8 @@ export function initLayers(canvas) {
                     lockScalingY: !isLocked,
                 });
 
+                obj.set({erasable: isLocked});
+
                 // Deselect object we locked
                 if(!isLocked && canvas.getActiveObject() == obj) {
                     canvas.discardActiveObject();
