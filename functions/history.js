@@ -36,6 +36,8 @@ export function initHistory(canvas, updateActiveObject) {
             isProcessing = false;
             // Sync inspector fields to potentially changed object
             if (updateActiveObject) updateActiveObject();
+            // Refresh layer UI (undo/redo can change lock/visibility state)
+            document.dispatchEvent(new Event('refresh-layers'));
         }).catch(err => {
             console.error("Undo failed:", err);
             isProcessing = false;
@@ -53,6 +55,8 @@ export function initHistory(canvas, updateActiveObject) {
             isProcessing = false;
             // Sync inspector to match reverted state
             if (updateActiveObject) updateActiveObject();
+            // Refresh layer UI after redo
+            document.dispatchEvent(new Event('refresh-layers'));
         }).catch(err => {
             console.error("Redo failed:", err);
             isProcessing = false;
